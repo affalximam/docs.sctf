@@ -1,4 +1,5 @@
-(function () {
+
+  (function () {
     try {
       var stored = localStorage.getItem('sctf-theme');
       var isDark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;

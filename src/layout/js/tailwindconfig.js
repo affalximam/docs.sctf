@@ -1,4 +1,4 @@
-// Native Tailwind dark mode: toggling the `dark` class on <html> drives every dark: utility below.
+  // Native Tailwind dark mode: toggling the `dark` class on <html> drives every dark: utility below.
   tailwind.config = {
     darkMode: 'class',
     theme: {
