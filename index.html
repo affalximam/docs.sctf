@@ -5,79 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SCTF — Learn Cyber Security Through Capture The Flag</title>
 
-<!-- Apply the 'dark' class before first paint so Tailwind's dark: variants render correctly with no flash -->
-<script>
-  (function () {
-    try {
-      var stored = localStorage.getItem('sctf-theme');
-      var isDark = stored ? stored === 'dark' : window.matchMedia('(prefers-color-scheme: dark)').matches;
-      document.documentElement.classList.toggle('dark', isDark);
-    } catch (e) {
-      document.documentElement.classList.add('dark');
-    }
-  })();
-</script>
+<script src="./src/layout/js/darkLightMode.js"></script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
-<script>
-  // Native Tailwind dark mode: toggling the `dark` class on <html> drives every dark: utility below.
-  tailwind.config = {
-    darkMode: 'class',
-    theme: {
-      extend: {
-        colors: {
-          canvas:        '#ECECE4',
-          'canvas-dark': '#0B0C08',
-          panel:         '#FFFFFF',
-          'panel-dark':  '#131511',
-          panel2:        '#DFE1D3',
-          'panel2-dark': '#1B1E17',
-          paper:         '#FFFFFF',
-          ink:           '#0E0F0A',
-          'paper-fg':    '#ECEDE3',
-          lime:          '#3D7A0F',
-          'lime-dark':   '#A6FF00',
-          pink:          '#BE1668',
-          'pink-dark':   '#FF2E93',
-          yellow:        '#9C6600',
-          'yellow-dark': '#FFD100',
-        },
-        fontFamily: {
-          display: ['"Archivo Black"', 'sans-serif'],
-          body: ['"Space Grotesk"', 'sans-serif'],
-          mono: ['"JetBrains Mono"', 'monospace'],
-        },
-      },
-    },
-  }
-</script>
-<style>
-  /* Only animation mechanics live here — every color/theme change is handled by Tailwind's dark: variant. */
-  *{ box-sizing:border-box; }
-  html{ scroll-behavior:smooth; }
-
-  .caret{ display:inline-block; width:.55ch; animation: blink 1s step-start infinite; }
-  @keyframes blink{ 50%{ opacity:0; } }
-
-  .type-line{ overflow:hidden; white-space:nowrap; width:0; animation: type 1.6s steps(30,end) forwards; }
-  .type-1{ animation-delay: .2s; }
-  .type-2{ animation-delay: 2s; }
-  .type-3{ animation-delay: 3.6s; }
-  @keyframes type{ to{ width: 100%; } }
-
-  .grain-dots{
-    background-image: radial-gradient(#000 1px, transparent 1px);
-    background-size: 14px 14px;
-    opacity:.12;
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    .type-line, .caret{ animation:none !important; width:auto !important; }
-  }
-</style>
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<script src="./src/layout/js/tailwindConfig.js"></script>
+<link rel="stylesheet" href="./src/layout/css/global.css">
 </head>
 <body class="font-body antialiased bg-canvas dark:bg-canvas-dark text-ink dark:text-paper-fg transition-colors duration-200
   bg-[radial-gradient(circle_at_15%_10%,rgba(61,122,15,0.05),transparent_40%),radial-gradient(circle_at_85%_30%,rgba(190,22,104,0.05),transparent_40%)]
@@ -118,7 +54,9 @@
       <a href="#get-started" class="hidden sm:inline-flex items-center border-[3px] border-black bg-lime dark:bg-lime-dark text-black font-mono font-bold text-sm uppercase px-4 py-2.5
         shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#ECEDE3]
         hover:-translate-x-[3px] hover:-translate-y-[3px]
+        dark:hover:-translate-x-[3px] dark:hover:-translate-y-[3px]
         active:translate-x-0 active:translate-y-0 active:shadow-none
+        dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
         transition-[transform,box-shadow] duration-150">
         Get Started
       </a>
@@ -134,7 +72,7 @@
 <section
     id="home"
     class="
-    relative overflow-hidden border-b-4 border-black min-h-screen
+    relative overflow-hidden border-b-4 border-black min-h-screen dark:border-lime-dark
     [&::selection]:bg-lime [&::selection]:text-black
     dark:[&::selection]:bg-lime-300 dark:[&::selection]:text-white
     "
@@ -156,14 +94,18 @@
         <a href="#" class="border-[3px] border-black bg-blue-400 dark:bg-blue-500 text-black font-mono font-bold uppercase px-6 py-3.5 inline-flex items-center gap-2
           shadow-[7px_7px_0_0_#000] dark:shadow-[7px_7px_0_0_#ECEDE3]
           hover:-translate-x-[3px] hover:-translate-y-[3px]
+          dark:hover:-translate-x-[3px] dark:hover:-translate-y-[3px]
           active:translate-x-0 active:translate-y-0 active:shadow-none
+          dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
           transition-[transform,box-shadow] duration-150">
           Get Started →
         </a>
         <a href="#" class="border-[3px] border-black bg-green-400 dark:bg-green-700 text-ink dark:text-paper-fg font-mono font-bold uppercase px-6 py-3.5 inline-flex items-center gap-2
           shadow-[7px_7px_0_0_#000] dark:shadow-[7px_7px_0_0_#ECEDE3]
           hover:-translate-x-[3px] hover:-translate-y-[3px]
+          dark:hover:-translate-x-[3px] dark:hover:-translate-y-[3px]
           active:translate-x-0 active:translate-y-0 active:shadow-none
+          dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
           transition-[transform,box-shadow] duration-150">
           Read Documentation
         </a>
@@ -185,9 +127,9 @@
           <span class="ml-3 font-mono text-xs text-paper-fg/60">root@sctf: ~/atmin wifei</span>
         </div>
         <div class="p-5 md:p-6 font-mono text-sm leading-7 min-h-[200px] text-paper-fg">
-          <p class="type-line text-white type-1 text-paper-fg/70">$ nc chall.SCTF.id 1337</p>
+          <p class="type-line text-white type-1 text-paper-fg/70">$ nc chall.sctf 1337</p>
           <p class="type-line text-white type-2 text-paper-fg/70">[+] connecting to target... ok</p>
-          <p class="type-line type-3 text-lime-dark">[+] flag captured: S&#123;h3ll0_h4ck3r&#125;<span class="caret bg-lime-dark">&nbsp;</span></p>
+          <p class="type-line type-3 text-lime-dark">[+] flag captured: SCTF&#123;h3ll0_h4ck3r&#125;<span class="caret bg-lime-dark">&nbsp;</span></p>
 
           <div class="mt-6 flex items-center justify-between border-[3px] border-black bg-[#131511] px-3 py-2">
             <span class="text-paper-fg/70">score</span>
@@ -200,7 +142,10 @@
 </section>
 
 <!-- ============ WHAT IS SCTF ============ -->
-<section class="border-b-4 border-black bg-panel dark:bg-panel-dark">
+<section class="border-b-4 border-black bg-panel dark:bg-panel-dark dark:border-white
+[&::selection]:bg-yellow [&::selection]:text-black
+    dark:[&::selection]:bg-yellow-300 dark:[&::selection]:text-white
+">
   <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24 grid lg:grid-cols-5 gap-12 items-start">
     <div class="lg:col-span-2">
       <p class="font-mono text-xs uppercase text-lime dark:text-lime-dark mb-3">// about the platform</p>
@@ -244,7 +189,7 @@
         dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
         transition-[transform,box-shadow] duration-150">
         <p class="font-display text-3xl text-yellow mb-1 dark:text-white">Score</p>
-        <p class="font-mono text-xs uppercase text-black/60">Points on the board</p>
+        <p class="font-mono text-xs uppercase text-black/60 dark:text-white">Points on the board</p>
       </div>
       <div class="border-[3px] border-black bg-paper text-black p-6
         dark:bg-blue-500 dark:border-white
@@ -262,7 +207,7 @@
 </section>
 
 <!-- ============ WHY SCTF ============ -->
-<section id="why" class="border-b-4 border-black">
+<section id="why" class="border-b-4 border-black dark:border-white">
   <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24">
     <div class="flex items-end justify-between flex-wrap gap-4 mb-12">
       <h2 class="font-display text-3xl md:text-4xl uppercase">Why SCTF?</h2>
@@ -276,8 +221,8 @@
         dark:hover:-translate-x-[3px] dark:hover:-translate-y-[3px] dark:active:rotate-[-5deg]
         dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
         transition-[transform,box-shadow] duration-150">
-        <div class="w-12 h-12 border-[3px] border-black bg-lime dark:bg-lime-dark flex items-center justify-center">
-          <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+        <div class="w-12 h-12 border-[3px] border-black dark:border-white bg-lime dark:bg-lime-dark flex items-center justify-center">
+          <svg viewBox="0 0 24 24" class="w-6 h-6 stroke-white dark:stroke-black" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
         </div>
         <h3 class="font-display text-lg uppercase">Hands-on Learning</h3>
         <p class="text-sm text-ink/70 dark:text-paper-fg/70 leading-relaxed">No lectures, no fluff. Every concept only clicks once you've broken it yourself.</p>
@@ -289,8 +234,8 @@
         dark:hover:-translate-x-[3px] dark:hover:-translate-y-[3px] dark:active:rotate-[-5deg]
         dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
         transition-[transform,box-shadow] duration-150">
-        <div class="w-12 h-12 border-[3px] border-black bg-pink dark:bg-pink-dark flex items-center justify-center">
-          <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        <div class="w-12 h-12 border-[3px] border-black dark:border-white bg-pink dark:bg-pink-dark flex items-center justify-center">
+          <svg viewBox="0 0 24 24" class="w-6 h-6 stroke-white dark:stroke-black" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
         </div>
         <h3 class="font-display text-lg uppercase">Jeopardy CTF</h3>
         <p class="text-sm text-ink/70 dark:text-paper-fg/70 leading-relaxed">Pick any category, any order. Points scale with difficulty, not with speed alone.</p>
@@ -302,8 +247,8 @@
         dark:hover:-translate-x-[3px] dark:hover:-translate-y-[3px] dark:active:rotate-[-5deg]
         dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
         transition-[transform,box-shadow] duration-150">
-        <div class="w-12 h-12 border-[3px] border-black bg-yellow dark:bg-yellow-dark flex items-center justify-center">
-          <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10l-1 8a4 4 0 0 1-8 0z"/><path d="M5 4h2v3a3 3 0 0 1-2-3z"/><path d="M19 4h-2v3a3 3 0 0 0 2-3z"/></svg>
+        <div class="w-12 h-12 border-[3px] border-black dark:border-white bg-yellow dark:bg-yellow-dark flex items-center justify-center">
+          <svg viewBox="0 0 24 24" class="w-6 h-6 stroke-white dark:stroke-black" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10l-1 8a4 4 0 0 1-8 0z"/><path d="M5 4h2v3a3 3 0 0 1-2-3z"/><path d="M19 4h-2v3a3 3 0 0 0 2-3z"/></svg>
         </div>
         <h3 class="font-display text-lg uppercase">Leaderboard</h3>
         <p class="text-sm text-ink/70 dark:text-paper-fg/70 leading-relaxed">Live ranking that updates the moment a flag is accepted. See where you stand.</p>
@@ -315,7 +260,7 @@
         dark:hover:-translate-x-[3px] dark:hover:-translate-y-[3px] dark:active:rotate-[-5deg]
         dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
         transition-[transform,box-shadow] duration-150">
-        <div class="w-12 h-12 border-[3px] border-black bg-ink dark:bg-paper-fg flex items-center justify-center">
+        <div class="w-12 h-12 border-[3px] border-black dark:border-white bg-lime dark:bg-lime-dark flex items-center justify-center">
           <svg viewBox="0 0 24 24" class="w-6 h-6 stroke-white dark:stroke-black" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>
         </div>
         <h3 class="font-display text-lg uppercase">Progress</h3>
@@ -326,7 +271,7 @@
 </section>
 
 <!-- ============ CHALLENGE CATEGORIES ============ -->
-<section id="challenges" class="border-b-4 border-black bg-panel dark:bg-panel-dark">
+<section id="challenges" class="border-b-4 border-black bg-panel dark:bg-panel-dark dark:border-white">
   <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24">
     <p class="font-mono text-xs uppercase text-pink dark:text-pink-dark mb-3">// categories</p>
     <h2 class="font-display text-3xl md:text-4xl uppercase mb-12">Challenge Categories</h2>
@@ -340,8 +285,8 @@
         dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
         transition-[transform,box-shadow] duration-150">
         <span class="font-mono text-[11px] text-lime-dark bg-black inline-block w-fit px-2 py-1 dark:text-white">SCTF&#123;web&#125;</span>
-        <h3 class="font-display text-base uppercase">Web Exploitation</h3>
-        <p class="text-xs text-black/60 leading-relaxed">SQLi, XSS, auth bypass and the logic bugs hiding in plain sight.</p>
+        <h3 class="font-display text-black uppercase dark:text-white">Web Exploitation</h3>
+        <p class="text-xs text-black/60 leading-relaxed">SQLi dark:text-white, XSS, auth bypass and the logic bugs hiding in plain sight.</p>
       </div>
       <div class="border-[3px] border-black dark:border-zinc-200 bg-paper dark:bg-zinc-500 text-black p-6 flex flex-col gap-3
         shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]
@@ -351,8 +296,8 @@
         dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
         transition-[transform,box-shadow] duration-150">
         <span class="font-mono text-[11px] text-pink-dark bg-black inline-block w-fit px-2 py-1 dark:text-white">SCTF&#123;crypto&#125;</span>
-        <h3 class="font-display text-base uppercase">Cryptography</h3>
-        <p class="text-xs text-black/60 leading-relaxed">From classical ciphers to breaking weak modern implementations.</p>
+        <h3 class="font-display text-black uppercase dark:text-white">Cryptography</h3>
+        <p class="text-xs text-black/60 leading-relaxed dark:text-white">From classical ciphers to breaking weak modern implementations.</p>
       </div>
       <div class="border-[3px] border-black dark:border-zinc-200 bg-paper dark:bg-zinc-500 text-black p-6 flex flex-col gap-3
         shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]
@@ -362,8 +307,8 @@
         dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
         transition-[transform,box-shadow] duration-150">
         <span class="font-mono text-[11px] text-yellow-dark bg-black inline-block w-fit px-2 py-1 dark:text-white">SCTF&#123;osint&#125;</span>
-        <h3 class="font-display text-base uppercase">OSINT</h3>
-        <p class="text-xs text-black/60 leading-relaxed">Digital footprints — find what was never meant to be found.</p>
+        <h3 class="font-display text-black uppercase dark:text-white">OSINT</h3>
+        <p class="text-xs text-black/60 leading-relaxed dark:text-white">Digital footprints — find what was never meant to be found.</p>
       </div>
       <div class="border-[3px] border-black dark:border-zinc-200 bg-paper dark:bg-zinc-500 text-black p-6 flex flex-col gap-3
         shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]
@@ -373,8 +318,8 @@
         dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
         transition-[transform,box-shadow] duration-150">
         <span class="font-mono text-[11px] text-lime-dark bg-black inline-block w-fit px-2 py-1 dark:text-white">SCTF&#123;forensics&#125;</span>
-        <h3 class="font-display text-base uppercase">Forensics</h3>
-        <p class="text-xs text-black/60 leading-relaxed">Dig through files, memory and packets for the artifact that matters.</p>
+        <h3 class="font-display text-black uppercase dark:text-white">Forensics</h3>
+        <p class="text-xs text-black/60 leading-relaxed dark:text-white">Dig through files, memory and packets for the artifact that matters.</p>
       </div>
       <div class="border-[3px] border-black dark:border-white bg-yellow-dark dark:bg-yellow text-black p-6 flex flex-col gap-3
         shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#9C6600] 
@@ -384,58 +329,58 @@
         dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
         transition-[transform,box-shadow] duration-150">
         <span class="font-mono text-[11px] text-pink-dark bg-black inline-block w-fit px-2 py-1 dark:text-white">SCTF&#123;-&#125;</span>
-        <h3 class="font-display text-base uppercase">Other</h3>
-        <p class="text-xs text-black/60 leading-relaxed">Lets come to see other challenges...</p>
+        <h3 class="font-display text-black uppercase dark:text-white">Other</h3>
+        <p class="text-xs text-black/60 leading-relaxed dark:text-white">Lets come to see other challenges...</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============ HOW IT WORKS ============ -->
-<section class="border-b-4 border-black">
+<section class="border-b-4 border-black dark:border-white">
   <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24">
     <p class="font-mono text-xs uppercase text-yellow dark:text-yellow-dark mb-3">// the loop</p>
     <h2 class="font-display text-3xl md:text-4xl uppercase mb-14">How It Works</h2>
 
     <div class="grid md:grid-cols-5 gap-6">
       <div class="flex flex-col gap-4">
-        <span class="font-mono text-5xl text-lime/40 dark:text-lime-dark/40">01</span>
-        <div class="border-[3px] border-black bg-panel dark:bg-panel-dark p-5 flex-1
-          shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#ECEDE3]">
-          <h3 class="font-display text-sm uppercase mb-2">Create Account</h3>
-          <p class="text-xs text-ink/60 dark:text-paper-fg/60 leading-relaxed">Sign up in seconds. No résumé required.</p>
+        <span class="font-mono text-5xl text-sky-500 dark:text-sky-500">01</span>
+        <div class="border-[3px] border-black dark:border-white bg-panel dark:bg-sky-500 p-5 flex-1
+          shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#0EA5E9]">
+          <h3 class="font-display text-sm uppercase mb-2 dark:text-black">Create Account</h3>
+          <p class="text-xs text-ink/60 dark:text-black leading-relaxed">Sign up in seconds. No résumé required.</p>
         </div>
       </div>
       <div class="flex flex-col gap-4">
-        <span class="font-mono text-5xl text-pink/40 dark:text-pink-dark/40">02</span>
-        <div class="border-[3px] border-black bg-panel dark:bg-panel-dark p-5 flex-1
-          shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#ECEDE3]">
-          <h3 class="font-display text-sm uppercase mb-2">Choose Challenge</h3>
-          <p class="text-xs text-ink/60 dark:text-paper-fg/60 leading-relaxed">Browse categories, pick what looks breakable.</p>
+        <span class="font-mono text-5xl text-fuchsia-500 dark:text-fuchsia-500">02</span>
+        <div class="border-[3px] border-black dark:border-white bg-panel dark:bg-fuchsia-500 p-5 flex-1
+          shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#D946EF]">
+          <h3 class="font-display text-sm uppercase mb-2 dark:text-black">Choose Challenge</h3>
+          <p class="text-xs text-ink/60 dark:text-black leading-relaxed">Browse categories, pick what looks breakable.</p>
         </div>
       </div>
       <div class="flex flex-col gap-4">
-        <span class="font-mono text-5xl text-yellow/40 dark:text-yellow-dark/40">03</span>
-        <div class="border-[3px] border-black bg-panel dark:bg-panel-dark p-5 flex-1
-          shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#ECEDE3]">
-          <h3 class="font-display text-sm uppercase mb-2">Solve Challenge</h3>
-          <p class="text-xs text-ink/60 dark:text-paper-fg/60 leading-relaxed">Poke, probe, exploit. Gets flag.</p>
+        <span class="font-mono text-5xl text-yellow dark:text-yellow-dark">03</span>
+        <div class="border-[3px] border-black dark:border-white bg-panel dark:bg-yellow-dark p-5 flex-1
+          shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#FFD100]">
+          <h3 class="font-display text-sm uppercase mb-2 dark:text-black">Solve Challenge</h3>
+          <p class="text-xs text-ink/60 dark:text-black leading-relaxed">Poke, probe, exploit. Gets flag.</p>
         </div>
       </div>
       <div class="flex flex-col gap-4">
-        <span class="font-mono text-5xl text-lime/40 dark:text-lime-dark/40">04</span>
-        <div class="border-[3px] border-black bg-panel dark:bg-panel-dark p-5 flex-1
-          shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#ECEDE3]">
-          <h3 class="font-display text-sm uppercase mb-2">Submit Flag</h3>
-          <p class="text-xs text-ink/60 dark:text-paper-fg/60 leading-relaxed">Paste the flag, hit submit, hold your breath.</p>
+        <span class="font-mono text-5xl text-pink dark:text-pink-dark">04</span>
+        <div class="border-[3px] border-black dark:border-white bg-panel dark:bg-pink-dark p-5 flex-1
+          shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#FF2E93]">
+          <h3 class="font-display text-sm uppercase mb-2 dark:text-black">Submit Flag</h3>
+          <p class="text-xs text-ink/60 dark:text-black leading-relaxed">Paste the flag, hit submit, hold your breath.</p>
         </div>
       </div>
       <div class="flex flex-col gap-4">
-        <span class="font-mono text-5xl text-pink/40 dark:text-pink-dark/40">05</span>
-        <div class="border-[3px] border-black bg-lime dark:bg-lime-dark text-black p-5 flex-1
-          shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#ECEDE3]">
-          <h3 class="font-display text-sm uppercase mb-2">Earn Score</h3>
-          <p class="text-xs text-black/60 leading-relaxed">Points land instantly, leaderboard updates live.</p>
+        <span class="font-mono text-5xl text-lime dark:text-lime-dark">05</span>
+        <div class="border-[3px] border-black dark:border-white bg-lime-dark dark:bg-lime-dark text-black p-5 flex-1
+          shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#A6FF00]">
+          <h3 class="font-display text-sm uppercase mb-2 dark:text-black">Earn Score</h3>
+          <p class="text-xs text-black/60 dark:text-black/60 leading-relaxed">Points land instantly, leaderboard updates live.</p>
         </div>
       </div>
     </div>
@@ -443,7 +388,7 @@
 </section>
 
 <!-- ============ CHALLENGE PREVIEW ============ -->
-<section class="border-b-4 border-black bg-panel dark:bg-panel-dark">
+<section class="border-b-4 border-black bg-panel dark:bg-panel-dark dark:border-white">
   <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24">
     <div class="flex items-end justify-between flex-wrap gap-4 mb-12">
       <div>
@@ -453,150 +398,223 @@
       <a href="#challenges" class="font-mono text-xs uppercase underline decoration-2 underline-offset-4 hover:text-lime dark:hover:text-lime-dark">See all categories →</a>
     </div>
 
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-      <div class="border-[3px] border-black bg-black p-5 flex flex-col gap-4 shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#ECEDE3]">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- Challenge Card -->
+      <div class="bg-white dark:bg-[#1E293B] text-black dark:text-gray-300 rounded-xl p-5 flex flex-col gap-2 shadow-lg border border-[#334155] hover:shadow-xl transition-all duration-200">
+        <!-- Header -->
         <div class="flex items-center justify-between">
-          <span class="font-mono text-[10px] text-lime-dark">WEB</span>
-          <span class="font-mono text-[10px] border-[3px] border-black px-2 py-0.5 text-paper-fg/70">EASY</span>
+          <div class="flex items-center gap-2">
+            <img src="https://avatars.githubusercontent.com/u/1?v=4" alt="affalximam" class="w-6 h-6 rounded-full border border-gray-500">
+            <span class="text-sm font-semibold">affalximam</span>
+          </div>
+          <span class="text-xs font-bold bg-red-600 text-white px-2 py-0.5 rounded-full">Unsolved</span>
         </div>
-        <h3 class="font-display text-base uppercase text-paper-fg">Baby Web</h3>
-        <p class="text-xs text-paper-fg/50">A gentle first crack at auth logic.</p>
-        <div class="flex items-center justify-between font-mono text-xs mt-2 pt-3 border-t border-paper-fg/10">
-          <span class="text-yellow-dark font-bold">100 pts</span>
-          <span class="text-paper-fg/40">234 solves</span>
+
+        <!-- Title -->
+        <h3 class="text-lg font-bold mt-2">stalking cicada</h3>
+
+        <!-- Level -->
+        <div class="flex flex-wrap gap-2 mt-2">
+          <span class="bg-yellow-100 text-yellow-700 text-xs font-bold px-2 py-0.5 rounded">Masih Normal Inimah</span>
         </div>
+
+        <!-- Categories -->
+        <div class="flex flex-wrap gap-2 mt-2">
+          <span class="bg-[#334155] text-gray-200 text-xs px-2 py-0.5 rounded-md">Kriptografi</span>
+          <span class="bg-[#334155] text-gray-200 text-xs px-2 py-0.5 rounded-md">Osint</span>
+        </div>
+
+        <!-- Points & Date -->
+        <div class="flex items-center justify-between text-sm mt-3">
+          <span class="text-yellow-400 font-bold">Points: 50</span>
+          <span class="text-gray-400 flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            Aug 10
+          </span>
+        </div>
+
+        <!-- Button -->
+        <button class="mt-4 w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold py-2.5 rounded-md transition-all duration-150">
+          Start Challenge
+        </button>
+      </div>
+      
+      <div class="bg-white dark:bg-[#1E293B] text-black dark:text-gray-300 rounded-xl p-5 flex flex-col gap-2 shadow-lg border border-[#334155] hover:shadow-xl transition-all duration-200">
+        <!-- Header -->
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <img src="https://avatars.githubusercontent.com/u/1?v=4" alt="affalximam" class="w-6 h-6 rounded-full border border-gray-500">
+            <span class="text-sm font-semibold">affalximam</span>
+          </div>
+          <span class="text-xs font-bold bg-red-600 text-white px-2 py-0.5 rounded-full">Unsolved</span>
+        </div>
+
+        <!-- Title -->
+        <h3 class="text-lg font-bold mt-2">ga ngasih doksli 🫵🏻😩</h3>
+
+        <!-- Level -->
+        <div class="flex flex-wrap gap-2 mt-2">
+          <span class="bg-green-100 text-green-700 text-xs font-bold px-2 py-0.5 rounded">Noob</span>
+        </div>
+
+        <!-- Categories -->
+        <div class="flex flex-wrap gap-2 mt-2">
+          <span class="bg-[#334155] text-gray-200 text-xs px-2 py-0.5 rounded-md">Forensics</span>
+        </div>
+
+        <!-- Points & Date -->
+        <div class="flex items-center justify-between text-sm mt-3">
+          <span class="text-yellow-400 font-bold">Points: 50</span>
+          <span class="text-gray-400 flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            Jul 21
+          </span>
+        </div>
+
+        <!-- Button -->
+        <button class="mt-4 w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold py-2.5 rounded-md transition-all duration-150">
+          Start Challenge
+        </button>
       </div>
 
-      <div class="border-[3px] border-black bg-black p-5 flex flex-col gap-4 shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#ECEDE3]">
+      <div class="bg-white dark:bg-[#1E293B] text-black dark:text-gray-300 rounded-xl p-5 flex flex-col gap-2 shadow-lg border border-[#334155] hover:shadow-xl transition-all duration-200">
+        <!-- Header -->
         <div class="flex items-center justify-between">
-          <span class="font-mono text-[10px] text-pink-dark">CRYPTO</span>
-          <span class="font-mono text-[10px] border-[3px] border-black px-2 py-0.5 text-paper-fg/70">MEDIUM</span>
+          <div class="flex items-center gap-2">
+            <img src="https://avatars.githubusercontent.com/u/1?v=4" alt="affalximam" class="w-6 h-6 rounded-full border border-gray-500">
+            <span class="text-sm font-semibold">affalximam</span>
+          </div>
+          <span class="text-xs font-bold bg-red-600 text-white px-2 py-0.5 rounded-full">Unsolved</span>
         </div>
-        <h3 class="font-display text-base uppercase text-paper-fg">Rusty Padlock</h3>
-        <p class="text-xs text-paper-fg/50">A cipher that isn't as strong as it looks.</p>
-        <div class="flex items-center justify-between font-mono text-xs mt-2 pt-3 border-t border-paper-fg/10">
-          <span class="text-yellow-dark font-bold">250 pts</span>
-          <span class="text-paper-fg/40">89 solves</span>
-        </div>
-      </div>
 
-      <div class="border-[3px] border-black bg-black p-5 flex flex-col gap-4 shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#ECEDE3]">
-        <div class="flex items-center justify-between">
-          <span class="font-mono text-[10px] text-yellow-dark">FORENSICS</span>
-          <span class="font-mono text-[10px] border-[3px] border-black px-2 py-0.5 text-paper-fg/70">HARD</span>
-        </div>
-        <h3 class="font-display text-base uppercase text-paper-fg">Ghost Protocol</h3>
-        <p class="text-xs text-paper-fg/50">Something's hiding inside this capture.</p>
-        <div class="flex items-center justify-between font-mono text-xs mt-2 pt-3 border-t border-paper-fg/10">
-          <span class="text-yellow-dark font-bold">400 pts</span>
-          <span class="text-paper-fg/40">32 solves</span>
-        </div>
-      </div>
+        <!-- Title -->
+        <h3 class="text-lg font-bold mt-2">Sistem angkasa</h3>
 
-      <div class="border-[3px] border-black bg-black p-5 flex flex-col gap-4 shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#ECEDE3]">
-        <div class="flex items-center justify-between">
-          <span class="font-mono text-[10px] text-lime-dark">OSINT</span>
-          <span class="font-mono text-[10px] border-[3px] border-black px-2 py-0.5 text-paper-fg/70">EASY</span>
+        <!-- Level -->
+        <div class="flex flex-wrap gap-2 mt-2">
+          <span class="bg-orange-100 text-orange-700 text-xs font-bold px-2 py-0.5 rounded">Calon Heker Darknet</span>
         </div>
-        <h3 class="font-display text-base uppercase text-paper-fg">Shadow Trail</h3>
-        <p class="text-xs text-paper-fg/50">Follow the breadcrumbs back to the source.</p>
-        <div class="flex items-center justify-between font-mono text-xs mt-2 pt-3 border-t border-paper-fg/10">
-          <span class="text-yellow-dark font-bold">150 pts</span>
-          <span class="text-paper-fg/40">178 solves</span>
+
+        <!-- Categories -->
+        <div class="flex flex-wrap gap-2 mt-2">
+          <span class="bg-[#334155] text-gray-200 text-xs px-2 py-0.5 rounded-md">Web Security</span>
         </div>
+
+        <!-- Points & Date -->
+        <div class="flex items-center justify-between text-sm mt-3">
+          <span class="text-yellow-400 font-bold">Points: 299</span>
+          <span class="text-gray-400 flex items-center gap-1">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            Jul 17
+          </span>
+        </div>
+
+        <!-- Button -->
+        <button class="mt-4 w-full bg-[#2563EB] hover:bg-[#1D4ED8] text-white font-semibold py-2.5 rounded-md transition-all duration-150">
+          Start Challenge
+        </button>
       </div>
     </div>
   </div>
 </section>
 
+
+
 <!-- ============ LEADERBOARD PREVIEW ============ -->
-<section class="border-b-4 border-black">
+<section class="border-b-4 border-black dark:border-white">
   <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24">
     <p class="font-mono text-xs uppercase text-pink dark:text-pink-dark mb-3">// standings</p>
     <h2 class="font-display text-3xl md:text-4xl uppercase mb-12">Leaderboard Preview</h2>
 
-    <div class="border-[3px] border-black bg-black overflow-hidden shadow-[7px_7px_0_0_#000] dark:shadow-[7px_7px_0_0_#ECEDE3]">
-      <div class="grid grid-cols-12 font-mono text-[11px] uppercase text-paper-fg/50 border-b-4 border-black bg-[#1B1E17] px-5 py-3">
-        <span class="col-span-2">Rank</span>
-        <span class="col-span-6">Player</span>
-        <span class="col-span-4 text-right">Score</span>
+    <!-- Light mode -->
+    <div class="block dark:hidden">
+      <div class="border-black brutal-border dark:border-white overflow-hidden shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]">
+        <img src="./assets/images/leaderboard-light.png" alt="Leaderboard Preview" class="w-full">
       </div>
+    </div>
 
-      <div class="grid grid-cols-12 items-center px-5 py-4 border-b border-paper-fg/10 bg-yellow-dark/5">
-        <span class="col-span-2 font-display text-yellow-dark">#1</span>
-        <span class="col-span-6 font-mono text-sm text-paper-fg">n0h4x</span>
-        <span class="col-span-4 text-right font-mono text-sm text-lime-dark">12,450</span>
-      </div>
-      <div class="grid grid-cols-12 items-center px-5 py-4 border-b border-paper-fg/10">
-        <span class="col-span-2 font-display text-paper-fg/60">#2</span>
-        <span class="col-span-6 font-mono text-sm text-paper-fg">cyberpunk404</span>
-        <span class="col-span-4 text-right font-mono text-sm text-lime-dark">11,980</span>
-      </div>
-      <div class="grid grid-cols-12 items-center px-5 py-4 border-b border-paper-fg/10">
-        <span class="col-span-2 font-display text-paper-fg/60">#3</span>
-        <span class="col-span-6 font-mono text-sm text-paper-fg">b1t_flipper</span>
-        <span class="col-span-4 text-right font-mono text-sm text-lime-dark">10,320</span>
-      </div>
-      <div class="grid grid-cols-12 items-center px-5 py-4 border-b border-paper-fg/10">
-        <span class="col-span-2 font-mono text-paper-fg/40">#4</span>
-        <span class="col-span-6 font-mono text-sm text-paper-fg/70">rootkit_rina</span>
-        <span class="col-span-4 text-right font-mono text-sm text-paper-fg/70">9,875</span>
-      </div>
-      <div class="grid grid-cols-12 items-center px-5 py-4">
-        <span class="col-span-2 font-mono text-paper-fg/40">#5</span>
-        <span class="col-span-6 font-mono text-sm text-paper-fg/70">zeroday.exe</span>
-        <span class="col-span-4 text-right font-mono text-sm text-paper-fg/70">9,120</span>
+    <!-- Dark mode -->
+    <div class="hidden dark:block">
+      <div class="border-black brutal-border dark:border-white overflow-hidden shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]">
+        <img src="./assets/images/leaderboard-dark.png" alt="Leaderboard Preview" class="w-full">
       </div>
     </div>
   </div>
 </section>
 
+
 <!-- ============ PLATFORM FEATURES ============ -->
-<section class="border-b-4 border-black bg-panel dark:bg-panel-dark">
+<section class="border-b-4 border-black bg-panel dark:bg-panel-dark dark:border-white">
   <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24">
-    <p class="font-mono text-xs uppercase text-lime dark:text-lime-dark mb-3">// under the hood</p>
+    <p class="font-mono text-xs uppercase text-lime dark:text-lime-dark mb-3">// platform features</p>
     <h2 class="font-display text-3xl md:text-4xl uppercase mb-12">Platform Features</h2>
 
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-      <div class="border-[3px] border-black bg-black p-6">
-        <h3 class="font-display text-sm uppercase text-lime-dark mb-2">Challenge System</h3>
-        <p class="text-xs text-paper-fg/60 leading-relaxed">Categorized, point-weighted challenges you can attempt in any order.</p>
+      <!-- Authentication & Account -->
+      <div class="border-[3px] border-black bg-black p-6 hover:border-lime-dark transition-colors duration-200">
+        <h3 class="font-display text-sm uppercase text-lime-dark mb-2">Authentication</h3>
+        <p class="text-xs text-paper-fg/60 leading-relaxed">Sign up with email or Google OAuth, login securely, and manage your account with password reset and profile updates.</p>
       </div>
-      <div class="border-[3px] border-black bg-black p-6">
-        <h3 class="font-display text-sm uppercase text-pink-dark mb-2">Flag Submission</h3>
-        <p class="text-xs text-paper-fg/60 leading-relaxed">Instant validation the moment you submit — no waiting, no guessing.</p>
+      
+      <!-- Challenge System -->
+      <div class="border-[3px] border-black bg-black p-6 hover:border-pink-dark transition-colors duration-200">
+        <h3 class="font-display text-sm uppercase text-pink-dark mb-2">Challenge System</h3>
+        <p class="text-xs text-paper-fg/60 leading-relaxed">Browse, search, and filter challenges by category or level. View detailed challenge information and submit flags for points.</p>
       </div>
-      <div class="border-[3px] border-black bg-black p-6">
-        <h3 class="font-display text-sm uppercase text-yellow-dark mb-2">Hint System</h3>
-        <p class="text-xs text-paper-fg/60 leading-relaxed">Stuck? Unlock a hint for a small point cost and keep moving.</p>
+      
+      <!-- Flag Submission -->
+      <div class="border-[3px] border-black bg-black p-6 hover:border-yellow-dark transition-colors duration-200">
+        <h3 class="font-display text-sm uppercase text-yellow-dark mb-2">Flag Submission</h3>
+        <p class="text-xs text-paper-fg/60 leading-relaxed">Submit flags for instant validation. Correct answers add points and mark challenges as solved. Invalid flags trigger error messages.</p>
       </div>
-      <div class="border-[3px] border-black bg-black p-6">
-        <h3 class="font-display text-sm uppercase text-lime-dark mb-2">Scoring</h3>
-        <p class="text-xs text-paper-fg/60 leading-relaxed">Points scale with difficulty and update your total in real time.</p>
+      
+      <!-- User Management -->
+      <div class="border-[3px] border-black bg-black p-6 hover:border-lime-dark transition-colors duration-200">
+        <h3 class="font-display text-sm uppercase text-lime-dark mb-2">User Management</h3>
+        <p class="text-xs text-paper-fg/60 leading-relaxed">View user profiles, list all users, and search for specific users. Track solved challenges and challenge creation history.</p>
       </div>
-      <div class="border-[3px] border-black bg-black p-6">
-        <h3 class="font-display text-sm uppercase text-pink-dark mb-2">Leaderboard</h3>
-        <p class="text-xs text-paper-fg/60 leading-relaxed">A live-ranked board so you always know exactly where you stand.</p>
+      
+      <!-- Leaderboard & Scoring -->
+      <div class="border-[3px] border-black bg-black p-6 hover:border-pink-dark transition-colors duration-200">
+        <h3 class="font-display text-sm uppercase text-pink-dark mb-2">Leaderboard & Scoring</h3>
+        <p class="text-xs text-paper-fg/60 leading-relaxed">Live ranking system showing top scorers. Points update in real-time when flags are submitted correctly.</p>
       </div>
-      <div class="border-[3px] border-black bg-black p-6">
-        <h3 class="font-display text-sm uppercase text-yellow-dark mb-2">Solved Challenges</h3>
-        <p class="text-xs text-paper-fg/60 leading-relaxed">A running log of everything you've cracked, saved to your profile.</p>
+      
+      <!-- My Challenges -->
+      <div class="border-[3px] border-black bg-black p-6 hover:border-yellow-dark transition-colors duration-200">
+        <h3 class="font-display text-sm uppercase text-yellow-dark mb-2">My Challenges</h3>
+        <p class="text-xs text-paper-fg/60 leading-relaxed">Create, edit, and manage your own challenges. Track submission status: On Submission, Published, Revision, or Rejected.</p>
       </div>
+      
+      <!-- Bookmark & Report -->
+      <div class="border-[3px] border-black bg-black p-6 hover:border-lime-dark transition-colors duration-200">
+        <h3 class="font-display text-sm uppercase text-lime-dark mb-2">Bookmark & Report</h3>
+        <p class="text-xs text-paper-fg/60 leading-relaxed">Save favorite challenges with bookmarks. Report issues on challenges for admin review.</p>
+      </div>
+      
     </div>
   </div>
 </section>
 
 <!-- ============ CTA ============ -->
-<section id="get-started" class="border-b-4 border-black bg-lime dark:bg-lime-dark text-black relative overflow-hidden">
+<section id="get-started" class="border-b-4 border-black bg-blue-500 dark:bg-blue-900 text-black relative overflow-hidden">
   <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20 text-center relative z-10">
-    <p class="font-mono text-xs uppercase mb-4">// one more step</p>
-    <h2 class="font-display text-3xl md:text-5xl uppercase mb-6">Ready to Start Your<br>CTF Journey?</h2>
-    <p class="font-body text-black/70 max-w-md mx-auto mb-9">Create your account, pick your first challenge, and see your name climb the board.</p>
-    <a href="#" class="border-[3px] border-black bg-black text-lime-dark font-mono font-bold uppercase px-8 py-4 inline-flex items-center gap-2
-      shadow-[7px_7px_0_0_#000] dark:shadow-[7px_7px_0_0_#ECEDE3]
-      hover:-translate-x-[3px] hover:-translate-y-[3px]
-      active:translate-x-0 active:translate-y-0 active:shadow-none
-      transition-[transform,box-shadow] duration-150">
+    <p class="font-mono text-xs uppercase mb-4 text-lime-dark">// one more step</p>
+    <h2 class="font-display text-3xl md:text-5xl uppercase mb-6 text-black dark:text-lime-dark">Ready to Start Your<br>CTF Journey?</h2>
+    <p class="font-body text-black/70 max-w-md mx-auto mb-9 text-black dark:text-lime-dark">Create your account, pick your first challenge, and see your name climb the board.</p>
+    <a href="#" class="items-center border-[3px] border-black bg-yellow dark:bg-yellow-dark text-black font-mono font-bold text-sm uppercase px-4 py-2.5
+        shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#ECEDE3]
+        hover:-translate-x-[3px] hover:-translate-y-[3px]
+        dark:hover:-translate-x-[3px] dark:hover:-translate-y-[3px]
+        active:translate-x-0 active:translate-y-0 active:shadow-none
+        dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
+        transition-[transform,box-shadow] duration-150">
       Start Learning →
     </a>
   </div>
@@ -643,32 +661,7 @@
 </footer>
 
 <!-- ============ THEME TOGGLE LOGIC ============ -->
-<script>
-  (function () {
-    var STORAGE_KEY = 'sctf-theme';
-
-    function applyTheme(isDark) {
-      document.documentElement.classList.toggle('dark', isDark);
-      document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
-        btn.setAttribute('aria-pressed', isDark ? 'true' : 'false');
-      });
-    }
-
-    function setTheme(isDark) {
-      applyTheme(isDark);
-      try { localStorage.setItem(STORAGE_KEY, isDark ? 'dark' : 'light'); } catch (e) { /* storage unavailable, theme still applies for this session */ }
-    }
-
-    // sync toggle buttons' aria-pressed with whatever the head script already applied
-    applyTheme(document.documentElement.classList.contains('dark'));
-
-    document.querySelectorAll('[data-theme-toggle]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        setTheme(!document.documentElement.classList.contains('dark'));
-      });
-    });
-  })();
-</script>
+<script src="./src/layout/js/theme.js"></script>
 
 </body>
 </html>
