@@ -1,3 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom base layer */
+@layer base {
+  ::selection {
+    @apply bg-lime-400 text-black;
+  }
+  .dark ::selection {
+    @apply bg-lime-500 text-white;
+  }
+}
+
+
 /* Only animation mechanics live here — every color/theme change is handled by Tailwind's dark: variant. */
   *{ box-sizing:border-box; }
   html{ scroll-behavior:smooth; }
