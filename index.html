@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkawanCTF — Learn Cyber Security Through Capture The Flag</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          bg: '#0B0C08',
+          surface: '#131511',
+          surface2: '#1B1E17',
+          paper: '#FFFFFF',
+          fg: '#ECEDE3',
+          ink: '#000000',
+          lime: '#A6FF00',
+          pink: '#FF2E93',
+          yellow: '#FFD100',
+        },
+        fontFamily: {
+          display: ['"Archivo Black"', 'sans-serif'],
+          body: ['"Space Grotesk"', 'sans-serif'],
+          mono: ['"JetBrains Mono"', 'monospace'],
+        },
+      },
+    },
+  }
+</script>
+<style>
+  :root{ --shadow-c: #ECEDE3; }
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background-color:#0B0C08;
+    background-image:
+      repeating-linear-gradient(0deg, rgba(236,237,227,0.035) 0px, rgba(236,237,227,0.035) 1px, transparent 1px, transparent 3px),
+      radial-gradient(circle at 15% 10%, rgba(166,255,0,0.06), transparent 40%),
+      radial-gradient(circle at 85% 30%, rgba(255,46,147,0.06), transparent 40%);
+  }
+  ::selection{ background:#A6FF00; color:#000; }
+
+  .brutal-border{ border:3px solid #000; }
+  .shadow-brutal{ box-shadow: 7px 7px 0 0 var(--shadow-c); }
+  .shadow-brutal-sm{ box-shadow: 4px 4px 0 0 var(--shadow-c); }
+  .shadow-brutal-lime{ box-shadow: 7px 7px 0 0 #A6FF00; }
+  .shadow-brutal-pink{ box-shadow: 7px 7px 0 0 #FF2E93; }
+  .shadow-brutal-yellow{ box-shadow: 7px 7px 0 0 #FFD100; }
+  .press{ transition: transform .12s ease, box-shadow .12s ease; }
+  .press:hover{ transform: translate(-3px,-3px); }
+  .press:active{ transform: translate(0,0); box-shadow: 0 0 0 0 var(--shadow-c) !important; }
+
+  .flag-tag{ font-family:'JetBrains Mono',monospace; }
+
+  .marquee-track{ display:flex; width:max-content; animation: marquee 22s linear infinite; }
+  @keyframes marquee{ from{ transform:translateX(0);} to{ transform:translateX(-50%);} }
+
+  .caret{ display:inline-block; width:.55ch; background:#A6FF00; animation: blink 1s step-start infinite; }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  .type-line{ overflow:hidden; white-space:nowrap; width:0; animation: type 1.6s steps(30,end) forwards; }
+  .type-1{ animation-delay: .2s; }
+  .type-2{ animation-delay: 2s; }
+  .type-3{ animation-delay: 3.6s; }
+  @keyframes type{ to{ width: 100%; } }
+
+  .grain-dots{
+    background-image: radial-gradient(#ECEDE3 1px, transparent 1px);
+    background-size: 14px 14px;
+    opacity:.15;
+  }
+
+  .stamp{ transform: rotate(-7deg); }
+
+  @media (prefers-reduced-motion: reduce){
+    .marquee-track, .type-line, .caret{ animation:none !important; width:auto !important; }
+  }
+</style>
+</head>
+<body class="font-body text-fg antialiased">
+
+<!-- ============ NAVBAR ============ -->
+<header class="sticky top-0 z-50 border-b-4 border-black bg-bg/95 backdrop-blur">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 h-20 flex items-center justify-between">
+    <a href="#" class="flex items-center gap-2 shrink-0">
+      <span class="w-9 h-9 brutal-border bg-lime flex items-center justify-center font-mono font-extrabold text-black">&gt;_</span>
+      <span class="font-display text-lg tracking-tight">SKAWAN<span class="text-lime">CTF</span></span>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-8 font-mono text-sm uppercase tracking-wide">
+      <a href="#home" class="hover:text-lime transition-colors">Home</a>
+      <a href="#why" class="hover:text-lime transition-colors">Features</a>
+      <a href="#challenges" class="hover:text-pink transition-colors">Challenges</a>
+      <a href="#docs" class="hover:text-yellow transition-colors">Documentation</a>
+    </nav>
+
+    <a href="#get-started" class="press shadow-brutal-sm hidden sm:inline-flex items-center brutal-border bg-lime text-black font-mono font-bold text-sm uppercase px-4 py-2.5">
+      Get Started
+    </a>
+
+    <button class="md:hidden brutal-border w-10 h-10 flex items-center justify-center bg-surface" aria-label="Menu">
+      <span class="font-mono text-lime">☰</span>
+    </button>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section id="home" class="relative overflow-hidden border-b-4 border-black">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24 grid lg:grid-cols-2 gap-14 items-center">
+
+    <!-- Left: copy -->
+    <div>
+      <div class="inline-flex items-center gap-2 font-mono text-xs uppercase brutal-border bg-surface px-3 py-1.5 mb-6 text-lime">
+        <span class="w-2 h-2 bg-lime rounded-full animate-pulse"></span>
+        season 02 · registrations open
+      </div>
+
+      <p class="font-mono text-pink text-sm mb-3">$ whoami</p>
+
+      <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl leading-[1.05] uppercase mb-6">
+        Learn Cyber Security
+        <span class="block text-lime">Through Capture</span>
+        <span class="block">The Flag<span class="text-pink">.</span></span>
+      </h1>
+
+      <p class="font-body text-base md:text-lg text-fg/80 max-w-lg mb-8 leading-relaxed">
+        SkawanCTF is a Jeopardy-style Capture The Flag platform for anyone learning cyber security —
+        pick a category, break the challenge, grab the flag, climb the board. No slides, just shells.
+      </p>
+
+      <div class="flex flex-wrap gap-4">
+        <a href="#get-started" class="press shadow-brutal-yellow brutal-border bg-yellow text-black font-mono font-bold uppercase px-6 py-3.5 inline-flex items-center gap-2">
+          Get Started →
+        </a>
+        <a href="#docs" class="press shadow-brutal-sm brutal-border bg-surface text-fg font-mono font-bold uppercase px-6 py-3.5 inline-flex items-center gap-2">
+          Read Documentation
+        </a>
+      </div>
+
+      <div class="flex flex-wrap gap-3 mt-8">
+        <span class="flag-tag text-xs brutal-border bg-surface px-3 py-1 text-lime">SKAWAN&#123;web&#125;</span>
+        <span class="flag-tag text-xs brutal-border bg-surface px-3 py-1 text-pink">SKAWAN&#123;crypto&#125;</span>
+        <span class="flag-tag text-xs brutal-border bg-surface px-3 py-1 text-yellow">SKAWAN&#123;osint&#125;</span>
+        <span class="flag-tag text-xs brutal-border bg-surface px-3 py-1 text-fg/70">+2 more</span>
+      </div>
+    </div>
+
+    <!-- Right: terminal mockup -->
+    <div class="relative">
+      <div class="absolute -top-5 -right-4 stamp brutal-border bg-pink text-black font-mono font-extrabold text-xs uppercase px-4 py-2 shadow-brutal-sm z-10">
+        Live challenge
+      </div>
+
+      <div class="brutal-border shadow-brutal bg-black overflow-hidden">
+        <div class="flex items-center gap-2 bg-surface2 border-b-4 border-black px-4 py-3">
+          <span class="w-3 h-3 rounded-full bg-pink border border-black"></span>
+          <span class="w-3 h-3 rounded-full bg-yellow border border-black"></span>
+          <span class="w-3 h-3 rounded-full bg-lime border border-black"></span>
+          <span class="ml-3 font-mono text-xs text-fg/60">guest@skawanctf: ~/baby-web</span>
+        </div>
+        <div class="p-5 md:p-6 font-mono text-sm leading-7 min-h-[280px]">
+          <p class="type-line type-1 text-fg/70">$ nc chall.skawanctf.id 1337</p>
+          <p class="type-line type-2 text-fg/70">[+] connecting to target... ok</p>
+          <p class="type-line type-3 text-lime">[+] flag captured: SKAWAN&#123;h3ll0_h4ck3r&#125;<span class="caret">&nbsp;</span></p>
+
+          <div class="mt-6 flex items-center justify-between brutal-border bg-surface px-3 py-2">
+            <span class="text-fg/70">score</span>
+            <span class="text-yellow font-bold">+250 pts</span>
+          </div>
+          <div class="mt-3 flex items-center justify-between brutal-border bg-surface px-3 py-2">
+            <span class="text-fg/70">rank</span>
+            <span class="text-pink font-bold">#14 → #9</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT IS SKAWANCTF ============ -->
+<section class="border-b-4 border-black bg-surface">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24 grid lg:grid-cols-5 gap-12 items-start">
+    <div class="lg:col-span-2">
+      <p class="font-mono text-xs uppercase text-lime mb-3">// about the platform</p>
+      <h2 class="font-display text-3xl md:text-4xl uppercase leading-tight mb-5">What is<br>SkawanCTF?</h2>
+      <p class="text-fg/80 leading-relaxed">
+        SkawanCTF is a Jeopardy-style Capture The Flag platform: challenges are grouped into fixed categories,
+        each worth a set number of points, and solved independently in any order you like. Break a challenge,
+        find the hidden <span class="text-lime font-mono">flag</span>, submit it, and watch your score climb.
+      </p>
+    </div>
+
+    <div class="lg:col-span-3 grid sm:grid-cols-3 gap-5">
+      <div class="press shadow-brutal-sm brutal-border bg-paper text-black p-6">
+        <p class="font-display text-3xl text-pink mb-1">Jeopardy</p>
+        <p class="font-mono text-xs uppercase text-black/60">Challenge format</p>
+      </div>
+      <div class="press shadow-brutal-sm brutal-border bg-paper text-black p-6">
+        <p class="font-display text-3xl text-lime mb-1">Flag</p>
+        <p class="font-mono text-xs uppercase text-black/60">Proof you solved it</p>
+      </div>
+      <div class="press shadow-brutal-sm brutal-border bg-paper text-black p-6">
+        <p class="font-display text-3xl text-yellow mb-1">Score</p>
+        <p class="font-mono text-xs uppercase text-black/60">Points on the board</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHY SKAWANCTF ============ -->
+<section id="why" class="border-b-4 border-black">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24">
+    <div class="flex items-end justify-between flex-wrap gap-4 mb-12">
+      <h2 class="font-display text-3xl md:text-4xl uppercase">Why SkawanCTF?</h2>
+      <p class="font-mono text-xs uppercase text-fg/50">04 reasons to jump in</p>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- card 1 -->
+      <div class="press shadow-brutal-lime brutal-border bg-surface p-6 flex flex-col gap-4">
+        <div class="w-12 h-12 brutal-border bg-lime flex items-center justify-center">
+          <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+        </div>
+        <h3 class="font-display text-lg uppercase">Hands-on Learning</h3>
+        <p class="text-sm text-fg/70 leading-relaxed">No lectures, no fluff. Every concept only clicks once you've broken it yourself.</p>
+      </div>
+      <!-- card 2 -->
+      <div class="press shadow-brutal-pink brutal-border bg-surface p-6 flex flex-col gap-4">
+        <div class="w-12 h-12 brutal-border bg-pink flex items-center justify-center">
+          <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </div>
+        <h3 class="font-display text-lg uppercase">Jeopardy CTF</h3>
+        <p class="text-sm text-fg/70 leading-relaxed">Pick any category, any order. Points scale with difficulty, not with speed alone.</p>
+      </div>
+      <!-- card 3 -->
+      <div class="press shadow-brutal-yellow brutal-border bg-surface p-6 flex flex-col gap-4">
+        <div class="w-12 h-12 brutal-border bg-yellow flex items-center justify-center">
+          <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10l-1 8a4 4 0 0 1-8 0z"/><path d="M5 4h2v3a3 3 0 0 1-2-3z"/><path d="M19 4h-2v3a3 3 0 0 0 2-3z"/></svg>
+        </div>
+        <h3 class="font-display text-lg uppercase">Leaderboard</h3>
+        <p class="text-sm text-fg/70 leading-relaxed">Live ranking that updates the moment a flag is accepted. See where you stand.</p>
+      </div>
+      <!-- card 4 -->
+      <div class="press shadow-brutal-lime brutal-border bg-surface p-6 flex flex-col gap-4">
+        <div class="w-12 h-12 brutal-border bg-fg flex items-center justify-center">
+          <svg viewBox="0 0 24 24" class="w-6 h-6" fill="none" stroke="black" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></svg>
+        </div>
+        <h3 class="font-display text-lg uppercase">Progress</h3>
+        <p class="text-sm text-fg/70 leading-relaxed">Track which categories you've conquered and which ones are still undefeated.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHALLENGE CATEGORIES ============ -->
+<section id="challenges" class="border-b-4 border-black bg-surface">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24">
+    <p class="font-mono text-xs uppercase text-pink mb-3">// categories</p>
+    <h2 class="font-display text-3xl md:text-4xl uppercase mb-12">Challenge Categories</h2>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-5 gap-5">
+      <div class="press shadow-brutal-sm brutal-border bg-paper text-black p-6 flex flex-col gap-3">
+        <span class="flag-tag text-[11px] text-lime bg-black inline-block w-fit px-2 py-1">SKAWAN&#123;web&#125;</span>
+        <h3 class="font-display text-base uppercase">Web Exploitation</h3>
+        <p class="text-xs text-black/60 leading-relaxed">SQLi, XSS, auth bypass and the logic bugs hiding in plain sight.</p>
+      </div>
+      <div class="press shadow-brutal-sm brutal-border bg-paper text-black p-6 flex flex-col gap-3">
+        <span class="flag-tag text-[11px] text-pink bg-black inline-block w-fit px-2 py-1">SKAWAN&#123;crypto&#125;</span>
+        <h3 class="font-display text-base uppercase">Cryptography</h3>
+        <p class="text-xs text-black/60 leading-relaxed">From classical ciphers to breaking weak modern implementations.</p>
+      </div>
+      <div class="press shadow-brutal-sm brutal-border bg-paper text-black p-6 flex flex-col gap-3">
+        <span class="flag-tag text-[11px] text-yellow bg-black inline-block w-fit px-2 py-1">SKAWAN&#123;osint&#125;</span>
+        <h3 class="font-display text-base uppercase">OSINT</h3>
+        <p class="text-xs text-black/60 leading-relaxed">Digital footprints — find what was never meant to be found.</p>
+      </div>
+      <div class="press shadow-brutal-sm brutal-border bg-paper text-black p-6 flex flex-col gap-3">
+        <span class="flag-tag text-[11px] text-lime bg-black inline-block w-fit px-2 py-1">SKAWAN&#123;forensics&#125;</span>
+        <h3 class="font-display text-base uppercase">Forensics</h3>
+        <p class="text-xs text-black/60 leading-relaxed">Dig through files, memory and packets for the artifact that matters.</p>
+      </div>
+      <div class="press shadow-brutal-sm brutal-border bg-paper text-black p-6 flex flex-col gap-3">
+        <span class="flag-tag text-[11px] text-pink bg-black inline-block w-fit px-2 py-1">SKAWAN&#123;misc&#125;</span>
+        <h3 class="font-display text-base uppercase">Miscellaneous</h3>
+        <p class="text-xs text-black/60 leading-relaxed">Anything that doesn't fit above — puzzles, esolangs, the unexpected.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HOW IT WORKS ============ -->
+<section class="border-b-4 border-black">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24">
+    <p class="font-mono text-xs uppercase text-yellow mb-3">// the loop</p>
+    <h2 class="font-display text-3xl md:text-4xl uppercase mb-14">How It Works</h2>
+
+    <div class="grid md:grid-cols-5 gap-6">
+      <div class="flex flex-col gap-4">
+        <span class="font-mono text-5xl text-lime/40">01</span>
+        <div class="brutal-border shadow-brutal-sm bg-surface p-5 flex-1">
+          <h3 class="font-display text-sm uppercase mb-2">Create Account</h3>
+          <p class="text-xs text-fg/60 leading-relaxed">Sign up in seconds. No résumé required.</p>
+        </div>
+      </div>
+      <div class="flex flex-col gap-4">
+        <span class="font-mono text-5xl text-pink/40">02</span>
+        <div class="brutal-border shadow-brutal-sm bg-surface p-5 flex-1">
+          <h3 class="font-display text-sm uppercase mb-2">Choose Challenge</h3>
+          <p class="text-xs text-fg/60 leading-relaxed">Browse categories, pick what looks breakable.</p>
+        </div>
+      </div>
+      <div class="flex flex-col gap-4">
+        <span class="font-mono text-5xl text-yellow/40">03</span>
+        <div class="brutal-border shadow-brutal-sm bg-surface p-5 flex-1">
+          <h3 class="font-display text-sm uppercase mb-2">Solve Challenge</h3>
+          <p class="text-xs text-fg/60 leading-relaxed">Poke, probe, exploit. Use hints if you're stuck.</p>
+        </div>
+      </div>
+      <div class="flex flex-col gap-4">
+        <span class="font-mono text-5xl text-lime/40">04</span>
+        <div class="brutal-border shadow-brutal-sm bg-surface p-5 flex-1">
+          <h3 class="font-display text-sm uppercase mb-2">Submit Flag</h3>
+          <p class="text-xs text-fg/60 leading-relaxed">Paste the flag, hit submit, hold your breath.</p>
+        </div>
+      </div>
+      <div class="flex flex-col gap-4">
+        <span class="font-mono text-5xl text-pink/40">05</span>
+        <div class="brutal-border shadow-brutal-sm bg-lime text-black p-5 flex-1">
+          <h3 class="font-display text-sm uppercase mb-2">Earn Score</h3>
+          <p class="text-xs text-black/60 leading-relaxed">Points land instantly, leaderboard updates live.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CHALLENGE PREVIEW ============ -->
+<section class="border-b-4 border-black bg-surface">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24">
+    <div class="flex items-end justify-between flex-wrap gap-4 mb-12">
+      <div>
+        <p class="font-mono text-xs uppercase text-lime mb-3">// preview</p>
+        <h2 class="font-display text-3xl md:text-4xl uppercase">Challenge Preview</h2>
+      </div>
+      <a href="#challenges" class="font-mono text-xs uppercase underline decoration-2 underline-offset-4 hover:text-lime">See all categories →</a>
+    </div>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      <div class="press shadow-brutal-sm brutal-border bg-black p-5 flex flex-col gap-4">
+        <div class="flex items-center justify-between">
+          <span class="flag-tag text-[10px] text-lime">WEB</span>
+          <span class="flag-tag text-[10px] brutal-border px-2 py-0.5 text-fg/70">EASY</span>
+        </div>
+        <h3 class="font-display text-base uppercase">Baby Web</h3>
+        <p class="text-xs text-fg/50">A gentle first crack at auth logic.</p>
+        <div class="flex items-center justify-between font-mono text-xs mt-2 pt-3 border-t border-fg/10">
+          <span class="text-yellow font-bold">100 pts</span>
+          <span class="text-fg/40">234 solves</span>
+        </div>
+      </div>
+
+      <div class="press shadow-brutal-sm brutal-border bg-black p-5 flex flex-col gap-4">
+        <div class="flex items-center justify-between">
+          <span class="flag-tag text-[10px] text-pink">CRYPTO</span>
+          <span class="flag-tag text-[10px] brutal-border px-2 py-0.5 text-fg/70">MEDIUM</span>
+        </div>
+        <h3 class="font-display text-base uppercase">Rusty Padlock</h3>
+        <p class="text-xs text-fg/50">A cipher that isn't as strong as it looks.</p>
+        <div class="flex items-center justify-between font-mono text-xs mt-2 pt-3 border-t border-fg/10">
+          <span class="text-yellow font-bold">250 pts</span>
+          <span class="text-fg/40">89 solves</span>
+        </div>
+      </div>
+
+      <div class="press shadow-brutal-sm brutal-border bg-black p-5 flex flex-col gap-4">
+        <div class="flex items-center justify-between">
+          <span class="flag-tag text-[10px] text-yellow">FORENSICS</span>
+          <span class="flag-tag text-[10px] brutal-border px-2 py-0.5 text-fg/70">HARD</span>
+        </div>
+        <h3 class="font-display text-base uppercase">Ghost Protocol</h3>
+        <p class="text-xs text-fg/50">Something's hiding inside this capture.</p>
+        <div class="flex items-center justify-between font-mono text-xs mt-2 pt-3 border-t border-fg/10">
+          <span class="text-yellow font-bold">400 pts</span>
+          <span class="text-fg/40">32 solves</span>
+        </div>
+      </div>
+
+      <div class="press shadow-brutal-sm brutal-border bg-black p-5 flex flex-col gap-4">
+        <div class="flex items-center justify-between">
+          <span class="flag-tag text-[10px] text-lime">OSINT</span>
+          <span class="flag-tag text-[10px] brutal-border px-2 py-0.5 text-fg/70">EASY</span>
+        </div>
+        <h3 class="font-display text-base uppercase">Shadow Trail</h3>
+        <p class="text-xs text-fg/50">Follow the breadcrumbs back to the source.</p>
+        <div class="flex items-center justify-between font-mono text-xs mt-2 pt-3 border-t border-fg/10">
+          <span class="text-yellow font-bold">150 pts</span>
+          <span class="text-fg/40">178 solves</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LEADERBOARD PREVIEW ============ -->
+<section class="border-b-4 border-black">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24">
+    <p class="font-mono text-xs uppercase text-pink mb-3">// standings</p>
+    <h2 class="font-display text-3xl md:text-4xl uppercase mb-12">Leaderboard Preview</h2>
+
+    <div class="brutal-border shadow-brutal bg-black overflow-hidden">
+      <div class="grid grid-cols-12 font-mono text-[11px] uppercase text-fg/50 border-b-4 border-black bg-surface2 px-5 py-3">
+        <span class="col-span-2">Rank</span>
+        <span class="col-span-6">Player</span>
+        <span class="col-span-4 text-right">Score</span>
+      </div>
+
+      <div class="grid grid-cols-12 items-center px-5 py-4 border-b border-fg/10 bg-yellow/5">
+        <span class="col-span-2 font-display text-yellow">#1</span>
+        <span class="col-span-6 font-mono text-sm">n0h4x</span>
+        <span class="col-span-4 text-right font-mono text-sm text-lime">12,450</span>
+      </div>
+      <div class="grid grid-cols-12 items-center px-5 py-4 border-b border-fg/10">
+        <span class="col-span-2 font-display text-fg/60">#2</span>
+        <span class="col-span-6 font-mono text-sm">cyberpunk404</span>
+        <span class="col-span-4 text-right font-mono text-sm text-lime">11,980</span>
+      </div>
+      <div class="grid grid-cols-12 items-center px-5 py-4 border-b border-fg/10">
+        <span class="col-span-2 font-display text-fg/60">#3</span>
+        <span class="col-span-6 font-mono text-sm">b1t_flipper</span>
+        <span class="col-span-4 text-right font-mono text-sm text-lime">10,320</span>
+      </div>
+      <div class="grid grid-cols-12 items-center px-5 py-4 border-b border-fg/10">
+        <span class="col-span-2 font-mono text-fg/40">#4</span>
+        <span class="col-span-6 font-mono text-sm text-fg/70">rootkit_rina</span>
+        <span class="col-span-4 text-right font-mono text-sm text-fg/70">9,875</span>
+      </div>
+      <div class="grid grid-cols-12 items-center px-5 py-4">
+        <span class="col-span-2 font-mono text-fg/40">#5</span>
+        <span class="col-span-6 font-mono text-sm text-fg/70">zeroday.exe</span>
+        <span class="col-span-4 text-right font-mono text-sm text-fg/70">9,120</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PLATFORM FEATURES ============ -->
+<section class="border-b-4 border-black bg-surface">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24">
+    <p class="font-mono text-xs uppercase text-lime mb-3">// under the hood</p>
+    <h2 class="font-display text-3xl md:text-4xl uppercase mb-12">Platform Features</h2>
+
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      <div class="brutal-border bg-black p-6">
+        <h3 class="font-display text-sm uppercase text-lime mb-2">Challenge System</h3>
+        <p class="text-xs text-fg/60 leading-relaxed">Categorized, point-weighted challenges you can attempt in any order.</p>
+      </div>
+      <div class="brutal-border bg-black p-6">
+        <h3 class="font-display text-sm uppercase text-pink mb-2">Flag Submission</h3>
+        <p class="text-xs text-fg/60 leading-relaxed">Instant validation the moment you submit — no waiting, no guessing.</p>
+      </div>
+      <div class="brutal-border bg-black p-6">
+        <h3 class="font-display text-sm uppercase text-yellow mb-2">Hint System</h3>
+        <p class="text-xs text-fg/60 leading-relaxed">Stuck? Unlock a hint for a small point cost and keep moving.</p>
+      </div>
+      <div class="brutal-border bg-black p-6">
+        <h3 class="font-display text-sm uppercase text-lime mb-2">Scoring</h3>
+        <p class="text-xs text-fg/60 leading-relaxed">Points scale with difficulty and update your total in real time.</p>
+      </div>
+      <div class="brutal-border bg-black p-6">
+        <h3 class="font-display text-sm uppercase text-pink mb-2">Leaderboard</h3>
+        <p class="text-xs text-fg/60 leading-relaxed">A live-ranked board so you always know exactly where you stand.</p>
+      </div>
+      <div class="brutal-border bg-black p-6">
+        <h3 class="font-display text-sm uppercase text-yellow mb-2">Solved Challenges</h3>
+        <p class="text-xs text-fg/60 leading-relaxed">A running log of everything you've cracked, saved to your profile.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section id="get-started" class="border-b-4 border-black bg-lime text-black relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20 text-center relative z-10">
+    <p class="font-mono text-xs uppercase mb-4">// one more step</p>
+    <h2 class="font-display text-3xl md:text-5xl uppercase mb-6">Ready to Start Your<br>CTF Journey?</h2>
+    <p class="font-body text-black/70 max-w-md mx-auto mb-9">Create your account, pick your first challenge, and see your name climb the board.</p>
+    <a href="#" class="press shadow-brutal brutal-border bg-black text-lime font-mono font-bold uppercase px-8 py-4 inline-flex items-center gap-2">
+      Start Learning →
+    </a>
+  </div>
+  <div class="absolute inset-0 grain-dots pointer-events-none"></div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="bg-bg">
+  <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 grid md:grid-cols-4 gap-10">
+    <div class="md:col-span-2">
+      <a href="#" class="flex items-center gap-2 mb-4">
+        <span class="w-8 h-8 brutal-border bg-lime flex items-center justify-center font-mono font-extrabold text-black text-sm">&gt;_</span>
+        <span class="font-display text-base">SKAWAN<span class="text-lime">CTF</span></span>
+      </a>
+      <p class="text-sm text-fg/60 max-w-sm leading-relaxed">A Jeopardy-style Capture The Flag platform for learning cyber security by actually breaking things.</p>
+    </div>
+
+    <div>
+      <h4 class="font-mono text-xs uppercase text-fg/40 mb-4">Platform</h4>
+      <ul class="space-y-2.5 text-sm text-fg/70">
+        <li><a href="#home" class="hover:text-lime">Home</a></li>
+        <li><a href="#why" class="hover:text-lime">Features</a></li>
+        <li><a href="#challenges" class="hover:text-lime">Challenges</a></li>
+        <li><a href="#" class="hover:text-lime">Leaderboard</a></li>
+      </ul>
+    </div>
+
+    <div>
+      <h4 class="font-mono text-xs uppercase text-fg/40 mb-4">Resources</h4>
+      <ul class="space-y-2.5 text-sm text-fg/70">
+        <li><a href="#docs" class="hover:text-pink">Documentation</a></li>
+        <li><a href="#" class="hover:text-pink">FAQ</a></li>
+        <li><a href="#" class="hover:text-pink">Rules</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t-4 border-black">
+    <div class="max-w-7xl mx-auto px-5 md:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 font-mono text-[11px] text-fg/40">
+      <span>© 2026 SkawanCTF. All flags reserved.</span>
+      <span>SKAWAN&#123;thanks_for_reading&#125;</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
