@@ -1,78 +1,31 @@
-  /* ---------- Theme tokens ---------- */
-  html[data-theme="dark"]{
-    --c-bg: 11 12 8;
-    --c-surface: 19 21 17;
-    --c-surface2: 27 30 23;
-    --c-paper: 255 255 255;
-    --c-fg: 236 237 227;
-    --c-lime: 166 255 0;
-    --c-pink: 255 46 147;
-    --c-yellow: 255 209 0;
-    --shadow-c: 236 237 227; /* hard shadows read as off-white on a dark canvas */
-    --grain-op: 0.035;
-    --glow-op: 0.06;
-  }
-  html[data-theme="light"]{
-    --c-bg: 236 237 228;
-    --c-surface: 255 255 255;
-    --c-surface2: 223 225 211;
-    --c-paper: 255 255 255;
-    --c-fg: 14 15 10;
-    --c-lime: 61 122 15;
-    --c-pink: 190 22 104;
-    --c-yellow: 156 102 0;
-    --shadow-c: 0 0 0; /* classic black hard shadows on a light canvas */
-    --grain-op: 0.05;
-    --glow-op: 0.05;
-  }
-
+/* Only animation mechanics live here — every color/theme change is handled by Tailwind's dark: variant. */
   *{ box-sizing:border-box; }
   html{ scroll-behavior:smooth; }
-  body{
-    background-color: rgb(var(--c-bg));
-    background-image:
-      repeating-linear-gradient(0deg, rgb(var(--c-fg) / var(--grain-op)) 0px, rgb(var(--c-fg) / var(--grain-op)) 1px, transparent 1px, transparent 3px),
-      radial-gradient(circle at 15% 10%, rgb(var(--c-lime) / var(--glow-op)), transparent 40%),
-      radial-gradient(circle at 85% 30%, rgb(var(--c-pink) / var(--glow-op)), transparent 40%);
-    transition: background-color .25s ease;
-  }
-  ::selection{ background: rgb(var(--c-lime)); color:#000; }
-
-  .brutal-border{ border:3px solid #000; }
-  .shadow-brutal{ box-shadow: 7px 7px 0 0 rgb(var(--shadow-c)); }
-  .shadow-brutal-sm{ box-shadow: 4px 4px 0 0 rgb(var(--shadow-c)); }
-  .shadow-brutal-lime{ box-shadow: 7px 7px 0 0 rgb(var(--c-lime)); }
-  .shadow-brutal-pink{ box-shadow: 7px 7px 0 0 rgb(var(--c-pink)); }
-  .shadow-brutal-yellow{ box-shadow: 7px 7px 0 0 rgb(var(--c-yellow)); }
-  .press{ transition: transform .12s ease, box-shadow .12s ease; }
-  .press:hover{ transform: translate(-3px,-3px); }
-  .press:active{ transform: translate(0,0); box-shadow: 0 0 0 0 rgb(var(--shadow-c)) !important; }
-
-  .flag-tag{ font-family:'JetBrains Mono',monospace; }
-
-  .caret{ display:inline-block; width:.55ch; background: rgb(var(--c-lime)); animation: blink 1s step-start infinite; }
+ 
+  .caret{ display:inline-block; width:.55ch; animation: blink 1s step-start infinite; }
   @keyframes blink{ 50%{ opacity:0; } }
-
+ 
   .type-line{ overflow:hidden; white-space:nowrap; width:0; animation: type 1.6s steps(30,end) forwards; }
   .type-1{ animation-delay: .2s; }
   .type-2{ animation-delay: 2s; }
   .type-3{ animation-delay: 3.6s; }
   @keyframes type{ to{ width: 100%; } }
-
+ 
   .grain-dots{
     background-image: radial-gradient(#000 1px, transparent 1px);
     background-size: 14px 14px;
     opacity:.12;
   }
-
-  .stamp{ transform: rotate(-7deg); }
-
-  /* ---------- Theme toggle icon swap ---------- */
-  .icon-sun{ display:block; }
-  .icon-moon{ display:none; }
-  html[data-theme="light"] .icon-sun{ display:none; }
-  html[data-theme="light"] .icon-moon{ display:block; }
-
+ 
   @media (prefers-reduced-motion: reduce){
     .type-line, .caret{ animation:none !important; width:auto !important; }
+  }
+
+  @layer base {
+    ::selection {
+      @apply bg-lime-400 text-black;
+    }
+    .dark ::selection {
+      @apply bg-lime-300 text-white;
+    }
   }

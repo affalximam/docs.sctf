@@ -1,16 +1,24 @@
-tailwind.config = {
-    darkMode: ['selector', '[data-theme="dark"]'],
+// Native Tailwind dark mode: toggling the `dark` class on <html> drives every dark: utility below.
+  tailwind.config = {
+    darkMode: 'class',
     theme: {
       extend: {
         colors: {
-          bg:       'rgb(var(--c-bg) / <alpha-value>)',
-          surface:  'rgb(var(--c-surface) / <alpha-value>)',
-          surface2: 'rgb(var(--c-surface2) / <alpha-value>)',
-          paper:    'rgb(var(--c-paper) / <alpha-value>)',
-          fg:       'rgb(var(--c-fg) / <alpha-value>)',
-          lime:     'rgb(var(--c-lime) / <alpha-value>)',
-          pink:     'rgb(var(--c-pink) / <alpha-value>)',
-          yellow:   'rgb(var(--c-yellow) / <alpha-value>)',
+          canvas:        '#ECECE4',
+          'canvas-dark': '#0B0C08',
+          panel:         '#FFFFFF',
+          'panel-dark':  '#131511',
+          panel2:        '#DFE1D3',
+          'panel2-dark': '#1B1E17',
+          paper:         '#FFFFFF',
+          ink:           '#0E0F0A',
+          'paper-fg':    '#ECEDE3',
+          lime:          '#3D7A0F',
+          'lime-dark':   '#A6FF00',
+          pink:          '#BE1668',
+          'pink-dark':   '#FF2E93',
+          yellow:        '#9C6600',
+          'yellow-dark': '#FFD100',
         },
         fontFamily: {
           display: ['"Archivo Black"', 'sans-serif'],
