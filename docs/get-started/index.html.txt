@@ -46,7 +46,6 @@
 
   <link rel="stylesheet" href="src/layout/css/global.css">
 </head>
-</head>
 
 <!-- ============ BODY START ============ -->
 
@@ -561,8 +560,5 @@
   <script src="/src/layout/js/theme.js"></script>
 
 </body>
-
-</html>
-
 
 </html>
