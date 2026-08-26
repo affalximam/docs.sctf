@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SCTF — Learn Cyber Security Through Capture The Flag</title>
 
-  <script src="../src/layout/js/darkLightMode.js"></script>
+  <script src="/src/layout/js/darkLightMode.js"></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,7 +44,7 @@
         @custom-variant dark (&:where(.dark, .dark *));
     </style>
 
-  <link rel="stylesheet" href="src/layout/css/global.css">
+  <link rel="stylesheet" href="../src/layout/css/global.css">
 </head>
 
 <body class="font-body antialiased bg-canvas dark:bg-canvas-dark text-ink dark:text-paper-fg transition-colors duration-200
@@ -61,10 +61,10 @@
     <nav aria-label="Global" class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
       <div class="flex lg:flex-1">
         <a href="index.html" class="block dark:hidden">
-          <img src="/assets/icon/icon-colorfull-black.webp" alt="" class="h-10 w-auto" />
+          <img src="/public/icon/icon-colorfull-black.webp" alt="" class="h-10 w-auto" />
         </a>
         <a href="index.html" class="hidden dark:block">
-          <img src="/assets/icon/icon-colorfull-white.webp" alt="" class="h-10 w-auto" />
+          <img src="/public/icon/icon-colorfull-white.webp" alt="" class="h-10 w-auto" />
         </a>
       </div>
       <div class="flex lg:hidden">
@@ -88,10 +88,11 @@
       <div class="hidden lg:flex items-center gap-3 lg:flex-1 lg:justify-end">
         <button data-theme-toggle aria-label="Toggle light and dark mode" aria-pressed="false" class="border-[3px] border-black w-11 h-11 flex items-center justify-center bg-panel2 dark:bg-panel2-dark text-ink dark:text-paper-fg shrink-0
           shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#ECEDE3]
-          hover:-translate-x-[3px] hover:-translate-y-[3px]
-          active:translate-x-0 active:translate-y-0 active:shadow-none
+          hover:translate-x-1 hover:translate-y-1 hover:shadow-none
+          dark:hover:translate-x-1 dark:hover:translate-y-1 dark:hover:shadow-none
           transition-[transform,box-shadow] duration-150
-          hidden sm:inline-flex">
+          hidden sm:inline-flex
+          ">
           <svg class="hidden dark:block w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="4" />
@@ -104,7 +105,7 @@
           </svg>
         </button>
 
-        <a href="/docs/get-started/" class="inline-flex items-center border-[3px] border-black bg-lime dark:bg-lime-dark text-black font-mono font-bold text-sm uppercase px-4 py-2.5
+        <a href="/docs/get-started/" class="inline-flex items-center border-[3px] border-black bg-lime dark:bg-lime-dark text-white dark:text-black font-mono font-bold text-sm uppercase px-4 py-2.5
         shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#ECEDE3]
         hover:-translate-x-[3px] hover:-translate-y-[3px]
         dark:hover:-translate-x-[3px] dark:hover:-translate-y-[3px]
@@ -122,10 +123,10 @@
             class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-canvas/95 dark:bg-canvas-dark/95 p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-100/10">
             <div class="flex items-center justify-between">
               <a href="index.html" class="block dark:hidden">
-                <img src="/assets/icon/icon-colorfull-black.webp" alt="" class="h-10 w-auto" />
+                <img src="/public/icon/icon-colorfull-black.webp" alt="" class="h-10 w-auto" />
               </a>
               <a href="index.html" class="hidden dark:block">
-                <img src="/assets/icon/icon-colorfull-white.webp" alt="" class="h-10 w-auto" />
+                <img src="/public/icon/icon-colorfull-white.webp" alt="" class="h-10 w-auto" />
               </a>
               <button type="button" command="close" commandfor="mobile-menu"
                 class="-m-2.5 rounded-md p-2.5 text-gray-400">
@@ -586,7 +587,7 @@
           class="bg-white dark:bg-[#1E293B] text-black dark:text-gray-300 rounded-xl p-5 flex flex-col gap-2 shadow-lg border border-[#334155] hover:shadow-xl transition-all duration-200">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <img src="/assets/icon/icon-colorfull-white.webp" alt="affalximam"
+              <img src="/public/icon/icon-colorfull-white.webp" alt="affalximam"
                 class="w-6 h-6 rounded-full border border-gray-500 bg-black">
               <span class="text-sm font-semibold">affalximam</span>
             </div>
@@ -618,7 +619,7 @@
           class="bg-white dark:bg-[#1E293B] text-black dark:text-gray-300 rounded-xl p-5 flex flex-col gap-2 shadow-lg border border-[#334155] hover:shadow-xl transition-all duration-200">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <img src="/assets/icon/icon-colorfull-white.webp" alt="affalximam"
+              <img src="/public/icon/icon-colorfull-white.webp" alt="affalximam"
                 class="w-6 h-6 rounded-full border border-gray-500 bg-black">
               <span class="text-sm font-semibold">affalximam</span>
             </div>
@@ -649,7 +650,7 @@
           class="bg-white dark:bg-[#1E293B] text-black dark:text-gray-300 rounded-xl p-5 flex flex-col gap-2 shadow-lg border border-[#334155] hover:shadow-xl transition-all duration-200">
           <div class="flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <img src="/assets/icon/icon-colorfull-white.webp" alt="affalximam"
+              <img src="/public/icon/icon-colorfull-white.webp" alt="affalximam"
                 class="w-6 h-6 rounded-full border border-gray-500 bg-black">
               <span class="text-sm font-semibold">affalximam</span>
             </div>
@@ -755,7 +756,7 @@
         Your<br>CTF Journey?</h2>
       <p class="font-body text-black/70 max-w-md mx-auto mb-9 text-black dark:text-lime-dark">Create your account, pick
         your first challenge, and see your name climb the board.</p>
-      <a href="#" class="items-center border-[3px] border-black bg-yellow dark:bg-yellow-dark text-black font-mono font-bold text-sm uppercase px-4 py-2.5
+      <a href="#" class="items-center border-[3px] border-black bg-white dark:bg-yellow-dark dark:text-white text-black font-mono font-bold text-sm uppercase px-4 py-2.5
         shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#ECEDE3]
         hover:-translate-x-[3px] hover:-translate-y-[3px]
         dark:hover:-translate-x-[3px] dark:hover:-translate-y-[3px]
@@ -772,22 +773,20 @@
   <footer class="bg-canvas dark:bg-canvas-dark">
     <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 grid md:grid-cols-4 gap-10">
       <div class="md:col-span-2">
-        <a href="#" class="flex items-center gap-2 mb-4">
-          <span
-            class="w-8 h-8 border-[3px] border-black bg-lime dark:bg-lime-dark flex items-center justify-center font-mono font-extrabold text-black text-sm">&gt;_</span>
-          <span class="font-display text-base">S<span class="text-lime dark:text-lime-dark">CTF</span></span>
-        </a>
+        <div class="flex items-center gap-2 mb-4">
+          <img src="/public/icon/icon-colorfull-black.webp" class="w-20 block dark:hidden">
+          <img src="/public/icon/icon-colorfull-white.webp" class="w-20 hidden dark:block">
+        </div>
         <p class="text-sm text-ink/60 dark:text-paper-fg/60 max-w-sm leading-relaxed">A Jeopardy-style Capture The Flag
           platform for learning cyber security by actually breaking things.</p>
       </div>
 
       <div>
-        <h4 class="font-mono text-xs uppercase text-ink/40 dark:text-paper-fg/40 mb-4">Platform</h4>
+        <h4 class="font-mono text-xs uppercase text-ink/40 dark:text-paper-fg/40 mb-4">Documentation</h4>
         <ul class="space-y-2.5 text-sm text-ink/70 dark:text-paper-fg/70">
-          <li><a href="#home" class="hover:text-lime dark:hover:text-lime-dark">Home</a></li>
-          <li><a href="#why" class="hover:text-lime dark:hover:text-lime-dark">Features</a></li>
-          <li><a href="#challenges" class="hover:text-lime dark:hover:text-lime-dark">Challenges</a></li>
-          <li><a href="#" class="hover:text-lime dark:hover:text-lime-dark">Leaderboard</a></li>
+          <li><a href="#" class="hover:text-lime dark:hover:text-lime-dark">About SCTF</a></li>
+          <li><a href="#" class="hover:text-lime dark:hover:text-lime-dark">Get Started</a></li>
+          <li><a href="#" class="hover:text-lime dark:hover:text-lime-dark">Report Bugs</a></li>
         </ul>
       </div>
 
@@ -811,7 +810,7 @@
   </footer>
 
   <!-- ============ THEME TOGGLE LOGIC ============ -->
-  <script src="../src/layout/js/theme.js"></script>
+  <script src="/src/layout/js/theme.js"></script>
 
 </body>
 
