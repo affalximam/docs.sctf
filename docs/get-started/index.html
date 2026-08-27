@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SCTF — Learn Cyber Security Through Capture The Flag</title>
 
-  <script src="/src/layout/js/darkLightMode.js"></script>
+  <script src="/src/layout/js/darkLightMode.js" defer></script>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -44,12 +44,12 @@
     @custom-variant dark (&:where(.dark, .dark *));
   </style>
 
-  <link rel="stylesheet" href="src/layout/css/global.css">
+  <link rel="stylesheet" href="/src/layout/css/global.css">
 </head>
 
 <!-- ============ BODY START ============ -->
 
-<body class="font-body antialiased bg-canvas dark:bg-canvas-dark text-ink dark:text-paper-fg transition-colors duration-200
+<body class="font-body antialiased bg-canvas dark:bg-canvas-dark text-ink dark:text-paper-fg transition-colors duration-200 scroll-smooth
   bg-[radial-gradient(circle_at_15%_10%,rgba(61,122,15,0.05),transparent_40%),radial-gradient(circle_at_85%_30%,rgba(190,22,104,0.05),transparent_40%)]
   dark:bg-[radial-gradient(circle_at_15%_10%,rgba(166,255,0,0.06),transparent_40%),radial-gradient(circle_at_85%_30%,rgba(255,46,147,0.06),transparent_40%)]
   ">
@@ -81,12 +81,12 @@
           class="hover:text-lime dark:hover:text-lime-dark transition-colors">Documentation</a>
       </el-popover-group>
       <div class="hidden lg:flex items-center gap-3 lg:flex-1 lg:justify-end">
-        <button data-theme-toggle aria-label="Toggle light and dark mode" aria-pressed="false" class="border-[3px] border-black w-11 h-11 flex items-center justify-center bg-panel2 dark:bg-panel2-dark text-ink dark:text-paper-fg shrink-0
-          shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#ECEDE3]
-          hover:-translate-x-[3px] hover:-translate-y-[3px]
-          active:translate-x-0 active:translate-y-0 active:shadow-none
-          transition-[transform,box-shadow] duration-150
-          hidden sm:inline-flex">
+        <button data-theme-toggle aria-label="Toggle light and dark mode" aria-pressed="false" class="border-[3px] border-black dark:border-yellow-dark w-11 h-11 flex items-center justify-center bg-panel2 dark:bg-panel2-dark text-ink dark:text-paper-fg shrink-0
+          shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0]
+          hover:translate-x-1 hover:translate-y-1 hover:shadow-none
+          dark:hover:translate-x-1 dark:hover:translate-y-1 dark:hover:shadow-none duration-150
+          hidden sm:inline-flex rounded rounded-lg cursor-pointer
+          ">
           <svg class="hidden dark:block w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="4" />
@@ -99,13 +99,11 @@
           </svg>
         </button>
 
-        <a href="/docs/get-started/" class="inline-flex items-center border-[3px] border-black bg-lime dark:bg-lime-dark text-white dark:text-black font-mono font-bold text-sm uppercase px-4 py-2.5
-        shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#ECEDE3]
-        hover:-translate-x-[3px] hover:-translate-y-[3px]
-        dark:hover:-translate-x-[3px] dark:hover:-translate-y-[3px]
-        active:translate-x-0 active:translate-y-0 active:shadow-none
-        dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
-        transition-[transform,box-shadow] duration-150">
+        <a href="/docs/get-started/" class="inline-flex items-center border-[3px] border-black dark:border-white bg-lime dark:bg-lime text-white dark:text-white font-mono font-bold text-sm uppercase px-4 py-2.5 rounded rounded-lg
+        shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0] dark:shadow-lime
+        hover:translate-x-1 hover:translate-y-1 hover:shadow-none
+        dark:hover:translate-x-1 dark:hover:translate-y-1 dark:hover:shadow-none
+        duration-150 cursor-pointer">
           Get Started
         </a>
       </div>
@@ -140,11 +138,12 @@
                 </div>
                 <div class="py-6">
                   <div class="flex items-center gap-3 lg:flex-1 lg:justify-end">
-                    <button data-theme-toggle aria-label="Toggle light and dark mode" aria-pressed="false" class="border-[3px] border-black w-11 h-11 flex items-center justify-center bg-panel2 dark:bg-panel2-dark text-ink dark:text-paper-fg shrink-0
-                  shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#ECEDE3]
-                  hover:-translate-x-[3px] hover:-translate-y-[3px]
-                  active:translate-x-0 active:translate-y-0 active:shadow-none
-                  transition-[transform,box-shadow] duration-150">
+                    <button data-theme-toggle aria-label="Toggle light and dark mode" aria-pressed="false" class="border-[3px] border-black dark:border-yellow-dark w-11 h-11 flex items-center justify-center bg-panel2 dark:bg-panel2-dark text-ink dark:text-paper-fg shrink-0
+          shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0]
+          hover:translate-x-1 hover:translate-y-1 hover:shadow-none
+          dark:hover:translate-x-1 dark:hover:translate-y-1 dark:hover:shadow-none duration-150
+          inline-flex rounded rounded-lg cursor-pointer
+          ">
                       <svg class="hidden dark:block w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                         <circle cx="12" cy="12" r="4" />
@@ -157,13 +156,11 @@
                       </svg>
                     </button>
 
-                    <a href="/docs/get-started/" class="inline-flex items-center border-[3px] border-black bg-lime text-white dark:bg-lime-dark dark:text-black font-mono font-bold text-sm uppercase px-4 py-2.5
-                shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#ECEDE3]
-                hover:-translate-x-[3px] hover:-translate-y-[3px]
-                dark:hover:-translate-x-[3px] dark:hover:-translate-y-[3px]
-                active:translate-x-0 active:translate-y-0 active:shadow-none
-                dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
-                transition-[transform,box-shadow] duration-150">
+                    <a href="/docs/get-started/" class="inline-flex items-center border-[3px] border-black dark:border-white bg-lime dark:bg-lime text-white dark:text-white font-mono font-bold text-sm uppercase px-4 py-2.5 rounded rounded-lg
+        shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0] dark:shadow-lime
+        hover:translate-x-1 hover:translate-y-1 hover:shadow-none
+        dark:hover:translate-x-1 dark:hover:translate-y-1 dark:hover:shadow-none
+        duration-150">
                       Get Started
                     </a>
                   </div>
@@ -184,12 +181,8 @@
       class="hidden lg:block w-[250px] shrink-0 border-r-4 border-black dark:border-white bg-white dark:bg-panel-dark
              sticky top-[92px] h-[calc(100vh-92px)] overflow-y-auto">
       <!-- No padding wrapper; items have their own padding -->
-      <div class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display">
+      <a href="/docs/get-started/" class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors cursor-pointer">
         Getting started
-      </div>
-      <a href="#getting-started"
-        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black bg-lime dark:bg-lime-dark text-white dark:text-black transition-colors">
-        Getting Started
       </a>
       <a href="#creating-account"
         class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
@@ -204,11 +197,7 @@
         Dashboard Overview
       </a>
 
-      <div class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display">
-        Challenges
-      </div>
-      <a href="#challenges"
-        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+      <a href="#" class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors cursor-pointer">
         Challenges
       </a>
       <a href="#leaderboard"
@@ -228,11 +217,7 @@
         Leaderboard
       </a>
 
-      <div class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display">
-        My Challenges
-      </div>
-      <a href="#my-challenge"
-        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+      <a href="#" class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors cursor-pointer">
         My Challenge
       </a>
       <a href="#create-challenge"
@@ -242,6 +227,10 @@
       <a href="#create-challenge"
         class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
         Submit Challenge
+      </a>
+      <a href="#create-challenge"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Rules Challenge
       </a>
 
       <div class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display">
