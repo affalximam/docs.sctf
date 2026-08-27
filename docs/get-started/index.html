@@ -20,32 +20,31 @@
   <!-- Tailwind v4 Custom Theme & Dark Mode Variant -->
   <style type="text/tailwindcss">
     @theme {
-            --color-canvas: #ECECE4;
-            --color-canvas-dark: #0B0C08;
-            --color-panel: #FFFFFF;
-            --color-panel-dark: #131511;
-            --color-panel2: #DFE1D3;
-            --color-panel2-dark: #1B1E17;
-            --color-paper: #FFFFFF;
-            --color-ink: #0E0F0A;
-            --color-paper-fg: #ECEDE3;
-            --color-lime: #3D7A0F;
-            --color-lime-dark: #A6FF00;
-            --color-pink: #BE1668;
-            --color-pink-dark: #FF2E93;
-            --color-yellow: #9C6600;
-            --color-yellow-dark: #FFD100;
+      --color-canvas: #ECECE4;
+      --color-canvas-dark: #0B0C08;
+      --color-panel: #FFFFFF;
+      --color-panel-dark: #131511;
+      --color-panel2: #DFE1D3;
+      --color-panel2-dark: #1B1E17;
+      --color-paper: #FFFFFF;
+      --color-ink: #0E0F0A;
+      --color-paper-fg: #ECEDE3;
+      --color-lime: #3D7A0F;
+      --color-lime-dark: #A6FF00;
+      --color-pink: #BE1668;
+      --color-pink-dark: #FF2E93;
+      --color-yellow: #9C6600;
+      --color-yellow-dark: #FFD100;
 
-            --font-display: "Archivo Black", sans-serif;
-            --font-body: "Space Grotesk", sans-serif;
-            --font-mono: "JetBrains Mono", monospace;
-        }
+      --font-display: "Archivo Black", sans-serif;
+      --font-body: "Space Grotesk", sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+    }
 
-        @custom-variant dark (&:where(.dark, .dark *));
-    </style>
+    @custom-variant dark (&:where(.dark, .dark *));
+  </style>
 
   <link rel="stylesheet" href="src/layout/css/global.css">
-</head>
 </head>
 
 <!-- ============ BODY START ============ -->
@@ -55,16 +54,15 @@
   dark:bg-[radial-gradient(circle_at_15%_10%,rgba(166,255,0,0.06),transparent_40%),radial-gradient(circle_at_85%_30%,rgba(255,46,147,0.06),transparent_40%)]
   ">
 
-  <!-- ============ NAVBAR ============ -->
-<header
+  <header
     class="sticky top-0 z-50 border-b-4 border-black dark:border-white bg-canvas/95 dark:bg-canvas-dark/95 backdrop-blur">
     <nav aria-label="Global" class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
       <div class="flex lg:flex-1">
         <a href="index.html" class="block dark:hidden">
-          <img src="/assets/icon/icon-colorfull-black.webp" alt="" class="h-10 w-auto" />
+          <img src="/public/icon/icon-colorfull-black.webp" alt="" class="h-10 w-auto" />
         </a>
         <a href="index.html" class="hidden dark:block">
-          <img src="/assets/icon/icon-colorfull-white.webp" alt="" class="h-10 w-auto" />
+          <img src="/public/icon/icon-colorfull-white.webp" alt="" class="h-10 w-auto" />
         </a>
       </div>
       <div class="flex lg:hidden">
@@ -82,9 +80,6 @@
         <a href="/docs/get-started/"
           class="hover:text-lime dark:hover:text-lime-dark transition-colors">Documentation</a>
       </el-popover-group>
-      <!-- <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-      
-    </div> -->
       <div class="hidden lg:flex items-center gap-3 lg:flex-1 lg:justify-end">
         <button data-theme-toggle aria-label="Toggle light and dark mode" aria-pressed="false" class="border-[3px] border-black w-11 h-11 flex items-center justify-center bg-panel2 dark:bg-panel2-dark text-ink dark:text-paper-fg shrink-0
           shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#ECEDE3]
@@ -104,7 +99,7 @@
           </svg>
         </button>
 
-        <a href="/docs/get-started/" class="inline-flex items-center border-[3px] border-black bg-lime dark:bg-lime-dark text-black font-mono font-bold text-sm uppercase px-4 py-2.5
+        <a href="/docs/get-started/" class="inline-flex items-center border-[3px] border-black bg-lime dark:bg-lime-dark text-white dark:text-black font-mono font-bold text-sm uppercase px-4 py-2.5
         shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#ECEDE3]
         hover:-translate-x-[3px] hover:-translate-y-[3px]
         dark:hover:-translate-x-[3px] dark:hover:-translate-y-[3px]
@@ -122,10 +117,10 @@
             class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-canvas/95 dark:bg-canvas-dark/95 p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-100/10">
             <div class="flex items-center justify-between">
               <a href="index.html" class="block dark:hidden">
-                <img src="/assets/icon/icon-colorfull-black.webp" alt="" class="h-10 w-auto" />
+                <img src="/public/icon/icon-colorfull-black.webp" alt="" class="h-10 w-auto" />
               </a>
               <a href="index.html" class="hidden dark:block">
-                <img src="/assets/icon/icon-colorfull-white.webp" alt="" class="h-10 w-auto" />
+                <img src="/public/icon/icon-colorfull-white.webp" alt="" class="h-10 w-auto" />
               </a>
               <button type="button" command="close" commandfor="mobile-menu"
                 class="-m-2.5 rounded-md p-2.5 text-gray-400">
@@ -139,8 +134,7 @@
             <div class="mt-10 flow-root">
               <div class="-my-6 divide-y divide-white/10">
                 <div class="space-y-2 py-6 text-black dark:text-paper-fg font-mono text-sm uppercase tracking-wide">
-                  <a href="/" 
-                    class="block hover:text-lime dark:hover:text-lime-dark transition-colors">Home</a>
+                  <a href="/" class="block hover:text-lime dark:hover:text-lime-dark transition-colors">Home</a>
                   <a href="/docs/get-started/"
                     class="block hover:text-lime dark:hover:text-lime-dark transition-colors">Documentation</a>
                 </div>
@@ -163,7 +157,7 @@
                       </svg>
                     </button>
 
-                    <a href="/docs/get-started/" class="inline-flex items-center border-[3px] border-black bg-lime dark:bg-lime-dark text-black font-mono font-bold text-sm uppercase px-4 py-2.5
+                    <a href="/docs/get-started/" class="inline-flex items-center border-[3px] border-black bg-lime text-white dark:bg-lime-dark dark:text-black font-mono font-bold text-sm uppercase px-4 py-2.5
                 shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#ECEDE3]
                 hover:-translate-x-[3px] hover:-translate-y-[3px]
                 dark:hover:-translate-x-[3px] dark:hover:-translate-y-[3px]
@@ -182,387 +176,550 @@
     </el-dialog>
   </header>
 
-  <!-- ============ DOCUMENTATION HERO ============ -->
-  <section class="border-b-4 border-black bg-panel dark:bg-panel-dark dark:border-white">
-    <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24">
-      <div class="flex items-center gap-3 mb-4">
-        <span
-          class="font-mono text-xs uppercase text-lime dark:text-lime-dark border-[3px] border-black px-3 py-1 bg-black text-lime-dark">v1.0</span>
-        <span class="font-mono text-xs uppercase text-pink dark:text-pink-dark">// documentation</span>
+  <!-- ============ DOCS LAYOUT WRAPPER ============ -->
+  <div class="flex">
+
+    <!-- ============ SIDEBAR (lg only) — neobrutalism style ============ -->
+    <aside id="docs-sidebar"
+      class="hidden lg:block w-[250px] shrink-0 border-r-4 border-black dark:border-white bg-white dark:bg-panel-dark
+             sticky top-[92px] h-[calc(100vh-92px)] overflow-y-auto">
+      <!-- No padding wrapper; items have their own padding -->
+      <div class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display">
+        Getting started
       </div>
-      <h1 class="font-display text-4xl md:text-5xl lg:text-6xl uppercase leading-[1.05] mb-6">
-        Getting <span class="text-lime dark:text-lime-dark">Started</span>
-      </h1>
-      <p class="font-body text-lg text-ink/70 dark:text-paper-fg/70 max-w-2xl leading-relaxed">
-        Everything you need to know about SkawanCTF — from creating your account to mastering the leaderboard.
-      </p>
-    </div>
-  </section>
+      <a href="#getting-started"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black bg-lime dark:bg-lime-dark text-white dark:text-black transition-colors">
+        Getting Started
+      </a>
+      <a href="#creating-account"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Creating an Account
+      </a>
+      <a href="#signing-in"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Signing In
+      </a>
+      <a href="#dashboard-overview"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Dashboard Overview
+      </a>
 
-  <!-- ============ INTRODUCTION ============ -->
-  <section class="border-b-4 border-black dark:border-white">
-    <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20">
-      <div class="grid lg:grid-cols-3 gap-12">
-        <div class="lg:col-span-2">
-          <p class="font-mono text-xs uppercase text-lime dark:text-lime-dark mb-3">// introduction</p>
-          <h2 class="font-display text-3xl md:text-4xl uppercase mb-6">Welcome to<br><span
-              class="text-lime dark:text-lime-dark">SkawanCTF</span></h2>
-          <div class="space-y-4 text-ink/80 dark:text-paper-fg/80 leading-relaxed">
-            <p>
-              Selamat datang di dokumentasi <strong class="text-lime dark:text-lime-dark">SkawanCTF</strong>.
-              Dokumentasi berisi panduan penggunaan platform, pengenalan CTF, kategori challenge,
-              fitur pengguna, dan panduan administrator.
-            </p>
-            <p>
-              SkawanCTF adalah platform <strong class="text-pink dark:text-pink-dark">Jeopardy-style Capture The
-                Flag</strong>
-              yang dirancang untuk mempelajari keamanan siber melalui tantangan langsung.
-              Setiap challenge menguji keterampilan Anda di berbagai kategori — dari web exploitation hingga forensics.
-            </p>
-          </div>
-        </div>
-
-        <div class="border-[3px] border-black bg-panel dark:bg-panel-dark p-6 dark:border-white
-        shadow-[4px_4px_0_0_#3D7A0F] dark:shadow-[4px_4px_0_0_#A6FF00]">
-          <p class="font-mono text-xs uppercase text-lime dark:text-lime-dark mb-2">// quick stats</p>
-          <ul class="space-y-3 text-sm">
-            <li class="flex justify-between border-b border-black/20 dark:border-white/20 pb-2">
-              <span class="text-ink/60 dark:text-paper-fg/60">Categories</span>
-              <span class="font-mono font-bold text-lime dark:text-lime-dark">5+</span>
-            </li>
-            <li class="flex justify-between border-b border-black/20 dark:border-white/20 pb-2">
-              <span class="text-ink/60 dark:text-paper-fg/60">Challenges</span>
-              <span class="font-mono font-bold text-pink dark:text-pink-dark">50+</span>
-            </li>
-            <li class="flex justify-between border-b border-black/20 dark:border-white/20 pb-2">
-              <span class="text-ink/60 dark:text-paper-fg/60">Difficulty Levels</span>
-              <span class="font-mono font-bold text-yellow dark:text-yellow-dark">5</span>
-            </li>
-            <li class="flex justify-between">
-              <span class="text-ink/60 dark:text-paper-fg/60">Active Users</span>
-              <span class="font-mono font-bold text-lime dark:text-lime-dark">100+</span>
-            </li>
-          </ul>
-        </div>
+      <div class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display">
+        Challenges
       </div>
-    </div>
-  </section>
+      <a href="#challenges"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Challenges
+      </a>
+      <a href="#leaderboard"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Solve Challenges
+      </a>
+      <a href="#leaderboard"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Report A Challenge Mistake
+      </a>
+      <a href="#leaderboard"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Bookmark
+      </a>
+      <a href="#leaderboard"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Leaderboard
+      </a>
 
-  <!-- ============ CREATING AN ACCOUNT ============ -->
-  <section class="border-b-4 border-black bg-panel dark:bg-panel-dark dark:border-white">
-    <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20">
-      <p class="font-mono text-xs uppercase text-pink dark:text-pink-dark mb-3">// step 1</p>
-      <h2 class="font-display text-3xl md:text-4xl uppercase mb-8">Creating an <span
-          class="text-pink dark:text-pink-dark">Account</span></h2>
+      <div class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display">
+        My Challenges
+      </div>
+      <a href="#my-challenge"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        My Challenge
+      </a>
+      <a href="#create-challenge"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Create Challenge
+      </a>
+      <a href="#create-challenge"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Submit Challenge
+      </a>
 
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="space-y-4">
-          <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
-          shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]
-          hover:-translate-x-[3px] hover:-translate-y-[3px] transition-[transform,box-shadow] duration-150">
-            <div class="flex items-start gap-4">
-              <span class="font-mono text-3xl font-extrabold text-lime dark:text-lime-dark">01</span>
-              <div>
-                <h3 class="font-display text-lg uppercase mb-1">Buka SkawanCTF</h3>
-                <p class="text-sm text-ink/70 dark:text-paper-fg/70">Akses platform melalui <code
-                    class="bg-black text-lime-dark px-2 py-0.5 text-xs font-mono">skawanctf.my.id</code></p>
-              </div>
-            </div>
+      <div class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display">
+        Users
+      </div>
+      <a href="#edit-profile"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        All Users
+      </a>
+      <a href="#edit-profile"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Edit Profile
+      </a>
+      <a href="#admin-guide"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Suspended Users
+      </a>
+
+      <div class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display">
+        Quick Links
+      </div>
+      <a href="/"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        ← Back to Home
+      </a>
+      <a href="#faq"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        FAQ
+      </a>
+      <a href="#rules"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Rules
+      </a>
+    </aside>
+
+    <!-- ============ MOBILE SIDEBAR OVERLAY ============ -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden"></div>
+
+    <!-- ============ MOBILE SIDEBAR DRAWER — neobrutalism style ============ -->
+    <aside id="mobile-sidebar"
+      class="fixed top-0 left-0 z-50 w-[250px] h-full bg-white dark:bg-panel-dark border-r-4 border-black dark:border-white
+             transform -translate-x-full transition-transform duration-300 lg:hidden overflow-y-auto">
+      <!-- No wrapper padding; items have their own -->
+      <div class="flex items-center justify-between border-b-4 border-r-4 border-black dark:border-white p-4">
+        <span class="text-xl font-display">Navigation</span>
+        <button id="close-sidebar" class="w-9 h-9 flex items-center justify-center
+                                        bg-white dark:bg-panel-dark
+                                        hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black
+                                        transition-colors">
+          <span class="font-mono font-bold text-sm">✕</span>
+        </button>
+      </div>
+
+      <div class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display">
+        Getting started
+      </div>
+      <a href="#getting-started"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 bg-lime dark:bg-lime-dark text-white dark:text-black">
+        Getting Started
+      </a>
+      <a href="#creating-account"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90">
+        Creating an Account
+      </a>
+      <a href="#signing-in"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90">
+        Signing In
+      </a>
+      <a href="#dashboard-overview"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90">
+        Dashboard Overview
+      </a>
+
+      <div class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display">
+        Challenges
+      </div>
+      <a href="#challenges"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90">
+        Challenges
+      </a>
+      <a href="#leaderboard"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90">
+        Solve Challenges
+      </a>
+      <a href="#leaderboard"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90">
+        Leaderboard
+      </a>
+
+      <div class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display">
+        My Challenges
+      </div>
+      <a href="#my-challenge"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90">
+        My Challenge
+      </a>
+      <a href="#create-challenge"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90">
+        Create Challenge
+      </a>
+
+      <div class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display">
+        Users
+      </div>
+      <a href="#edit-profile"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90">
+        All Users
+      </a>
+      <a href="#edit-profile"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90">
+        Edit Profile
+      </a>
+      <a href="#admin-guide"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90">
+        Admin Guide
+      </a>
+    </aside>
+
+    <!-- ============ MOBILE TOGGLE BUTTON ============ -->
+    <button id="sidebar-toggle"
+      class="lg:hidden fixed bottom-6 right-6 z-40 border-[3px] border-black dark:border-white bg-lime dark:bg-lime-dark
+             text-white dark:text-black font-mono font-extrabold text-xl w-14 h-14 flex items-center justify-center
+             shadow-[5px_5px_0_0_#000] dark:shadow-[5px_5px_0_0_#ECEDE3]
+             hover:-translate-x-[3px] hover:-translate-y-[3px]
+             active:translate-x-0 active:translate-y-0 active:shadow-none
+             transition-[transform,box-shadow] duration-150">
+      [ &gt; ]
+    </button>
+
+    <!-- ============ MAIN CONTENT ============ -->
+    <div class="flex-1 min-w-0">
+
+      <!-- ============ DOCUMENTATION HERO ============ -->
+      <section id="getting-started" class="border-b-4 border-black bg-panel dark:bg-panel-dark dark:border-white">
+        <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="font-mono text-xs uppercase text-pink dark:text-pink-dark">// documentation</span>
           </div>
+          <h1 class="font-display text-4xl md:text-5xl lg:text-6xl uppercase leading-[1.05] mb-6">
+            Getting <span class="text-yellow dark:text-yellow-dark">Started</span>
+          </h1>
+          <p class="font-body text-lg text-ink/70 dark:text-paper-fg/70 max-w-2xl leading-relaxed">
+            Everything you need to know about SCTF — from creating your account to mastering the leaderboard.
+          </p>
+        </div>
+      </section>
 
-          <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
-          shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]
-          hover:-translate-x-[3px] hover:-translate-y-[3px] transition-[transform,box-shadow] duration-150">
-            <div class="flex items-start gap-4">
-              <span class="font-mono text-3xl font-extrabold text-pink dark:text-pink-dark">02</span>
-              <div>
-                <h3 class="font-display text-lg uppercase mb-1">Pilih Sign Up</h3>
-                <p class="text-sm text-ink/70 dark:text-paper-fg/70">Klik tombol <span
-                    class="font-mono text-lime dark:text-lime-dark">Sign Up</span> di pojok kanan atas halaman utama.
+      <!-- ============ INTRODUCTION ============ -->
+      <section class="border-b-4 border-black dark:border-white">
+        <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20">
+          <div class="grid lg:grid-cols-3 gap-12">
+            <div class="lg:col-span-2">
+              <p class="font-mono text-xs uppercase text-lime dark:text-lime-dark mb-3">// introduction</p>
+              <h2 class="font-display text-3xl md:text-4xl uppercase mb-6">Welcome to<br><span
+                  class="text-lime dark:text-lime-dark">SCTF</span></h2>
+              <div class="space-y-4 text-ink/80 dark:text-paper-fg/80 leading-relaxed">
+                <p>
+                  Selamat datang di dokumentasi <strong class="text-lime dark:text-lime-dark">SCTF</strong>.
+                  Dokumentasi berisi panduan penggunaan platform, pengenalan CTF, kategori challenge,
+                  fitur pengguna, dan panduan administrator.
+                </p>
+                <p>
+                  SCTF adalah platform <strong class="text-pink dark:text-pink-dark">Jeopardy-style Capture The
+                    Flag</strong>
+                  yang dirancang untuk mempelajari keamanan siber melalui tantangan langsung.
+                  Setiap challenge menguji keterampilan Anda di berbagai kategori — dari web exploitation hingga forensics.
                 </p>
               </div>
             </div>
-          </div>
 
-          <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
-          shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]
-          hover:-translate-x-[3px] hover:-translate-y-[3px] transition-[transform,box-shadow] duration-150">
-            <div class="flex items-start gap-4">
-              <span class="font-mono text-3xl font-extrabold text-yellow dark:text-yellow-dark">03</span>
-              <div>
-                <h3 class="font-display text-lg uppercase mb-1">Isi Informasi</h3>
-                <p class="text-sm text-ink/70 dark:text-paper-fg/70">Lengkapi formulir pendaftaran dengan data yang
-                  valid.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
-          shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]
-          hover:-translate-x-[3px] hover:-translate-y-[3px] transition-[transform,box-shadow] duration-150">
-            <div class="flex items-start gap-4">
-              <span class="font-mono text-3xl font-extrabold text-lime dark:text-lime-dark">04</span>
-              <div>
-                <h3 class="font-display text-lg uppercase mb-1">Buat Password</h3>
-                <p class="text-sm text-ink/70 dark:text-paper-fg/70">Gunakan kombinasi huruf, angka, dan simbol untuk
-                  keamanan maksimal.</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
-          shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]
-          hover:-translate-x-[3px] hover:-translate-y-[3px] transition-[transform,box-shadow] duration-150">
-            <div class="flex items-start gap-4">
-              <span class="font-mono text-3xl font-extrabold text-pink dark:text-pink-dark">05</span>
-              <div>
-                <h3 class="font-display text-lg uppercase mb-1">Selesaikan & Sign In</h3>
-                <p class="text-sm text-ink/70 dark:text-paper-fg/70">Verifikasi email (jika diperlukan) lalu masuk ke
-                  akun Anda.</p>
-              </div>
+            <div class="border-[3px] border-black bg-panel dark:bg-panel-dark p-6 dark:border-white
+            shadow-[4px_4px_0_0_#3D7A0F] dark:shadow-[4px_4px_0_0_#A6FF00]">
+              <p class="font-mono text-xs uppercase text-lime dark:text-lime-dark mb-2">// quick stats</p>
+              <ul class="space-y-3 text-sm">
+                <li class="flex justify-between border-b border-black/20 dark:border-white/20 pb-2">
+                  <span class="text-ink/60 dark:text-paper-fg/60">Categories</span>
+                  <span class="font-mono font-bold text-lime dark:text-lime-dark">5+</span>
+                </li>
+                <li class="flex justify-between border-b border-black/20 dark:border-white/20 pb-2">
+                  <span class="text-ink/60 dark:text-paper-fg/60">Challenges</span>
+                  <span class="font-mono font-bold text-pink dark:text-pink-dark">50+</span>
+                </li>
+                <li class="flex justify-between border-b border-black/20 dark:border-white/20 pb-2">
+                  <span class="text-ink/60 dark:text-paper-fg/60">Difficulty Levels</span>
+                  <span class="font-mono font-bold text-yellow dark:text-yellow-dark">5</span>
+                </li>
+                <li class="flex justify-between">
+                  <span class="text-ink/60 dark:text-paper-fg/60">Active Users</span>
+                  <span class="font-mono font-bold text-lime dark:text-lime-dark">100+</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
+      </section>
 
-        <!-- Right: terminal mockup -->
-        <div
-          class="border-[3px] border-black bg-gray-500 dark:bg-black overflow-hidden shadow-[7px_7px_0_0_#000] dark:shadow-[7px_7px_0_0_#ECEDE3] self-start">
-          <div class="flex items-center gap-2 bg-[#1B1E17] border-b-4 border-black px-4 py-3">
-            <span class="w-3 h-3 rounded-full bg-pink-dark border border-black"></span>
-            <span class="w-3 h-3 rounded-full bg-yellow-dark border border-black"></span>
-            <span class="w-3 h-3 rounded-full bg-lime-dark border border-black"></span>
-            <span class="ml-3 font-mono text-xs text-paper-fg/60">SkawanCTF — Sign Up</span>
-          </div>
-          <div class="p-6 font-mono text-sm leading-7 text-paper-fg">
-            <div class="space-y-3">
-              <div class="flex items-center gap-2">
-                <span class="text-paper-fg/50">$</span>
-                <span class="text-lime-dark">email</span>
-                <span class="text-paper-fg/50">:</span>
-                <span class="text-paper-fg">hacker@example.com</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <span class="text-paper-fg/50">$</span>
-                <span class="text-lime-dark">username</span>
-                <span class="text-paper-fg/50">:</span>
-                <span class="text-paper-fg">cyber_ninja</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <span class="text-paper-fg/50">$</span>
-                <span class="text-lime-dark">password</span>
-                <span class="text-paper-fg/50">:</span>
-                <span class="text-paper-fg">••••••••••••</span>
-              </div>
-              <div class="border-t border-white/20 my-3 pt-3">
-                <div class="flex items-center gap-2 text-lime-dark">
-                  <span>✔</span>
-                  <span>Account created successfully!</span>
-                </div>
-                <div class="flex items-center gap-2 text-pink-dark mt-1">
-                  <span>→</span>
-                  <span>Redirecting to dashboard...</span>
+      <!-- ============ CREATING AN ACCOUNT ============ -->
+      <section id="creating-account" class="border-b-4 border-black bg-panel dark:bg-panel-dark dark:border-white">
+        <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20">
+
+          <!-- Header -->
+          <p class="font-mono text-xs uppercase text-pink dark:text-pink-dark mb-3">// step 1</p>
+          <h2 class="font-display text-3xl md:text-4xl uppercase mb-8">
+            Creating an <span class="text-pink dark:text-pink-dark">Account</span>
+          </h2>
+
+          <!-- Content Grid -->
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+              <!-- Step 01 -->
+              <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
+                        shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]
+                        hover:translate-x-[3px] hover:translate-y-[3px] hover:shadow-[0_0_0_0_#000]
+                        duration-150">
+                <div class="flex items-start gap-4">
+                  <span class="font-mono text-3xl font-extrabold text-lime dark:text-lime-dark">01</span>
+                  <div>
+                    <h3 class="font-display text-lg uppercase mb-1">Buka SCTF</h3>
+                    <p class="text-sm text-ink/70 dark:text-paper-fg/70">
+                      Akses platform melalui
+                      <code class="bg-black text-lime-dark px-2 py-0.5 text-xs font-mono">skawanctf.my.id</code>
+                    </p>
+                  </div>
                 </div>
               </div>
+
+              <!-- Step 02 -->
+              <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
+                        shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]
+                        hover:-translate-x-[3px] hover:-translate-y-[3px]
+                        transition-[transform,box-shadow] duration-150">
+                <div class="flex items-start gap-4">
+                  <span class="font-mono text-3xl font-extrabold text-pink dark:text-pink-dark">02</span>
+                  <div>
+                    <h3 class="font-display text-lg uppercase mb-1">Pilih Sign Up</h3>
+                    <p class="text-sm text-ink/70 dark:text-paper-fg/70">
+                      Klik tombol
+                      <span class="font-mono text-lime dark:text-lime-dark">Sign Up</span>
+                      di pojok kanan atas halaman utama.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 03 -->
+              <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
+                        shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]
+                        hover:-translate-x-[3px] hover:-translate-y-[3px]
+                        transition-[transform,box-shadow] duration-150">
+                <div class="flex items-start gap-4">
+                  <span class="font-mono text-3xl font-extrabold text-yellow dark:text-yellow-dark">03</span>
+                  <div>
+                    <h3 class="font-display text-lg uppercase mb-1">Isi Informasi</h3>
+                    <p class="text-sm text-ink/70 dark:text-paper-fg/70">
+                      Lengkapi formulir pendaftaran dengan data yang valid.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 04 -->
+              <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
+                        shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]
+                        hover:-translate-x-[3px] hover:-translate-y-[3px]
+                        transition-[transform,box-shadow] duration-150">
+                <div class="flex items-start gap-4">
+                  <span class="font-mono text-3xl font-extrabold text-lime dark:text-lime-dark">04</span>
+                  <div>
+                    <h3 class="font-display text-lg uppercase mb-1">Buat Password</h3>
+                    <p class="text-sm text-ink/70 dark:text-paper-fg/70">
+                      Gunakan kombinasi huruf, angka, dan simbol untuk keamanan maksimal.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Step 05 -->
+              <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
+                        shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]
+                        hover:-translate-x-[3px] hover:-translate-y-[3px]
+                        transition-[transform,box-shadow] duration-150">
+                <div class="flex items-start gap-4">
+                  <span class="font-mono text-3xl font-extrabold text-pink dark:text-pink-dark">05</span>
+                  <div>
+                    <h3 class="font-display text-lg uppercase mb-1">Selesaikan & Sign In</h3>
+                    <p class="text-sm text-ink/70 dark:text-paper-fg/70">
+                      Masuk ke akun Anda.
+                    </p>
+                  </div>
+                </div>
+              </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ============ SIGNING IN ============ -->
+      <section id="signing-in" class="border-b-4 border-black dark:border-white">
+        <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20">
+          <p class="font-mono text-xs uppercase text-yellow dark:text-yellow-dark mb-3">// step 2</p>
+          <h2 class="font-display text-3xl md:text-4xl uppercase mb-8">Signing <span
+              class="text-yellow dark:text-yellow-dark">In</span></h2>
+
+          <div class="grid md:grid-cols-2 gap-10">
+            <div>
+              <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
+              shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]">
+                <p class="text-ink/80 dark:text-paper-fg/80 leading-relaxed mb-4">
+                  Masukkan kredensial akun pada halaman <span class="font-mono text-lime dark:text-lime-dark">Sign In</span>
+                  untuk mengakses fitur pengguna.
+                </p>
+              </div>
+
+              <div class="mt-5 grid grid-cols-2 gap-4">
+                <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-4 text-center
+                shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]
+                hover:-translate-x-[3px] hover:-translate-y-[3px] transition-[transform,box-shadow] duration-150">
+                  <span class="font-mono text-xs uppercase text-lime dark:text-lime-dark block">Email Login</span>
+                  <span class="text-xs text-ink/60 dark:text-paper-fg/60">Standard authentication</span>
+                </div>
+                <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-4 text-center
+                shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]
+                hover:-translate-x-[3px] hover:-translate-y-[3px] transition-[transform,box-shadow] duration-150">
+                  <span class="font-mono text-xs uppercase text-pink dark:text-pink-dark block">OAuth</span>
+                  <span class="text-xs text-ink/60 dark:text-paper-fg/60">Sign in with Google</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="border-[3px] border-black bg-panel dark:bg-panel-dark p-6 dark:border-white
+            shadow-[4px_4px_0_0_#9C6600] dark:shadow-[4px_4px_0_0_#FFD100]">
+              <h3 class="font-display text-lg uppercase mb-3">Tips Keamanan</h3>
+              <ul class="space-y-3 text-sm text-ink/70 dark:text-paper-fg/70">
+                <li class="flex items-start gap-3">
+                  <span class="text-lime dark:text-lime-dark font-mono">→</span>
+                  <span>Gunakan password minimal 8 karakter dengan kombinasi huruf, angka, dan simbol.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-lime dark:text-lime-dark font-mono">→</span>
+                  <span>Jangan bagikan kredensial akun dengan siapapun.</span>
+                </li>
+                <li class="flex items-start gap-3">
+                  <span class="text-lime dark:text-lime-dark font-mono">→</span>
+                  <span>Gunakan opsi "Forgot Password" jika lupa kredensial.</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
+      </section>
 
-  <!-- ============ SIGNING IN ============ -->
-  <section class="border-b-4 border-black dark:border-white">
-    <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20">
-      <p class="font-mono text-xs uppercase text-yellow dark:text-yellow-dark mb-3">// step 2</p>
-      <h2 class="font-display text-3xl md:text-4xl uppercase mb-8">Signing <span
-          class="text-yellow dark:text-yellow-dark">In</span></h2>
+      <!-- ============ DASHBOARD OVERVIEW ============ -->
+      <section id="dashboard-overview" class="border-b-4 border-black bg-panel dark:bg-panel-dark dark:border-white">
+        <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20">
+          <p class="font-mono text-xs uppercase text-lime dark:text-lime-dark mb-3">// step 3</p>
+          <h2 class="font-display text-3xl md:text-4xl uppercase mb-8">
+            Dashboard <span class="text-lime dark:text-lime-dark">Overview</span>
+          </h2>
 
-      <div class="grid md:grid-cols-2 gap-10">
-        <div>
-          <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
-          shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]">
-            <p class="text-ink/80 dark:text-paper-fg/80 leading-relaxed mb-4">
-              Masukkan kredensial akun pada halaman <span class="font-mono text-lime dark:text-lime-dark">Sign In</span>
-              untuk mengakses fitur pengguna.
-            </p>
-            <div class="bg-black p-4 font-mono text-sm text-paper-fg/70">
-              <div class="flex items-center gap-2">
-                <span class="text-paper-fg/50">$</span>
-                <span class="text-lime-dark">email</span>
-                <span class="text-paper-fg/50">:</span>
-                <span class="text-paper-fg">hacker@example.com</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <span class="text-paper-fg/50">$</span>
-                <span class="text-lime-dark">password</span>
-                <span class="text-paper-fg/50">:</span>
-                <span class="text-paper-fg">••••••••••••</span>
-              </div>
-              <div class="border-t border-white/20 mt-3 pt-3 text-lime-dark">
-                ✔ Authentication successful. Welcome back!
-              </div>
-            </div>
-          </div>
-
-          <div class="mt-5 grid grid-cols-2 gap-4">
-            <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-4 text-center
+          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
             shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]
             hover:-translate-x-[3px] hover:-translate-y-[3px] transition-[transform,box-shadow] duration-150">
-              <span class="font-mono text-xs uppercase text-lime dark:text-lime-dark block">Email Login</span>
-              <span class="text-xs text-ink/60 dark:text-paper-fg/60">Standard authentication</span>
+              <span class="font-mono text-3xl text-lime dark:text-lime-dark">01</span>
+              <h3 class="font-display text-lg uppercase mt-3">Homepage Feed</h3>
+              <p class="text-sm text-ink/70 dark:text-paper-fg/70 leading-relaxed">
+                Halaman utama saat pengguna berhasil masuk. Menampilkan ringkasan informasi pengguna dan menu navigasi utama.
+              </p>
             </div>
-            <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-4 text-center
+
+            <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
             shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]
             hover:-translate-x-[3px] hover:-translate-y-[3px] transition-[transform,box-shadow] duration-150">
-              <span class="font-mono text-xs uppercase text-pink dark:text-pink-dark block">OAuth</span>
-              <span class="text-xs text-ink/60 dark:text-paper-fg/60">Sign in with Google</span>
+              <span class="font-mono text-3xl text-pink dark:text-pink-dark">02</span>
+              <h3 class="font-display text-lg uppercase mt-3">Daftar Users</h3>
+              <p class="text-sm text-ink/70 dark:text-paper-fg/70 leading-relaxed">
+                Eksplorasi seluruh pengguna, cari berdasarkan nama, serta lihat detail profil dan challenge yang mereka buat.
+              </p>
+            </div>
+
+            <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
+            shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]
+            hover:-translate-x-[3px] hover:-translate-y-[3px] transition-[transform,box-shadow] duration-150">
+              <span class="font-mono text-3xl text-yellow dark:text-yellow-dark">03</span>
+              <h3 class="font-display text-lg uppercase mt-3">Daftar Challenge</h3>
+              <p class="text-sm text-ink/70 dark:text-paper-fg/70 leading-relaxed">
+                Akses seluruh challenge, gunakan filter & pencarian, submit flag, simpan bookmark, serta kirim laporan/report.
+              </p>
+            </div>
+
+            <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
+            shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]
+            hover:-translate-x-[3px] hover:-translate-y-[3px] transition-[transform,box-shadow] duration-150">
+              <span class="font-mono text-3xl text-lime dark:text-lime-dark">04</span>
+              <h3 class="font-display text-lg uppercase mt-3">Leaderboard</h3>
+              <p class="text-sm text-ink/70 dark:text-paper-fg/70 leading-relaxed">
+                Papan peringkat real-time yang menampilkan posisi seluruh pengguna berdasarkan perolehan total poin.
+              </p>
+            </div>
+
+            <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
+            shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]
+            hover:-translate-x-[3px] hover:-translate-y-[3px] transition-[transform,box-shadow] duration-150">
+              <span class="font-mono text-3xl text-pink dark:text-pink-dark">05</span>
+              <h3 class="font-display text-lg uppercase mt-3">My Challenge</h3>
+              <p class="text-sm text-ink/70 dark:text-paper-fg/70 leading-relaxed">
+                Kelola challenge milik sendiri: buat baru, ubah data, perbaiki status revisi, dan pantau proses pengajuan.
+              </p>
+            </div>
+
+            <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
+            shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]
+            hover:-translate-x-[3px] hover:-translate-y-[3px] transition-[transform,box-shadow] duration-150">
+              <span class="font-mono text-3xl text-yellow dark:text-yellow-dark">06</span>
+              <h3 class="font-display text-lg uppercase mt-3">Edit Profile</h3>
+              <p class="text-sm text-ink/70 dark:text-paper-fg/70 leading-relaxed">
+                Pengaturan akun untuk memperbarui data profil, mengunggah foto profil baru, serta mengganti kata sandi.
+              </p>
             </div>
           </div>
         </div>
+      </section>
 
-        <div class="border-[3px] border-black bg-panel dark:bg-panel-dark p-6 dark:border-white
-        shadow-[4px_4px_0_0_#9C6600] dark:shadow-[4px_4px_0_0_#FFD100]">
-          <h3 class="font-display text-lg uppercase mb-3">Tips Keamanan</h3>
-          <ul class="space-y-3 text-sm text-ink/70 dark:text-paper-fg/70">
-            <li class="flex items-start gap-3">
-              <span class="text-lime dark:text-lime-dark font-mono">→</span>
-              <span>Gunakan password minimal 8 karakter dengan kombinasi huruf, angka, dan simbol.</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-lime dark:text-lime-dark font-mono">→</span>
-              <span>Aktifkan autentikasi dua faktor (2FA) jika tersedia.</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-lime dark:text-lime-dark font-mono">→</span>
-              <span>Jangan bagikan kredensial akun dengan siapapun.</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <span class="text-lime dark:text-lime-dark font-mono">→</span>
-              <span>Gunakan opsi "Forgot Password" jika lupa kredensial.</span>
-            </li>
-          </ul>
-        </div>
-      </div>
     </div>
-  </section>
+    <!-- END MAIN CONTENT -->
 
-  <!-- ============ DASHBOARD ============ -->
-  <section class="border-b-4 border-black bg-panel dark:bg-panel-dark dark:border-white">
-    <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20">
-      <p class="font-mono text-xs uppercase text-lime dark:text-lime-dark mb-3">// step 3</p>
-      <h2 class="font-display text-3xl md:text-4xl uppercase mb-8">Dashboard <span
-          class="text-lime dark:text-lime-dark">Overview</span></h2>
-
-      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-        <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
-        shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]
-        hover:-translate-x-[3px] hover:-translate-y-[3px] transition-[transform,box-shadow] duration-150">
-          <span class="font-mono text-3xl text-lime dark:text-lime-dark">01</span>
-          <h3 class="font-display text-lg uppercase mt-3">Navigation</h3>
-          <p class="text-sm text-ink/70 dark:text-paper-fg/70 leading-relaxed">Akses semua halaman utama melalui
-            sidebar: Challenge, Leaderboard, My Challenges, dan Profile.</p>
-        </div>
-
-        <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
-        shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]
-        hover:-translate-x-[3px] hover:-translate-y-[3px] transition-[transform,box-shadow] duration-150">
-          <span class="font-mono text-3xl text-pink dark:text-pink-dark">02</span>
-          <h3 class="font-display text-lg uppercase mt-3">User Profile</h3>
-          <p class="text-sm text-ink/70 dark:text-paper-fg/70 leading-relaxed">Tampilkan informasi pengguna, total poin,
-            peringkat, dan status challenge yang diselesaikan.</p>
-        </div>
-
-        <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
-        shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]
-        hover:-translate-x-[3px] hover:-translate-y-[3px] transition-[transform,box-shadow] duration-150">
-          <span class="font-mono text-3xl text-yellow dark:text-yellow-dark">03</span>
-          <h3 class="font-display text-lg uppercase mt-3">Challenge & Score</h3>
-          <p class="text-sm text-ink/70 dark:text-paper-fg/70 leading-relaxed">Lihat daftar challenge tersedia, filter
-            berdasarkan kategori dan level, serta pantau total skor Anda.</p>
-        </div>
-
-        <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
-        shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0_#71717A]
-        hover:-translate-x-[3px] hover:-translate-y-[3px] transition-[transform,box-shadow] duration-150">
-          <span class="font-mono text-3xl text-lime dark:text-lime-dark">04</span>
-          <h3 class="font-display text-lg uppercase mt-3">Solved & Leaderboard</h3>
-          <p class="text-sm text-ink/70 dark:text-paper-fg/70 leading-relaxed">Riwayat challenge yang sudah diselesaikan
-            dan papan peringkat seluruh pengguna.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ CTA ============ -->
-  <section id="get-started"
-    class="border-b-4 border-black bg-blue-500 dark:bg-blue-900 text-black relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20 text-center relative z-10">
-      <p class="font-mono text-xs uppercase mb-4 text-lime-dark">// ready to start</p>
-      <h2 class="font-display text-3xl md:text-5xl uppercase mb-6 text-black dark:text-lime-dark">Ready to Start
-        Your<br>CTF Journey?</h2>
-      <p class="font-body text-black/70 max-w-md mx-auto mb-9 text-black dark:text-lime-dark">Create your account, pick
-        your first challenge, and see your name climb the board.</p>
-      <a href="#" class="inline-flex items-center border-[3px] border-black bg-yellow dark:bg-yellow-dark text-black font-mono font-bold text-sm uppercase px-8 py-4
-        shadow-[7px_7px_0_0_#000] dark:shadow-[7px_7px_0_0_#ECEDE3]
-        hover:-translate-x-[3px] hover:-translate-y-[3px]
-        dark:hover:-translate-x-[3px] dark:hover:-translate-y-[3px]
-        active:translate-x-0 active:translate-y-0 active:shadow-none
-        dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
-        transition-[transform,box-shadow] duration-150">
-        Start Learning →
-      </a>
-    </div>
-    <div class="absolute inset-0 grain-dots pointer-events-none"></div>
-  </section>
+  </div>
+  <!-- END DOCS LAYOUT WRAPPER -->
 
   <!-- ============ FOOTER ============ -->
-  <footer class="bg-canvas dark:bg-canvas-dark">
-    <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 grid md:grid-cols-4 gap-10">
-      <div class="md:col-span-2">
-        <a href="index.html" class="flex items-center gap-2 mb-4">
-          <span
-            class="w-8 h-8 border-[3px] border-black bg-lime dark:bg-lime-dark flex items-center justify-center font-mono font-extrabold text-black text-sm">&gt;_</span>
-          <span class="font-display text-base">S<span class="text-lime dark:text-lime-dark">CTF</span></span>
-        </a>
-        <p class="text-sm text-ink/60 dark:text-paper-fg/60 max-w-sm leading-relaxed">A Jeopardy-style Capture The Flag
-          platform for learning cyber security by actually breaking things.</p>
-      </div>
-
-      <div>
-        <h4 class="font-mono text-xs uppercase text-ink/40 dark:text-paper-fg/40 mb-4">Platform</h4>
-        <ul class="space-y-2.5 text-sm text-ink/70 dark:text-paper-fg/70">
-          <li><a href="index.html#home" class="hover:text-lime dark:hover:text-lime-dark">Home</a></li>
-          <li><a href="index.html#why" class="hover:text-lime dark:hover:text-lime-dark">Features</a></li>
-          <li><a href="index.html#challenges" class="hover:text-lime dark:hover:text-lime-dark">Challenges</a></li>
-          <li><a href="#" class="hover:text-lime dark:hover:text-lime-dark">Leaderboard</a></li>
-        </ul>
-      </div>
-
-      <div>
-        <h4 class="font-mono text-xs uppercase text-ink/40 dark:text-paper-fg/40 mb-4">Resources</h4>
-        <ul class="space-y-2.5 text-sm text-ink/70 dark:text-paper-fg/70">
-          <li><a href="get-started.html" class="hover:text-pink dark:hover:text-pink-dark">Documentation</a></li>
-          <li><a href="#" class="hover:text-pink dark:hover:text-pink-dark">FAQ</a></li>
-          <li><a href="#" class="hover:text-pink dark:hover:text-pink-dark">Rules</a></li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="border-t-4 border-black">
-      <div
-        class="max-w-7xl mx-auto px-5 md:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 font-mono text-[11px] text-ink/40 dark:text-paper-fg/40">
-        <span>© 2026 SCTF. All flags reserved.</span>
-        <span>S&#123;thanks_for_reading&#125;</span>
-      </div>
-    </div>
-  </footer>
 
   <!-- ============ THEME TOGGLE LOGIC ============ -->
   <script src="/src/layout/js/theme.js"></script>
 
+  <!-- ============ SIDEBAR TOGGLE LOGIC ============ -->
+  <script>
+    (function() {
+      const toggleBtn = document.getElementById('sidebar-toggle');
+      const mobileSidebar = document.getElementById('mobile-sidebar');
+      const overlay = document.getElementById('sidebar-overlay');
+      const closeBtn = document.getElementById('close-sidebar');
+
+      function openSidebar() {
+        mobileSidebar.classList.remove('-translate-x-full');
+        overlay.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeSidebar() {
+        mobileSidebar.classList.add('-translate-x-full');
+        overlay.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+
+      if (toggleBtn) {
+        toggleBtn.addEventListener('click', openSidebar);
+      }
+
+      if (closeBtn) {
+        closeBtn.addEventListener('click', closeSidebar);
+      }
+
+      if (overlay) {
+        overlay.addEventListener('click', closeSidebar);
+      }
+
+      // Close sidebar on link click (mobile)
+      const mobileLinks = mobileSidebar.querySelectorAll('a');
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', closeSidebar);
+      });
+
+      // Close on escape key
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeSidebar();
+      });
+    })();
+  </script>
+
 </body>
-
-</html>
-
 
 </html>
