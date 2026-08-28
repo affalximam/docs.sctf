@@ -15,7 +15,18 @@
 
 /* Only animation mechanics live here — every color/theme change is handled by Tailwind's dark: variant. */
   *{ box-sizing:border-box; }
-  html{ scroll-behavior:smooth; }
+  html{ 
+    scroll-behavior: smooth !important;
+    transition: 1s !important;
+    content-visibility: auto;
+  }
+
+  *{
+    scroll-behavior: smooth !important;
+    transition: .5s !important;
+    content-visibility: auto;
+  }
+  
 
   .caret{ display:inline-block; width:.55ch; animation: blink 1s step-start infinite; }
   @keyframes blink{ 50%{ opacity:0; } }
