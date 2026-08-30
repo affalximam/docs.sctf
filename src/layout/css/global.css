@@ -12,19 +12,43 @@
   }
 }
 
+@theme {
+      --color-canvas: #ECECE4;
+      --color-canvas-dark: #0B0C08;
+      --color-panel: #FFFFFF;
+      --color-panel-dark: #131511;
+      --color-panel2: #DFE1D3;
+      --color-panel2-dark: #1B1E17;
+      --color-paper: #FFFFFF;
+      --color-ink: #0E0F0A;
+      --color-paper-fg: #ECEDE3;
+      --color-lime: #3D7A0F;
+      --color-lime-dark: #A6FF00;
+      --color-pink: #BE1668;
+      --color-pink-dark: #FF2E93;
+      --color-yellow: #9C6600;
+      --color-yellow-dark: #FFD100;
+
+      --font-display: "Archivo Black", sans-serif;
+      --font-body: "Space Grotesk", sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+    }
+
+@custom-variant dark (&:where(.dark, .dark *));
+
 
 /* Only animation mechanics live here — every color/theme change is handled by Tailwind's dark: variant. */
   *{ box-sizing:border-box; }
   html{ 
     scroll-behavior: smooth !important;
     transition: 1s !important;
-    content-visibility: auto;
+    /* content-visibility: auto; */
   }
 
   *{
     scroll-behavior: smooth !important;
     transition: .5s !important;
-    content-visibility: auto;
+    /* content-visibility: auto; */
   }
   
 
