@@ -1,0 +1,739 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCTF — Learn Cyber Security Through Capture The Flag</title>
+
+  <script src="/src/layout/js/darkLightMode.js" defer></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS v4 Browser CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!-- Tailwind v4 Custom Theme & Dark Mode Variant -->
+  <style type="text/tailwindcss">
+    @theme {
+      --color-canvas: #ECECE4;
+      --color-canvas-dark: #0B0C08;
+      --color-panel: #FFFFFF;
+      --color-panel-dark: #131511;
+      --color-panel2: #DFE1D3;
+      --color-panel2-dark: #1B1E17;
+      --color-paper: #FFFFFF;
+      --color-ink: #0E0F0A;
+      --color-paper-fg: #ECEDE3;
+      --color-lime: #3D7A0F;
+      --color-lime-dark: #A6FF00;
+      --color-pink: #BE1668;
+      --color-pink-dark: #FF2E93;
+      --color-yellow: #9C6600;
+      --color-yellow-dark: #FFD100;
+
+      --font-display: "Archivo Black", sans-serif;
+      --font-body: "Space Grotesk", sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+    }
+
+    @custom-variant dark (&:where(.dark, .dark *));
+  </style>
+
+  <link rel="stylesheet" href="/src/layout/css/global.css">
+</head>
+
+<!-- ============ BODY START ============ -->
+
+<body class="font-body antialiased bg-canvas dark:bg-canvas-dark text-ink dark:text-paper-fg transition-colors duration-200 scroll-smooth
+  bg-[radial-gradient(circle_at_15%_10%,rgba(61,122,15,0.05),transparent_40%),radial-gradient(circle_at_85%_30%,rgba(190,22,104,0.05),transparent_40%)]
+  dark:bg-[radial-gradient(circle_at_15%_10%,rgba(166,255,0,0.06),transparent_40%),radial-gradient(circle_at_85%_30%,rgba(255,46,147,0.06),transparent_40%)]
+  ">
+
+  <header
+    class="sticky top-0 z-50 border-b-4 border-black dark:border-white bg-canvas/95 dark:bg-canvas-dark/95 backdrop-blur">
+    <nav aria-label="Global" class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
+      <div class="flex lg:flex-1">
+        <a href="index.html" class="block dark:hidden">
+          <img src="/public/icon/icon-colorfull-black.webp" alt="" class="h-10 w-auto" />
+        </a>
+        <a href="index.html" class="hidden dark:block">
+          <img src="/public/icon/icon-colorfull-white.webp" alt="" class="h-10 w-auto" />
+        </a>
+      </div>
+      <div class="flex lg:hidden">
+        <button type="button" command="show-modal" commandfor="mobile-menu"
+          class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400">
+          <span class="sr-only">Open main menu</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon"
+            aria-hidden="true" class="size-6">
+            <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+      <el-popover-group class="hidden lg:flex lg:gap-x-12">
+        <a href="/" class="hover:text-lime dark:hover:text-lime-dark transition-colors">Home</a>
+        <a href="/docs/get-started/"
+          class="hover:text-lime dark:hover:text-lime-dark transition-colors">Documentation</a>
+      </el-popover-group>
+      <div class="hidden lg:flex items-center gap-3 lg:flex-1 lg:justify-end">
+        <button data-theme-toggle aria-label="Toggle light and dark mode" aria-pressed="false" class="border-[3px] border-black dark:border-yellow-dark w-11 h-11 flex items-center justify-center bg-panel2 dark:bg-panel2-dark text-ink dark:text-paper-fg shrink-0
+          shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0]
+          hover:translate-x-1 hover:translate-y-1 hover:shadow-none
+          dark:hover:translate-x-1 dark:hover:translate-y-1 dark:hover:shadow-none duration-150
+          hidden sm:inline-flex rounded rounded-lg cursor-pointer
+          ">
+          <svg class="hidden dark:block w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4" />
+            <path
+              d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+          </svg>
+          <svg class="block dark:hidden w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+          </svg>
+        </button>
+
+        <a href="/docs/get-started/" class="inline-flex items-center border-[3px] border-black dark:border-white bg-lime dark:bg-lime text-white dark:text-white font-mono font-bold text-sm uppercase px-4 py-2.5 rounded rounded-lg
+        shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0] dark:shadow-lime
+        hover:translate-x-1 hover:translate-y-1 hover:shadow-none
+        dark:hover:translate-x-1 dark:hover:translate-y-1 dark:hover:shadow-none
+        duration-150 cursor-pointer">
+          Get Started
+        </a>
+      </div>
+    </nav>
+    <el-dialog>
+      <dialog id="mobile-menu" class="backdrop:bg-transparent lg:hidden">
+        <div tabindex="0" class="fixed inset-0 focus:outline-none">
+          <el-dialog-panel
+            class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-canvas/95 dark:bg-canvas-dark/95 p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-100/10">
+            <div class="flex items-center justify-between">
+              <a href="index.html" class="block dark:hidden">
+                <img src="/public/icon/icon-colorfull-black.webp" alt="" class="h-10 w-auto" />
+              </a>
+              <a href="index.html" class="hidden dark:block">
+                <img src="/public/icon/icon-colorfull-white.webp" alt="" class="h-10 w-auto" />
+              </a>
+              <button type="button" command="close" commandfor="mobile-menu"
+                class="-m-2.5 rounded-md p-2.5 text-gray-400">
+                <span class="sr-only">Close menu</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon"
+                  aria-hidden="true" class="size-6">
+                  <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+            </div>
+            <div class="mt-10 flow-root">
+              <div class="-my-6 divide-y divide-white/10">
+                <div class="space-y-2 py-6 text-black dark:text-paper-fg font-mono text-sm uppercase tracking-wide">
+                  <a href="/" class="block hover:text-lime dark:hover:text-lime-dark transition-colors">Home</a>
+                  <a href="/docs/get-started/"
+                    class="block hover:text-lime dark:hover:text-lime-dark transition-colors">Documentation</a>
+                </div>
+                <div class="py-6">
+                  <div class="flex items-center gap-3 lg:flex-1 lg:justify-end">
+                    <button data-theme-toggle aria-label="Toggle light and dark mode" aria-pressed="false" class="border-[3px] border-black dark:border-yellow-dark w-11 h-11 flex items-center justify-center bg-panel2 dark:bg-panel2-dark text-ink dark:text-paper-fg shrink-0
+          shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0]
+          hover:translate-x-1 hover:translate-y-1 hover:shadow-none
+          dark:hover:translate-x-1 dark:hover:translate-y-1 dark:hover:shadow-none duration-150
+          inline-flex rounded rounded-lg cursor-pointer
+          ">
+                      <svg class="hidden dark:block w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4" />
+                        <path
+                          d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+                      </svg>
+                      <svg class="block dark:hidden w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+                      </svg>
+                    </button>
+
+                    <a href="/docs/get-started/" class="inline-flex items-center border-[3px] border-black dark:border-white bg-lime dark:bg-lime text-white dark:text-white font-mono font-bold text-sm uppercase px-4 py-2.5 rounded rounded-lg
+        shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0] dark:shadow-lime
+        hover:translate-x-1 hover:translate-y-1 hover:shadow-none
+        dark:hover:translate-x-1 dark:hover:translate-y-1 dark:hover:shadow-none
+        duration-150">
+                      Get Started
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </el-dialog-panel>
+        </div>
+      </dialog>
+    </el-dialog>
+  </header>
+
+  <!-- ============ DOCS LAYOUT WRAPPER ============ -->
+  <div class="flex">
+
+    <!-- ============ SIDEBAR (lg only) — neobrutalism style ============ -->
+    <aside id="docs-sidebar"
+      class="hidden lg:block w-[250px] shrink-0 border-r-4 border-black dark:border-white bg-white dark:bg-panel-dark
+             sticky top-[92px] h-[calc(100vh-92px)] overflow-y-auto">
+      <!-- No padding wrapper; items have their own padding -->
+      <a href="/docs/get-started/" class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors cursor-pointer">
+        Getting started
+      </a>
+      <a href="/docs/get-started/#creating-account"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Creating an Account
+      </a>
+      <a href="/docs/get-started/#signing-in"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Signing In
+      </a>
+      <a href="/docs/get-started/#dashboard-overview"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Dashboard Overview
+      </a>
+
+      <a href="/docs/challenges" class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors cursor-pointer">
+        Challenges
+      </a>
+      <a href="/docs/challenges/#solve"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Solve Challenges
+      </a>
+      <a href="/docs/challenges/#report"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Report A Challenge Mistake
+      </a>
+      <a href="/docs/challenges/#bookmark"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Bookmark
+      </a>
+      <a href="/docs/challenges/#leaderboard"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Leaderboard
+      </a>
+
+      <a href="/docs/mychallenge/" class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors cursor-pointer">
+        My Challenge
+      </a>
+      <a href="/docs/mychallenge/#create-challenge"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Create Challenge
+      </a>
+      <a href="/docs/mychallenge/#submit-challenge"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Submit Challenge
+      </a>
+      <a href="/docs/mychallenge/#rules-challenge"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Rules Challenge
+      </a>
+
+      <a href="/docs/users"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors cursor-pointer">
+        Users
+      </a>
+      <a href="/docs/users/#all-users"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        All Users
+      </a>
+      <a href="/docs/users/#edit-profile"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Edit Profile
+      </a>
+      <a href="/docs/users/#suspended"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Suspended Users
+      </a>
+
+      <div class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display">
+        Quick Links
+      </div>
+      <a href="/"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        ← Back to Home
+      </a>
+      <a href="/faq"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        FAQ
+      </a>
+      <a href="/rules"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Rules
+      </a>
+    </aside>
+
+    <!-- ============ MOBILE SIDEBAR OVERLAY ============ -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden"></div>
+
+    <!-- ============ MOBILE SIDEBAR DRAWER — neobrutalism style ============ -->
+    <aside id="mobile-sidebar"
+      class="fixed top-0 left-0 z-50 w-[250px] h-full bg-white dark:bg-panel-dark border-r-4 border-black dark:border-white
+             transform -translate-x-full transition-transform duration-300 lg:hidden overflow-y-auto">
+      <!-- No wrapper padding; items have their own -->
+      <div class="flex items-center justify-between border-b-4 border-r-4 border-black dark:border-white p-4">
+        <span class="text-xl font-display">Navigation</span>
+        <button id="close-sidebar" class="w-9 h-9 flex items-center justify-center
+                                        bg-white dark:bg-panel-dark
+                                        hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black
+                                        transition-colors">
+          <span class="font-mono font-bold text-sm">✕</span>
+        </button>
+      </div>
+
+      <a href="/docs/get-started/" class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors cursor-pointer">
+        Getting started
+      </a>
+      <a href="/docs/get-started/#creating-account"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Creating an Account
+      </a>
+      <a href="/docs/get-started/#signing-in"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Signing In
+      </a>
+      <a href="/docs/get-started/#dashboard-overview"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Dashboard Overview
+      </a>
+
+      <a href="/docs/challenges" class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors cursor-pointer">
+        Challenges
+      </a>
+      <a href="/docs/challenges/#solve"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Solve Challenges
+      </a>
+      <a href="/docs/challenges/#report"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Report A Challenge Mistake
+      </a>
+      <a href="/docs/challenges/#bookmark"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Bookmark
+      </a>
+      <a href="/docs/challenges/#leaderboard"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Leaderboard
+      </a>
+
+      <a href="/docs/mychallenge/" class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors cursor-pointer">
+        My Challenge
+      </a>
+      <a href="/docs/mychallenge/#create-challenge"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Create Challenge
+      </a>
+      <a href="/docs/mychallenge/#submit-challenge"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Submit Challenge
+      </a>
+      <a href="/docs/mychallenge/#rules-challenge"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Rules Challenge
+      </a>
+
+      <a href="/docs/users"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors cursor-pointer">
+        Users
+      </a>
+      <a href="/docs/users/#all-users"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        All Users
+      </a>
+      <a href="/docs/users/#edit-profile"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Edit Profile
+      </a>
+      <a href="/docs/users/#suspended"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Suspended Users
+      </a>
+
+      <div class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display">
+        Quick Links
+      </div>
+      <a href="/"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        ← Back to Home
+      </a>
+      <a href="/faq"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        FAQ
+      </a>
+      <a href="/rules"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Rules
+      </a>
+    </aside>
+
+    <!-- ============ MOBILE TOGGLE BUTTON ============ -->
+    <button id="sidebar-toggle"
+      class="lg:hidden fixed bottom-6 right-6 z-40 border-[3px] border-black dark:border-white bg-lime dark:bg-lime-dark
+             text-white dark:text-black font-mono font-extrabold text-xl w-14 h-14 flex items-center justify-center
+             shadow-[5px_5px_0_0_#000] dark:shadow-[5px_5px_0_0_#ECEDE3]
+             hover:-translate-x-[3px] hover:-translate-y-[3px]
+             active:translate-x-0 active:translate-y-0 active:shadow-none
+             transition-[transform,box-shadow] duration-150">
+      [ &gt; ]
+    </button>
+
+    <!-- ============ MAIN CONTENT ============ -->
+<div class="flex-1 min-w-0">
+
+    <!-- ============ USERS HERO ============ -->
+    <section class="border-b-4 border-black bg-panel dark:bg-panel-dark dark:border-white
+        [&::selection]:bg-blue-500 [&::selection]:text-black dark:[&::selection]:bg-blue-300 dark:[&::selection]:text-black">
+        <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24">
+            <div class="flex items-center gap-3 mb-4">
+                <span class="font-mono text-xs uppercase text-blue-500 dark:text-blue-400">// users</span>
+                <span class="inline-block border-[3px] border-black dark:border-white px-3 py-1 text-xs font-mono font-bold bg-blue-500 text-white dark:bg-blue-400 dark:text-black
+                    shadow-[3px_3px_0_0_#000] dark:shadow-[3px_3px_0_0_#ECEDE3]
+                    hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none
+                    dark:hover:translate-x-[2px] dark:hover:translate-y-[2px] dark:hover:shadow-none
+                    active:rotate-[-3deg] duration-150 cursor-pointer">
+                    Community
+                </span>
+            </div>
+            <h1 class="font-display text-4xl md:text-5xl lg:text-6xl uppercase leading-[1.05] mb-6">
+                <span class="text-blue-500 dark:text-blue-400 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors duration-150 cursor-default">Users</span> &amp; <span class="text-cyan-500 dark:text-cyan-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-150 cursor-default">Profiles</span>
+            </h1>
+            <p class="font-body text-lg text-ink/70 dark:text-paper-fg/70 max-w-2xl leading-relaxed">
+                Temukan sesama pemain, jelajahi profil, kelola akun Anda, dan pahami apa yang terjadi jika akun ditangguhkan.
+            </p>
+        </div>
+    </section>
+
+    <!-- ============ ALL USERS ============ -->
+    <section id="all-users" class="border-b-4 border-black dark:border-white
+        [&::selection]:bg-blue-500 [&::selection]:text-black dark:[&::selection]:bg-blue-300 dark:[&::selection]:text-black">
+        <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20">
+            <p class="font-mono text-xs uppercase text-blue-500 dark:text-blue-400 mb-3">// daftar pengguna</p>
+            <h2 class="font-display text-3xl md:text-4xl uppercase mb-8">
+                <span class="text-blue-500 dark:text-blue-400 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors duration-150 cursor-default">All</span> Users
+            </h2>
+
+            <div class="grid lg:grid-cols-3 gap-12">
+                <div class="lg:col-span-2">
+                    <div class="space-y-4 text-ink/80 dark:text-paper-fg/80 leading-relaxed">
+                        <p>
+                            Halaman <strong class="text-blue-500 dark:text-blue-400 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors duration-150 cursor-default">Users</strong> menampilkan seluruh
+                            anggota komunitas SCTF. Anda dapat mencari, menyortir, dan melihat profil setiap pengguna
+                            untuk mengetahui pencapaian mereka.
+                        </p>
+                        <ul class="space-y-2 pl-5 list-disc list-outside">
+                            <li class="hover:translate-x-1 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-150 cursor-default"><strong class="text-cyan-500 dark:text-cyan-400">Pencarian Cerdas (Fuzzy):</strong>
+                                Temukan pengguna meskipun ada kesalahan ketik. Algoritma <em>Levenshtein Distance</em>
+                                membantu mencocokkan nama dengan tingkat kemiripan.</li>
+                            <li class="hover:translate-x-1 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-150 cursor-default"><strong class="text-cyan-500 dark:text-cyan-400">Pencarian Eksak:</strong> Cari berdasarkan
+                                nama atau username secara presisi.</li>
+                            <li class="hover:translate-x-1 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-150 cursor-default"><strong class="text-cyan-500 dark:text-cyan-400">Urutkan:</strong> Atur daftar berdasarkan
+                                poin, jumlah tantangan yang diselesaikan, nama, atau tanggal bergabung.</li>
+                            <li class="hover:translate-x-1 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-150 cursor-default"><strong class="text-cyan-500 dark:text-cyan-400">Paginasi:</strong> 64 pengguna per halaman
+                                untuk kenyamanan browsing.</li>
+                        </ul>
+                        <p>
+                            Klik pada kartu pengguna untuk melihat profil lengkap mereka, termasuk tantangan yang telah
+                            diselesaikan dan statistik lainnya.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Quick Stats Card -->
+                <div class="border-[3px] border-black bg-panel dark:bg-panel-dark p-6 dark:border-white
+                    shadow-[7px_7px_0_0_#3b82f6] dark:shadow-[7px_7px_0_0_#60a5fa]
+                    hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#3b82f6] dark:hover:shadow-[3px_3px_0_0_#60a5fa]
+                    active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[2deg]
+                    dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[2deg]
+                    transition-[transform,box-shadow] duration-150 cursor-pointer">
+                    <p class="font-mono text-xs uppercase text-blue-500 dark:text-blue-400 mb-2">// fitur</p>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex justify-between border-b border-black/20 dark:border-white/20 pb-2 hover:border-blue-500 dark:hover:border-blue-400 transition-colors duration-150">
+                            <span class="text-ink/60 dark:text-paper-fg/60">Pencarian</span>
+                            <span class="font-mono font-bold text-cyan-500 dark:text-cyan-400">Fuzzy + Exact</span>
+                        </li>
+                        <li class="flex justify-between border-b border-black/20 dark:border-white/20 pb-2 hover:border-blue-500 dark:hover:border-blue-400 transition-colors duration-150">
+                            <span class="text-ink/60 dark:text-paper-fg/60">Sortir</span>
+                            <span class="font-mono font-bold text-blue-500 dark:text-blue-400">Poin, Solved, Nama, Waktu</span>
+                        </li>
+                        <li class="flex justify-between border-b border-black/20 dark:border-white/20 pb-2 hover:border-blue-500 dark:hover:border-blue-400 transition-colors duration-150">
+                            <span class="text-ink/60 dark:text-paper-fg/60">Paginasi</span>
+                            <span class="font-mono font-bold text-cyan-500 dark:text-cyan-400">64 / halaman</span>
+                        </li>
+                        <li class="flex justify-between hover:border-blue-500 dark:hover:border-blue-400 transition-colors duration-150">
+                            <span class="text-ink/60 dark:text-paper-fg/60">Detail Profil</span>
+                            <span class="font-mono font-bold text-blue-500 dark:text-blue-400">Overview + Challenges</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Fitur Pencarian -->
+            <div class="mt-12 grid sm:grid-cols-2 gap-5">
+                <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-5
+                    shadow-[7px_7px_0_0_#06b6d4] dark:shadow-[7px_7px_0_0_#22d3ee]
+                    hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#06b6d4] dark:hover:shadow-[3px_3px_0_0_#22d3ee]
+                    active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[-3deg]
+                    dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[-3deg]
+                    hover:border-cyan-500 dark:hover:border-cyan-400
+                    transition-[transform,box-shadow,border-color] duration-150 cursor-pointer">
+                    <span class="font-mono text-xs uppercase text-cyan-500 dark:text-cyan-400">// mode</span>
+                    <h3 class="font-display text-xl uppercase mt-1 text-cyan-500 dark:text-cyan-400">Fuzzy Search</h3>
+                    <p class="text-sm text-ink/70 dark:text-paper-fg/70 leading-relaxed mt-2">
+                        Gunakan <span class="font-mono bg-black/10 dark:bg-white/10 px-1 py-0.5 rounded">Smart Fuzzy Search</span>
+                        untuk menemukan pengguna meskipun ejaan tidak sempurna. Sistem menghitung kemiripan string
+                        dan menampilkan hasil terbaik.
+                    </p>
+                </div>
+
+                <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-5
+                    shadow-[7px_7px_0_0_#3b82f6] dark:shadow-[7px_7px_0_0_#60a5fa]
+                    hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#3b82f6] dark:hover:shadow-[3px_3px_0_0_#60a5fa]
+                    active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[-3deg]
+                    dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[-3deg]
+                    hover:border-blue-500 dark:hover:border-blue-400
+                    transition-[transform,box-shadow,border-color] duration-150 cursor-pointer">
+                    <span class="font-mono text-xs uppercase text-blue-500 dark:text-blue-400">// mode</span>
+                    <h3 class="font-display text-xl uppercase mt-1 text-blue-500 dark:text-blue-400">Exact Search</h3>
+                    <p class="text-sm text-ink/70 dark:text-paper-fg/70 leading-relaxed mt-2">
+                        Pencarian presisi untuk hasil yang akurat. Cocok digunakan jika Anda sudah tahu persis
+                        nama atau username pengguna.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Timer Otomatis -->
+            <div class="mt-8 border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6 dark:border-white
+                shadow-[7px_7px_0_0_#f59e0b] dark:shadow-[7px_7px_0_0_#fbbf24]
+                hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#f59e0b] dark:hover:shadow-[3px_3px_0_0_#fbbf24]
+                active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[1deg]
+                dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[1deg]
+                transition-[transform,box-shadow] duration-150 cursor-pointer">
+                <div class="flex items-start gap-4">
+                    <span class="font-mono text-2xl text-yellow-500 dark:text-yellow-400 hover:rotate-12 hover:scale-110 transition-transform duration-150">⏱️</span>
+                    <div>
+                        <h4 class="font-display text-lg uppercase text-yellow-500 dark:text-yellow-400">Auto‑search Timer</h4>
+                        <p class="text-sm text-ink/70 dark:text-paper-fg/70 leading-relaxed mt-1">
+                            Setelah Anda berhenti mengetik selama 5 detik, pencarian akan dijalankan secara otomatis.
+                            Sebuah indikator menunjukkan waktu tersisa, dan Anda dapat membatalkan atau memicu pencarian
+                            secara manual kapan saja.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ EDIT PROFILE ============ -->
+    <section id="edit-profile" class="border-b-4 border-black bg-panel dark:bg-panel-dark dark:border-white
+        [&::selection]:bg-cyan-500 [&::selection]:text-black dark:[&::selection]:bg-cyan-300 dark:[&::selection]:text-black">
+        <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20">
+            <p class="font-mono text-xs uppercase text-cyan-500 dark:text-cyan-400 mb-3">// pengaturan akun</p>
+            <h2 class="font-display text-3xl md:text-4xl uppercase mb-8">
+                <span class="text-cyan-500 dark:text-cyan-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-150 cursor-default">Edit</span> Profile
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-10">
+                <div>
+                    <p class="text-ink/80 dark:text-paper-fg/80 leading-relaxed mb-4">
+                        Halaman <span class="font-mono text-cyan-500 dark:text-cyan-400">/profile/edit</span> memungkinkan
+                        Anda memperbarui informasi pribadi, mengunggah foto profil, dan mengelola akun.
+                    </p>
+
+                    <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
+                        shadow-[7px_7px_0_0_#06b6d4] dark:shadow-[7px_7px_0_0_#22d3ee]
+                        hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#06b6d4] dark:hover:shadow-[3px_3px_0_0_#22d3ee]
+                        active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[2deg]
+                        dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[2deg]
+                        hover:border-cyan-500 dark:hover:border-cyan-400
+                        transition-[transform,box-shadow,border-color] duration-150 cursor-pointer">
+                        <h3 class="font-display text-lg uppercase mb-3 text-cyan-500 dark:text-cyan-400">Yang Dapat Diubah</h3>
+                        <ul class="space-y-2 text-sm text-ink/70 dark:text-paper-fg/70 list-disc list-inside">
+                            <li class="hover:translate-x-1 hover:text-cyan-500 dark:hover:text-cyan-400 transition-all duration-150 cursor-default"><span class="font-medium">Nama Tampilan</span> – nama yang terlihat oleh pengguna lain</li>
+                            <li class="hover:translate-x-1 hover:text-cyan-500 dark:hover:text-cyan-400 transition-all duration-150 cursor-default"><span class="font-medium">Username</span> – identitas unik Anda</li>
+                            <li class="hover:translate-x-1 hover:text-cyan-500 dark:hover:text-cyan-400 transition-all duration-150 cursor-default"><span class="font-medium">Email</span> (hanya untuk pengguna dengan autentikasi email)</li>
+                            <li class="hover:translate-x-1 hover:text-cyan-500 dark:hover:text-cyan-400 transition-all duration-150 cursor-default"><span class="font-medium">Bio</span> – cerita singkat tentang diri Anda</li>
+                            <li class="hover:translate-x-1 hover:text-cyan-500 dark:hover:text-cyan-400 transition-all duration-150 cursor-default"><span class="font-medium">Negara</span> – dari mana Anda berasal</li>
+                            <li class="hover:translate-x-1 hover:text-cyan-500 dark:hover:text-cyan-400 transition-all duration-150 cursor-default"><span class="font-medium">URL GitHub</span> – tautan ke profil GitHub Anda</li>
+                            <li class="hover:translate-x-1 hover:text-cyan-500 dark:hover:text-cyan-400 transition-all duration-150 cursor-default"><span class="font-medium">Foto Profil</span> – upload gambar (JPEG, PNG, GIF, WebP, maks 5MB)</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="border-[3px] border-black bg-panel dark:bg-panel-dark p-6 dark:border-white
+                    shadow-[7px_7px_0_0_#06b6d4] dark:shadow-[7px_7px_0_0_#22d3ee]
+                    hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#06b6d4] dark:hover:shadow-[3px_3px_0_0_#22d3ee]
+                    active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[-2deg]
+                    dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[-2deg]
+                    transition-[transform,box-shadow] duration-150 cursor-pointer">
+                    <h3 class="font-display text-lg uppercase mb-3 text-cyan-500 dark:text-cyan-400">Catatan Penting</h3>
+                    <ul class="space-y-3 text-sm text-ink/70 dark:text-paper-fg/70">
+                        <li class="flex items-start gap-3 hover:translate-x-1 transition-transform duration-150 cursor-default">
+                            <span class="text-cyan-500 dark:text-cyan-400 font-mono">→</span>
+                            <span><strong>Pengguna Google:</strong> Email tidak dapat diubah karena dikelola oleh Google.</span>
+                        </li>
+                        <li class="flex items-start gap-3 hover:translate-x-1 transition-transform duration-150 cursor-default">
+                            <span class="text-cyan-500 dark:text-cyan-400 font-mono">→</span>
+                            <span>Perubahan foto profil <strong>langsung diterapkan</strong> setelah upload.</span>
+                        </li>
+                        <li class="flex items-start gap-3 hover:translate-x-1 transition-transform duration-150 cursor-default">
+                            <span class="text-cyan-500 dark:text-cyan-400 font-mono">→</span>
+                            <span>Data lain harus disimpan dengan mengklik tombol <span class="font-mono">Save Changes</span>.</span>
+                        </li>
+                        <li class="flex items-start gap-3 hover:translate-x-1 transition-transform duration-150 cursor-default">
+                            <span class="text-cyan-500 dark:text-cyan-400 font-mono">→</span>
+                            <span>Ganti password tersedia di <span class="font-mono">/profile/password</span> (khusus pengguna email).</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Ganti Password -->
+            <div class="mt-10 border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6 dark:border-white
+                shadow-[7px_7px_0_0_#8b5cf6] dark:shadow-[7px_7px_0_0_#a78bfa]
+                hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#8b5cf6] dark:hover:shadow-[3px_3px_0_0_#a78bfa]
+                active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[1deg]
+                dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[1deg]
+                transition-[transform,box-shadow] duration-150 cursor-pointer">
+                <div class="flex items-start gap-4">
+                    <span class="font-mono text-2xl text-purple-500 dark:text-purple-400 hover:rotate-12 hover:scale-110 transition-transform duration-150">🔑</span>
+                    <div>
+                        <h4 class="font-display text-lg uppercase text-purple-500 dark:text-purple-400">Ganti Password</h4>
+                        <p class="text-sm text-ink/70 dark:text-paper-fg/70 leading-relaxed mt-1">
+                            Pengguna dengan autentikasi email dapat mengganti password melalui halaman
+                            <span class="font-mono bg-black/10 dark:bg-white/10 px-1 py-0.5 rounded">/profile/password</span>.
+                            Masukkan password lama dan password baru (minimal 8 karakter) beserta konfirmasinya.
+                            Jika password lama benar dan konfirmasi cocok, password akan diperbarui.
+                        </p>
+                        <div class="mt-3 p-3 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
+                            <p class="text-xs text-amber-700 dark:text-amber-300">
+                                <span class="font-bold">⚠️ Pengguna Google:</span> Password dikelola oleh Google.
+                                Untuk mengganti password, silakan ubah melalui akun Google Anda.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ SUSPENDED USERS ============ -->
+    <section id="suspended" class="border-b-4 border-black dark:border-white
+        [&::selection]:bg-red-500 [&::selection]:text-black dark:[&::selection]:bg-red-300 dark:[&::selection]:text-black">
+        <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20">
+            <p class="font-mono text-xs uppercase text-red-500 dark:text-red-400 mb-3">// penangguhan</p>
+            <h2 class="font-display text-3xl md:text-4xl uppercase mb-8">
+                <span class="text-red-500 dark:text-red-400 hover:text-yellow-500 dark:hover:text-yellow-400 transition-colors duration-150 cursor-default">Suspended</span> Users
+            </h2>
+
+            <div class="grid lg:grid-cols-2 gap-12">
+                <div>
+                    <p class="text-ink/80 dark:text-paper-fg/80 leading-relaxed mb-4">
+                        Akun yang melanggar aturan platform dapat dikenai <strong class="text-red-500 dark:text-red-400 hover:text-yellow-500 dark:hover:text-yellow-400 transition-colors duration-150 cursor-default">suspensi</strong>
+                        (penangguhan) sementara atau permanen. Halaman ini menjelaskan bagaimana suspensi bekerja
+                        dan apa yang dapat dilakukan pengguna.
+                    </p>
+
+                    <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
+                        shadow-[7px_7px_0_0_#ef4444] dark:shadow-[7px_7px_0_0_#f87171]
+                        hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#ef4444] dark:hover:shadow-[3px_3px_0_0_#f87171]
+                        active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[2deg]
+                        dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[2deg]
+                        hover:border-red-500 dark:hover:border-red-400
+                        transition-[transform,box-shadow,border-color] duration-150 cursor-pointer">
+                        <h3 class="font-display text-lg uppercase mb-3 text-red-500 dark:text-red-400">Jenis Suspensi</h3>
+                        <ul class="space-y-3 text-sm text-ink/70 dark:text-paper-fg/70">
+                            <li class="flex items-start gap-3 hover:translate-x-1 transition-transform duration-150 cursor-default">
+                                <span class="text-yellow-500 dark:text-yellow-400 font-mono">⏳</span>
+                                <div>
+                                    <span class="font-bold">Temporary</span>
+                                    <p class="text-xs text-ink/60 dark:text-paper-fg/60">Akun dinonaktifkan untuk jangka waktu tertentu.
+                                    Pengguna dapat melihat sisa waktu dan akan otomatis pulih setelah masa suspensi berakhir.</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start gap-3 hover:translate-x-1 transition-transform duration-150 cursor-default">
+                                <span class="text-red-500 dark:text-red-400 font-mono">🚫</span>
+                                <div>
+                                    <span class="font-bold">Permanent</span>
+                                    <p class="text-xs text-ink/60 dark:text-paper-fg/60">Akun dinonaktifkan secara permanen.
+                                    Tidak ada pemulihan otomatis; pengguna harus menghubungi dukungan jika merasa ada kesalahan.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="border-[3px] border-black bg-panel dark:bg-panel-dark p-6 dark:border-white
+                        shadow-[7px_7px_0_0_#ef4444] dark:shadow-[7px_7px_0_0_#f87171]
+                        hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#ef4444] dark:hover:shadow-[3px_3px_0_0_#f87171]
+                        active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[-2deg]
+                        dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[-2deg]
+                        transition-[transform,box-shadow] duration-150 cursor-pointer">
+                        <h3 class="font-display text-lg uppercase mb-3 text-red-500 dark:text-red-400">Halaman Suspensi</h3>
+                        <p class="text-sm text-ink/70 dark:text-paper-fg/70 leading-relaxed mb-4">
+                            Pengguna yang sedang dalam masa suspensi akan diarahkan ke halaman <span class="font-mono">/suspended</span>
+                            ketika mencoba mengakses platform. Halaman ini menampilkan:
+                        </p>
+                        <ul class="space-y-2 text-sm text-ink/70 dark:text-paper-fg/70 list-disc list-inside">
+                            <li class="hover:translate-x-1 hover:text-red-500 dark:hover:text-red-400 transition-all duration-150 cursor-default">Jenis suspensi (temporary/permanent)</li>
+                            <li class="hover:translate-x-1 hover:text-red-500 dark:hover:text-red-400 transition-all duration-150 cursor-default">Alasan suspensi</li>
+                            <li class="hover:translate-x-1 hover:text-red-500 dark:hover:text-red-400 transition-all duration-150 cursor-default">Waktu mulai dan (jika temporary) waktu berakhir</li>
+                            <li class="hover:translate-x-1 hover:text-red-500 dark:hover:text-red-400 transition-all duration-150 cursor-default">Jumlah hari tersisa (untuk temporary)</li>
+                            <li class="hover:translate-x-1 hover:text-red-500 dark:hover:text-red-400 transition-all duration-150 cursor-default">Tombol <span class="font-mono">Logout</span> dan <span class="font-mono">Contact Support</span></li>
+                        </ul>
+                        <div class="mt-4 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
+                            <p class="text-xs text-blue-700 dark:text-blue-300">
+                                <span class="font-bold">💡 Tips:</span> Jika suspensi sudah berakhir, refresh halaman untuk
+                                memperbarui status. Jika masih terkendala, hubungi tim dukungan.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Apa yang Terjadi Saat Disuspensi -->
+            <div class="mt-10 border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6 dark:border-white
+                shadow-[7px_7px_0_0_#f59e0b] dark:shadow-[7px_7px_0_0_#fbbf24]
+                hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#f59e0b] dark:hover:shadow-[3px_3px_0_0_#fbbf24]
+                active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[1deg]
+                dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[1deg]
+                transition-[transform,box-shadow] duration-150 cursor-pointer">
+                <div class="flex items-start gap-4">
+                    <span class="font-mono text-2xl text-yellow-500 dark:text-yellow-400 hover:rotate-12 hover:scale-110 transition-transform duration-150">🔒</span>
+                    <div>
+                        <h4 class="font-display text-lg uppercase text-yellow-500 dark:text-yellow-400">Akses Diblokir</h4>
+                        <p class="text-sm text-ink/70 dark:text-paper-fg/70 leading-relaxed mt-1">
+                            Selama masa suspensi, pengguna tidak dapat mengakses fitur apa pun di platform, termasuk
+                            melihat challenge, mengirim flag, atau mengedit profil. Semua upaya akses akan diarahkan
+                            ke halaman suspensi. Setelah suspensi berakhir (untuk temporary), akses akan pulih secara otomatis.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+<!-- END MAIN CONTENT -->
+
+  </div>
+  <!-- END DOCS LAYOUT WRAPPER -->
+
+  <!-- ============ FOOTER ============ -->
+
+  <!-- ============ THEME TOGGLE LOGIC ============ -->
+  <script src="/src/layout/js/theme.js"></script>
+  
+  <!-- ============ SIDEBAR TOGGLE LOGIC ============ -->
+  <script src="/src/layout/js/sidebar.js"></script>
+  
+
+</body>
+
+</html>

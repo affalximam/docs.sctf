@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCTF — Learn Cyber Security Through Capture The Flag</title>
+
+    <script src="/src/layout/js/darkLightMode.js" defer></script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS v4 Browser CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <!-- Tailwind v4 Custom Theme & Dark Mode Variant -->
+    <style type="text/tailwindcss">
+        @theme {
+      --color-canvas: #ECECE4;
+      --color-canvas-dark: #0B0C08;
+      --color-panel: #FFFFFF;
+      --color-panel-dark: #131511;
+      --color-panel2: #DFE1D3;
+      --color-panel2-dark: #1B1E17;
+      --color-paper: #FFFFFF;
+      --color-ink: #0E0F0A;
+      --color-paper-fg: #ECEDE3;
+      --color-lime: #3D7A0F;
+      --color-lime-dark: #A6FF00;
+      --color-pink: #BE1668;
+      --color-pink-dark: #FF2E93;
+      --color-yellow: #9C6600;
+      --color-yellow-dark: #FFD100;
+
+      --font-display: "Archivo Black", sans-serif;
+      --font-body: "Space Grotesk", sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+    }
+
+    @custom-variant dark (&:where(.dark, .dark *));
+  </style>
+
+    <link rel="stylesheet" href="/src/layout/css/global.css">
+</head>
+
+<!-- ============ BODY START ============ -->
+
+<body class="font-body antialiased bg-canvas dark:bg-canvas-dark text-ink dark:text-paper-fg transition-colors duration-200 scroll-smooth
+  bg-[radial-gradient(circle_at_15%_10%,rgba(61,122,15,0.05),transparent_40%),radial-gradient(circle_at_85%_30%,rgba(190,22,104,0.05),transparent_40%)]
+  dark:bg-[radial-gradient(circle_at_15%_10%,rgba(166,255,0,0.06),transparent_40%),radial-gradient(circle_at_85%_30%,rgba(255,46,147,0.06),transparent_40%)]
+  ">
+
+    <header
+        class="sticky top-0 z-50 border-b-4 border-black dark:border-white bg-canvas/95 dark:bg-canvas-dark/95 backdrop-blur">
+        <nav aria-label="Global" class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
+            <div class="flex lg:flex-1">
+                <a href="index.html" class="block dark:hidden">
+                    <img src="/public/icon/icon-colorfull-black.webp" alt="" class="h-10 w-auto" />
+                </a>
+                <a href="index.html" class="hidden dark:block">
+                    <img src="/public/icon/icon-colorfull-white.webp" alt="" class="h-10 w-auto" />
+                </a>
+            </div>
+            <div class="flex lg:hidden">
+                <button type="button" command="show-modal" commandfor="mobile-menu"
+                    class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400">
+                    <span class="sr-only">Open main menu</span>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon"
+                        aria-hidden="true" class="size-6">
+                        <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </button>
+            </div>
+            <el-popover-group class="hidden lg:flex lg:gap-x-12">
+                <a href="/" class="hover:text-lime dark:hover:text-lime-dark transition-colors">Home</a>
+                <a href="/docs/get-started/"
+                    class="hover:text-lime dark:hover:text-lime-dark transition-colors">Documentation</a>
+                  <a href="/faq/" class="block hover:text-lime dark:hover:text-lime-dark transition-colors">Faq</a>
+                  <a href="/rules/" class="block hover:text-lime dark:hover:text-lime-dark transition-colors">Rules</a>
+            </el-popover-group>
+            <div class="hidden lg:flex items-center gap-3 lg:flex-1 lg:justify-end">
+                <button data-theme-toggle aria-label="Toggle light and dark mode" aria-pressed="false" class="border-[3px] border-black dark:border-yellow-dark w-11 h-11 flex items-center justify-center bg-panel2 dark:bg-panel2-dark text-ink dark:text-paper-fg shrink-0
+          shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0]
+          hover:translate-x-1 hover:translate-y-1 hover:shadow-none
+          dark:hover:translate-x-1 dark:hover:translate-y-1 dark:hover:shadow-none duration-150
+          hidden sm:inline-flex rounded rounded-lg cursor-pointer
+          ">
+                    <svg class="hidden dark:block w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4" />
+                        <path
+                            d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+                    </svg>
+                    <svg class="block dark:hidden w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+                    </svg>
+                </button>
+
+                <a href="/docs/get-started/" class="inline-flex items-center border-[3px] border-black dark:border-white bg-lime dark:bg-lime text-white dark:text-white font-mono font-bold text-sm uppercase px-4 py-2.5 rounded rounded-lg
+        shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0] dark:shadow-lime
+        hover:translate-x-1 hover:translate-y-1 hover:shadow-none
+        dark:hover:translate-x-1 dark:hover:translate-y-1 dark:hover:shadow-none
+        duration-150 cursor-pointer">
+                    Get Started
+                </a>
+            </div>
+        </nav>
+        <el-dialog>
+            <dialog id="mobile-menu" class="backdrop:bg-transparent lg:hidden">
+                <div tabindex="0" class="fixed inset-0 focus:outline-none">
+                    <el-dialog-panel
+                        class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-canvas/95 dark:bg-canvas-dark/95 p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-100/10">
+                        <div class="flex items-center justify-between">
+                            <a href="index.html" class="block dark:hidden">
+                                <img src="/public/icon/icon-colorfull-black.webp" alt="" class="h-10 w-auto" />
+                            </a>
+                            <a href="index.html" class="hidden dark:block">
+                                <img src="/public/icon/icon-colorfull-white.webp" alt="" class="h-10 w-auto" />
+                            </a>
+                            <button type="button" command="close" commandfor="mobile-menu"
+                                class="-m-2.5 rounded-md p-2.5 text-gray-400">
+                                <span class="sr-only">Close menu</span>
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                                    data-slot="icon" aria-hidden="true" class="size-6">
+                                    <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="mt-10 flow-root">
+                            <div class="-my-6 divide-y divide-white/10">
+                                <div
+                                    class="space-y-2 py-6 text-black dark:text-paper-fg font-mono text-sm uppercase tracking-wide">
+                                    <a href="/"
+                                        class="block hover:text-lime dark:hover:text-lime-dark transition-colors">Home</a>
+                                    <a href="/docs/get-started/"
+                                        class="block hover:text-lime dark:hover:text-lime-dark transition-colors">Documentation</a>
+                  <a href="/faq/" class="block hover:text-lime dark:hover:text-lime-dark transition-colors">Faq</a>
+                  <a href="/rules/" class="block hover:text-lime dark:hover:text-lime-dark transition-colors">Rules</a>
+                                </div>
+                                <div class="py-6">
+                                    <div class="flex items-center gap-3 lg:flex-1 lg:justify-end">
+                                        <button data-theme-toggle aria-label="Toggle light and dark mode"
+                                            aria-pressed="false" class="border-[3px] border-black dark:border-yellow-dark w-11 h-11 flex items-center justify-center bg-panel2 dark:bg-panel2-dark text-ink dark:text-paper-fg shrink-0
+          shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0]
+          hover:translate-x-1 hover:translate-y-1 hover:shadow-none
+          dark:hover:translate-x-1 dark:hover:translate-y-1 dark:hover:shadow-none duration-150
+          inline-flex rounded rounded-lg cursor-pointer
+          ">
+                                            <svg class="hidden dark:block w-5 h-5" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <circle cx="12" cy="12" r="4" />
+                                                <path
+                                                    d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+                                            </svg>
+                                            <svg class="block dark:hidden w-5 h-5" viewBox="0 0 24 24" fill="none"
+                                                stroke="currentColor" stroke-width="2.2" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+                                            </svg>
+                                        </button>
+
+                                        <a href="/docs/get-started/" class="inline-flex items-center border-[3px] border-black dark:border-white bg-lime dark:bg-lime text-white dark:text-white font-mono font-bold text-sm uppercase px-4 py-2.5 rounded rounded-lg
+        shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0] dark:shadow-lime
+        hover:translate-x-1 hover:translate-y-1 hover:shadow-none
+        dark:hover:translate-x-1 dark:hover:translate-y-1 dark:hover:shadow-none
+        duration-150">
+                                            Get Started
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </el-dialog-panel>
+                </div>
+            </dialog>
+        </el-dialog>
+    </header>
+
+
+
+    <!-- ============ MAIN CONTENT ============ -->
+    <div class="flex-1 min-w-0">
+
+        <!-- ============ FAQ HERO ============ -->
+        <section
+            class="border-b-4 border-black bg-panel dark:bg-panel-dark dark:border-white
+        [&::selection]:bg-yellow-500 [&::selection]:text-black dark:[&::selection]:bg-yellow-300 dark:[&::selection]:text-black">
+            <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24">
+                <div class="flex items-center gap-3 mb-4">
+                    <span class="font-mono text-xs uppercase text-yellow-500 dark:text-yellow-400">// faq</span>
+                    <span class="inline-block border-[3px] border-black dark:border-white px-3 py-1 text-xs font-mono font-bold bg-yellow-500 text-white dark:bg-yellow-400 dark:text-black
+                    shadow-[3px_3px_0_0_#000] dark:shadow-[3px_3px_0_0_#ECEDE3]
+                    hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none
+                    dark:hover:translate-x-[2px] dark:hover:translate-y-[2px] dark:hover:shadow-none
+                    active:rotate-[-3deg] duration-150 cursor-pointer">
+                        Help Center
+                    </span>
+                </div>
+                <h1 class="font-display text-4xl md:text-5xl lg:text-6xl uppercase leading-[1.05] mb-6">
+                    Frequently <span
+                        class="text-yellow-500 dark:text-yellow-400 hover:text-pink-500 dark:hover:text-pink-400 transition-colors duration-150 cursor-default">Asked</span>
+                    Questions
+                </h1>
+                <p class="font-body text-lg text-ink/70 dark:text-paper-fg/70 max-w-2xl leading-relaxed">
+                    Temukan jawaban atas pertanyaan paling umum tentang SCTF — mulai dari akun, tantangan, hingga
+                    proses review.
+                </p>
+            </div>
+        </section>
+
+        <!-- ============ FAQ CATEGORIES ============ -->
+        <section
+            class="border-b-4 border-black dark:border-white
+        [&::selection]:bg-yellow-500 [&::selection]:text-black dark:[&::selection]:bg-yellow-300 dark:[&::selection]:text-black">
+            <div class="max-w-7xl mx-auto px-5 md:px-8 py-12 md:py-16">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <a href="#faq-general" class="border-[3px] border-black dark:border-white bg-paper dark:bg-[#1E293B] p-4 text-center
+                    shadow-[7px_7px_0_0_#f59e0b] dark:shadow-[7px_7px_0_0_#fbbf24]
+                    hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#f59e0b] dark:hover:shadow-[3px_3px_0_0_#fbbf24]
+                    active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[-3deg]
+                    dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[-3deg]
+                    hover:border-yellow-500 dark:hover:border-yellow-400
+                    transition-[transform,box-shadow,border-color] duration-150 cursor-pointer">
+                        <span
+                            class="block text-2xl mb-1 hover:scale-125 hover:rotate-12 transition-transform duration-150">📋</span>
+                        <span class="text-sm font-mono font-bold text-ink dark:text-paper-fg">General</span>
+                    </a>
+                    <a href="#faq-account" class="border-[3px] border-black dark:border-white bg-paper dark:bg-[#1E293B] p-4 text-center
+                    shadow-[7px_7px_0_0_#06b6d4] dark:shadow-[7px_7px_0_0_#22d3ee]
+                    hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#06b6d4] dark:hover:shadow-[3px_3px_0_0_#22d3ee]
+                    active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[-3deg]
+                    dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[-3deg]
+                    hover:border-cyan-500 dark:hover:border-cyan-400
+                    transition-[transform,box-shadow,border-color] duration-150 cursor-pointer">
+                        <span
+                            class="block text-2xl mb-1 hover:scale-125 hover:rotate-12 transition-transform duration-150">👤</span>
+                        <span class="text-sm font-mono font-bold text-ink dark:text-paper-fg">Account</span>
+                    </a>
+                    <a href="#faq-challenges" class="border-[3px] border-black dark:border-white bg-paper dark:bg-[#1E293B] p-4 text-center
+                    shadow-[7px_7px_0_0_#ec4899] dark:shadow-[7px_7px_0_0_#f472b6]
+                    hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#ec4899] dark:hover:shadow-[3px_3px_0_0_#f472b6]
+                    active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[-3deg]
+                    dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[-3deg]
+                    hover:border-pink-500 dark:hover:border-pink-400
+                    transition-[transform,box-shadow,border-color] duration-150 cursor-pointer">
+                        <span
+                            class="block text-2xl mb-1 hover:scale-125 hover:rotate-12 transition-transform duration-150">🎯</span>
+                        <span class="text-sm font-mono font-bold text-ink dark:text-paper-fg">Challenges</span>
+                    </a>
+                    <a href="#faq-technical" class="border-[3px] border-black dark:border-white bg-paper dark:bg-[#1E293B] p-4 text-center
+                    shadow-[7px_7px_0_0_#3b82f6] dark:shadow-[7px_7px_0_0_#60a5fa]
+                    hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#3b82f6] dark:hover:shadow-[3px_3px_0_0_#60a5fa]
+                    active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[-3deg]
+                    dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[-3deg]
+                    hover:border-blue-500 dark:hover:border-blue-400
+                    transition-[transform,box-shadow,border-color] duration-150 cursor-pointer">
+                        <span
+                            class="block text-2xl mb-1 hover:scale-125 hover:rotate-12 transition-transform duration-150">⚙️</span>
+                        <span class="text-sm font-mono font-bold text-ink dark:text-paper-fg">Technical</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ FAQ: GENERAL ============ -->
+        <section id="faq-general"
+            class="border-b-4 border-black bg-panel dark:bg-panel-dark dark:border-white
+        [&::selection]:bg-yellow-500 [&::selection]:text-black dark:[&::selection]:bg-yellow-300 dark:[&::selection]:text-black">
+            <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20">
+                <div class="flex items-center gap-3 mb-6">
+                    <span
+                        class="text-2xl hover:scale-125 hover:rotate-12 transition-transform duration-150 cursor-default">📋</span>
+                    <h2 class="font-display text-3xl md:text-4xl uppercase">
+                        General <span
+                            class="text-yellow-500 dark:text-yellow-400 hover:text-pink-500 dark:hover:text-pink-400 transition-colors duration-150 cursor-default">FAQ</span>
+                    </h2>
+                </div>
+
+                <div class="space-y-6 max-w-screen">
+
+                    <!-- FAQ Item 1 -->
+                    <details class="border-[3px] border-black dark:border-white bg-paper dark:bg-[#1E293B]
+                    shadow-[7px_7px_0_0_#f59e0b] dark:shadow-[7px_7px_0_0_#fbbf24]
+                    hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#f59e0b] dark:hover:shadow-[3px_3px_0_0_#fbbf24]
+                    active:translate-x-0 active:translate-y-0 active:shadow-none
+                    dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
+                    hover:border-yellow-500 dark:hover:border-yellow-400
+                    transition-[transform,box-shadow,border-color] duration-150 cursor-pointer
+                    open:shadow-[3px_3px_0_0_#f59e0b] dark:open:shadow-[3px_3px_0_0_#fbbf24]">
+                        <summary class="flex items-center justify-between p-5 cursor-pointer list-none group">
+                            <span
+                                class="font-display text-lg text-ink dark:text-paper-fg group-hover:text-yellow-500 dark:group-hover:text-yellow-400 transition-colors duration-150">Apa
+                                itu SCTF?</span>
+                            <span
+                                class="text-2xl text-yellow-500 dark:text-yellow-400 group-open:rotate-180 hover:scale-125 transition-all duration-150">▼</span>
+                        </summary>
+                        <div class="px-5 pb-5 pt-2 border-t-2 border-black/20 dark:border-white/20">
+                            <p class="text-ink/80 dark:text-paper-fg/80 leading-relaxed">
+                                <strong
+                                    class="text-yellow-500 dark:text-yellow-400 hover:text-pink-500 dark:hover:text-pink-400 transition-colors duration-150 cursor-default">SCTF</strong>
+                                (SkawanCTF) adalah platform
+                                <strong
+                                    class="text-pink-500 dark:text-pink-400 hover:text-yellow-500 dark:hover:text-yellow-400 transition-colors duration-150 cursor-default">Jeopardy-style
+                                    Capture The Flag</strong>
+                                yang dirancang untuk mempelajari keamanan siber melalui tantangan langsung. Platform
+                                ini
+                                menyediakan berbagai challenge di kategori seperti Web Exploitation, Cryptography,
+                                Digital Forensics,
+                                Reverse Engineering, dan lainnya. SCTF dikembangkan khusus untuk siswa SMK Negeri 1
+                                Wanayasa
+                                sebagai media pembelajaran cyber security yang interaktif dan menyenangkan.
+                            </p>
+                        </div>
+                    </details>
+
+                    <!-- FAQ Item 2 -->
+                    <details class="border-[3px] border-black dark:border-white bg-paper dark:bg-[#1E293B]
+                    shadow-[7px_7px_0_0_#f59e0b] dark:shadow-[7px_7px_0_0_#fbbf24]
+                    hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#f59e0b] dark:hover:shadow-[3px_3px_0_0_#fbbf24]
+                    active:translate-x-0 active:translate-y-0 active:shadow-none
+                    dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
+                    hover:border-yellow-500 dark:hover:border-yellow-400
+                    transition-[transform,box-shadow,border-color] duration-150 cursor-pointer
+                    open:shadow-[3px_3px_0_0_#f59e0b] dark:open:shadow-[3px_3px_0_0_#fbbf24]">
+                        <summary class="flex items-center justify-between p-5 cursor-pointer list-none group">
+                            <span
+                                class="font-display text-lg text-ink dark:text-paper-fg group-hover:text-yellow-500 dark:group-hover:text-yellow-400 transition-colors duration-150">Siapa
+                                yang dapat menggunakan SCTF?</span>
+                            <span
+                                class="text-2xl text-yellow-500 dark:text-yellow-400 group-open:rotate-180 hover:scale-125 transition-all duration-150">▼</span>
+                        </summary>
+                        <div class="px-5 pb-5 pt-2 border-t-2 border-black/20 dark:border-white/20">
+                            <p class="text-ink/80 dark:text-paper-fg/80 leading-relaxed">
+                                SCTF dirancang khusus untuk siswa <strong
+                                    class="text-blue-500 dark:text-blue-400 hover:text-lime-500 dark:hover:text-lime-400 transition-colors duration-150 cursor-default">Kompetensi
+                                    Keahlian TJKT</strong>
+                                (Teknik Jaringan Komputer dan Telekomunikasi) di SMK Negeri 1 Wanayasa. Namun,
+                                platform ini
+                                dapat diakses oleh siapa saja yang tertarik mempelajari keamanan siber melalui
+                                metode CTF.
+                                Terdapat dua peran utama: <strong
+                                    class="text-lime-500 dark:text-lime-400 hover:text-pink-500 dark:hover:text-pink-400 transition-colors duration-150 cursor-default">User</strong>
+                                (siswa/peserta)
+                                dan <strong
+                                    class="text-pink-500 dark:text-pink-400 hover:text-lime-500 dark:hover:text-lime-400 transition-colors duration-150 cursor-default">Admin</strong>
+                                (guru/pengelola).
+                            </p>
+                        </div>
+                    </details>
+
+                    <!-- FAQ Item 3 -->
+                    <details class="border-[3px] border-black dark:border-white bg-paper dark:bg-[#1E293B]
+                    shadow-[7px_7px_0_0_#f59e0b] dark:shadow-[7px_7px_0_0_#fbbf24]
+                    hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#f59e0b] dark:hover:shadow-[3px_3px_0_0_#fbbf24]
+                    active:translate-x-0 active:translate-y-0 active:shadow-none
+                    dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
+                    hover:border-yellow-500 dark:hover:border-yellow-400
+                    transition-[transform,box-shadow,border-color] duration-150 cursor-pointer
+                    open:shadow-[3px_3px_0_0_#f59e0b] dark:open:shadow-[3px_3px_0_0_#fbbf24]">
+                        <summary class="flex items-center justify-between p-5 cursor-pointer list-none group">
+                            <span
+                                class="font-display text-lg text-ink dark:text-paper-fg group-hover:text-yellow-500 dark:group-hover:text-yellow-400 transition-colors duration-150">Apakah
+                                SCTF gratis?</span>
+                            <span
+                                class="text-2xl text-yellow-500 dark:text-yellow-400 group-open:rotate-180 hover:scale-125 transition-all duration-150">▼</span>
+                        </summary>
+                        <div class="px-5 pb-5 pt-2 border-t-2 border-black/20 dark:border-white/20">
+                            <p class="text-ink/80 dark:text-paper-fg/80 leading-relaxed">
+                                Ya! SCTF sepenuhnya <strong
+                                    class="text-green-500 dark:text-green-400 hover:text-lime-500 dark:hover:text-lime-400 transition-colors duration-150 cursor-default">gratis</strong>
+                                untuk
+                                semua siswa dan pengguna yang tertarik. Platform ini dikembangkan sebagai bagian
+                                dari penelitian
+                                skripsi dan bertujuan untuk memberikan media pembelajaran cyber security yang mudah
+                                diakses
+                                tanpa biaya.
+                            </p>
+                        </div>
+                    </details>
+
+                </div>
+
+                <div class="mt-8 text-center">
+                    <a href="#top"
+                        class="inline-flex items-center gap-2 text-sm text-ink/50 dark:text-paper-fg/50 hover:text-ink dark:hover:text-paper-fg hover:translate-x-1 transition-all duration-150">
+                        ↑ Kembali ke atas
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ FAQ: ACCOUNT ============ -->
+        <section id="faq-account"
+            class="border-b-4 border-black dark:border-white
+        [&::selection]:bg-cyan-500 [&::selection]:text-black dark:[&::selection]:bg-cyan-300 dark:[&::selection]:text-black">
+            <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20">
+                <div class="flex items-center gap-3 mb-6">
+                    <span
+                        class="text-2xl hover:scale-125 hover:rotate-12 transition-transform duration-150 cursor-default">👤</span>
+                    <h2 class="font-display text-3xl md:text-4xl uppercase">
+                        Account <span
+                            class="text-cyan-500 dark:text-cyan-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-150 cursor-default">FAQ</span>
+                    </h2>
+                </div>
+
+                <div class="space-y-6 max-w-screen">
+
+                    <!-- FAQ Item 4 -->
+                    <details class="border-[3px] border-black dark:border-white bg-paper dark:bg-[#1E293B]
+                    shadow-[7px_7px_0_0_#06b6d4] dark:shadow-[7px_7px_0_0_#22d3ee]
+                    hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#06b6d4] dark:hover:shadow-[3px_3px_0_0_#22d3ee]
+                    active:translate-x-0 active:translate-y-0 active:shadow-none
+                    dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
+                    hover:border-cyan-500 dark:hover:border-cyan-400
+                    transition-[transform,box-shadow,border-color] duration-150 cursor-pointer
+                    open:shadow-[3px_3px_0_0_#06b6d4] dark:open:shadow-[3px_3px_0_0_#22d3ee]">
+                        <summary class="flex items-center justify-between p-5 cursor-pointer list-none group">
+                            <span
+                                class="font-display text-lg text-ink dark:text-paper-fg group-hover:text-cyan-500 dark:group-hover:text-cyan-400 transition-colors duration-150">Bagaimana
+                                cara mendaftar akun?</span>
+                            <span
+                                class="text-2xl text-cyan-500 dark:text-cyan-400 group-open:rotate-180 hover:scale-125 transition-all duration-150">▼</span>
+                        </summary>
+                        <div class="px-5 pb-5 pt-2 border-t-2 border-black/20 dark:border-white/20">
+                            <p class="text-ink/80 dark:text-paper-fg/80 leading-relaxed">
+                                Anda dapat mendaftar melalui halaman <span
+                                    class="font-mono bg-black/10 dark:bg-white/10 px-2 py-0.5 rounded border border-cyan-500/30 hover:bg-cyan-500/20 dark:hover:bg-cyan-400/20 transition-colors duration-150 cursor-pointer">/auth/sign-up</span>
+                                dengan dua cara:
+                            </p>
+                            <ol class="mt-3 space-y-2 text-ink/80 dark:text-paper-fg/80 list-decimal list-inside">
+                                <li
+                                    class="hover:translate-x-1 hover:text-cyan-500 dark:hover:text-cyan-400 transition-all duration-150 cursor-default">
+                                    <strong class="text-cyan-500 dark:text-cyan-400">Email &amp; Password:</strong>
+                                    Isi formulir dengan
+                                    nama, username, email, dan password (minimal 8 karakter).
+                                </li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-cyan-500 dark:hover:text-cyan-400 transition-all duration-150 cursor-default">
+                                    <strong class="text-cyan-500 dark:text-cyan-400">Google OAuth:</strong> Klik
+                                    tombol
+                                    <span class="font-mono">Sign Up with Google</span> untuk menggunakan akun Google
+                                    Anda.
+                                </li>
+                            </ol>
+                            <p class="mt-3 text-ink/80 dark:text-paper-fg/80">
+                                Setelah berhasil mendaftar, Anda akan langsung diarahkan ke halaman utama.
+                            </p>
+                        </div>
+                    </details>
+
+                    <!-- FAQ Item 5 -->
+                    <details class="border-[3px] border-black dark:border-white bg-paper dark:bg-[#1E293B]
+                    shadow-[7px_7px_0_0_#06b6d4] dark:shadow-[7px_7px_0_0_#22d3ee]
+                    hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#06b6d4] dark:hover:shadow-[3px_3px_0_0_#22d3ee]
+                    active:translate-x-0 active:translate-y-0 active:shadow-none
+                    dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
+                    hover:border-cyan-500 dark:hover:border-cyan-400
+                    transition-[transform,box-shadow,border-color] duration-150 cursor-pointer
+                    open:shadow-[3px_3px_0_0_#06b6d4] dark:open:shadow-[3px_3px_0_0_#22d3ee]">
+                        <summary class="flex items-center justify-between p-5 cursor-pointer list-none group">
+                            <span
+                                class="font-display text-lg text-ink dark:text-paper-fg group-hover:text-cyan-500 dark:group-hover:text-cyan-400 transition-colors duration-150">Saya
+                                lupa password, bagaimana cara reset?</span>
+                            <span
+                                class="text-2xl text-cyan-500 dark:text-cyan-400 group-open:rotate-180 hover:scale-125 transition-all duration-150">▼</span>
+                        </summary>
+                        <div class="px-5 pb-5 pt-2 border-t-2 border-black/20 dark:border-white/20">
+                            <p class="text-ink/80 dark:text-paper-fg/80 leading-relaxed">
+                                Jika Anda lupa password, ikuti langkah-langkah berikut:
+                            </p>
+                            <ol class="mt-3 space-y-2 text-ink/80 dark:text-paper-fg/80 list-decimal list-inside">
+                                <li
+                                    class="hover:translate-x-1 hover:text-cyan-500 dark:hover:text-cyan-400 transition-all duration-150 cursor-default">
+                                    Buka halaman <span
+                                        class="font-mono bg-black/10 dark:bg-white/10 px-2 py-0.5 rounded border border-cyan-500/30 hover:bg-cyan-500/20 dark:hover:bg-cyan-400/20 transition-colors duration-150 cursor-pointer">/auth/forgot-password</span>.
+                                </li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-cyan-500 dark:hover:text-cyan-400 transition-all duration-150 cursor-default">
+                                    Masukkan alamat email yang terdaftar.</li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-cyan-500 dark:hover:text-cyan-400 transition-all duration-150 cursor-default">
+                                    Sistem akan mengirimkan tautan reset password ke email Anda.</li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-cyan-500 dark:hover:text-cyan-400 transition-all duration-150 cursor-default">
+                                    Buka tautan tersebut dan masukkan password baru (minimal 8 karakter).</li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-cyan-500 dark:hover:text-cyan-400 transition-all duration-150 cursor-default">
+                                    Konfirmasi password baru dan simpan perubahan.</li>
+                            </ol>
+                            <p class="mt-3 text-ink/80 dark:text-paper-fg/80">
+                                Tautan reset hanya berlaku sementara. Jika kedaluwarsa, ulangi proses dari awal.
+                            </p>
+                        </div>
+                    </details>
+
+                    <!-- FAQ Item 6 -->
+                    <details class="border-[3px] border-black dark:border-white bg-paper dark:bg-[#1E293B]
+                    shadow-[7px_7px_0_0_#06b6d4] dark:shadow-[7px_7px_0_0_#22d3ee]
+                    hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#06b6d4] dark:hover:shadow-[3px_3px_0_0_#22d3ee]
+                    active:translate-x-0 active:translate-y-0 active:shadow-none
+                    dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
+                    hover:border-cyan-500 dark:hover:border-cyan-400
+                    transition-[transform,box-shadow,border-color] duration-150 cursor-pointer
+                    open:shadow-[3px_3px_0_0_#06b6d4] dark:open:shadow-[3px_3px_0_0_#22d3ee]">
+                        <summary class="flex items-center justify-between p-5 cursor-pointer list-none group">
+                            <span
+                                class="font-display text-lg text-ink dark:text-paper-fg group-hover:text-cyan-500 dark:group-hover:text-cyan-400 transition-colors duration-150">Bisakah
+                                saya mengubah email saya?</span>
+                            <span
+                                class="text-2xl text-cyan-500 dark:text-cyan-400 group-open:rotate-180 hover:scale-125 transition-all duration-150">▼</span>
+                        </summary>
+                        <div class="px-5 pb-5 pt-2 border-t-2 border-black/20 dark:border-white/20">
+                            <p class="text-ink/80 dark:text-paper-fg/80 leading-relaxed">
+                                <strong
+                                    class="text-cyan-500 dark:text-cyan-400 hover:text-blue-500 dark:hover:text-blue-400 transition-colors duration-150 cursor-default">Ya</strong>,
+                                jika Anda menggunakan autentikasi
+                                email/password. Anda dapat mengubah email melalui halaman
+                                <span
+                                    class="font-mono bg-black/10 dark:bg-white/10 px-2 py-0.5 rounded border border-cyan-500/30 hover:bg-cyan-500/20 dark:hover:bg-cyan-400/20 transition-colors duration-150 cursor-pointer">/profile/edit</span>.
+                            </p>
+                            <p class="mt-2 text-ink/80 dark:text-paper-fg/80">
+                                <strong
+                                    class="text-red-500 dark:text-red-400 hover:text-yellow-500 dark:hover:text-yellow-400 transition-colors duration-150 cursor-default">Tidak</strong>,
+                                jika Anda menggunakan autentikasi
+                                Google OAuth. Email dikelola oleh Google dan tidak dapat diubah melalui platform
+                                SCTF.
+                                Silakan ubah email melalui akun Google Anda.
+                            </p>
+                        </div>
+                    </details>
+
+                    <!-- FAQ Item 7 -->
+                    <details class="border-[3px] border-black dark:border-white bg-paper dark:bg-[#1E293B]
+                    shadow-[7px_7px_0_0_#06b6d4] dark:shadow-[7px_7px_0_0_#22d3ee]
+                    hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#06b6d4] dark:hover:shadow-[3px_3px_0_0_#22d3ee]
+                    active:translate-x-0 active:translate-y-0 active:shadow-none
+                    dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
+                    hover:border-cyan-500 dark:hover:border-cyan-400
+                    transition-[transform,box-shadow,border-color] duration-150 cursor-pointer
+                    open:shadow-[3px_3px_0_0_#06b6d4] dark:open:shadow-[3px_3px_0_0_#22d3ee]">
+                        <summary class="flex items-center justify-between p-5 cursor-pointer list-none group">
+                            <span
+                                class="font-display text-lg text-ink dark:text-paper-fg group-hover:text-cyan-500 dark:group-hover:text-cyan-400 transition-colors duration-150">Apa
+                                yang terjadi jika akun saya disuspensi?</span>
+                            <span
+                                class="text-2xl text-cyan-500 dark:text-cyan-400 group-open:rotate-180 hover:scale-125 transition-all duration-150">▼</span>
+                        </summary>
+                        <div class="px-5 pb-5 pt-2 border-t-2 border-black/20 dark:border-white/20">
+                            <p class="text-ink/80 dark:text-paper-fg/80 leading-relaxed">
+                                Jika akun Anda dikenai suspensi (penangguhan), Anda akan diarahkan ke halaman
+                                <span
+                                    class="font-mono bg-black/10 dark:bg-white/10 px-2 py-0.5 rounded border border-cyan-500/30 hover:bg-cyan-500/20 dark:hover:bg-cyan-400/20 transition-colors duration-150 cursor-pointer">/suspended</span>
+                                saat mencoba mengakses platform.
+                                Halaman ini akan menampilkan:
+                            </p>
+                            <ul class="mt-3 space-y-2 text-ink/80 dark:text-paper-fg/80 list-disc list-inside">
+                                <li
+                                    class="hover:translate-x-1 hover:text-cyan-500 dark:hover:text-cyan-400 transition-all duration-150 cursor-default">
+                                    Jenis suspensi: <strong
+                                        class="text-yellow-500 dark:text-yellow-400">Temporary</strong> atau
+                                    <strong class="text-red-500 dark:text-red-400">Permanent</strong>
+                                </li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-cyan-500 dark:hover:text-cyan-400 transition-all duration-150 cursor-default">
+                                    Alasan suspensi</li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-cyan-500 dark:hover:text-cyan-400 transition-all duration-150 cursor-default">
+                                    Waktu mulai dan (jika temporary) waktu berakhir</li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-cyan-500 dark:hover:text-cyan-400 transition-all duration-150 cursor-default">
+                                    Jumlah hari tersisa (untuk temporary)</li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-cyan-500 dark:hover:text-cyan-400 transition-all duration-150 cursor-default">
+                                    Tombol <span class="font-mono">Logout</span> dan <span class="font-mono">Contact
+                                        Support</span></li>
+                            </ul>
+                            <p class="mt-3 text-ink/80 dark:text-paper-fg/80">
+                                Untuk suspensi <strong
+                                    class="text-yellow-500 dark:text-yellow-400 hover:text-red-500 dark:hover:text-red-400 transition-colors duration-150 cursor-default">temporary</strong>,
+                                akun akan
+                                pulih otomatis setelah masa suspensi berakhir. Untuk suspensi
+                                <strong
+                                    class="text-red-500 dark:text-red-400 hover:text-yellow-500 dark:hover:text-yellow-400 transition-colors duration-150 cursor-default">permanent</strong>,
+                                hubungi tim dukungan.
+                            </p>
+                        </div>
+                    </details>
+
+                </div>
+
+                <div class="mt-8 text-center">
+                    <a href="#top"
+                        class="inline-flex items-center gap-2 text-sm text-ink/50 dark:text-paper-fg/50 hover:text-ink dark:hover:text-paper-fg hover:translate-x-1 transition-all duration-150">
+                        ↑ Kembali ke atas
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ FAQ: CHALLENGES ============ -->
+        <section id="faq-challenges"
+            class="border-b-4 border-black bg-panel dark:bg-panel-dark dark:border-white
+        [&::selection]:bg-pink-500 [&::selection]:text-black dark:[&::selection]:bg-pink-300 dark:[&::selection]:text-black">
+            <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20">
+                <div class="flex items-center gap-3 mb-6">
+                    <span
+                        class="text-2xl hover:scale-125 hover:rotate-12 transition-transform duration-150 cursor-default">🎯</span>
+                    <h2 class="font-display text-3xl md:text-4xl uppercase">
+                        Challenges <span
+                            class="text-pink-500 dark:text-pink-400 hover:text-yellow-500 dark:hover:text-yellow-400 transition-colors duration-150 cursor-default">FAQ</span>
+                    </h2>
+                </div>
+
+                <div class="space-y-6 max-w-screen">
+
+                    <!-- FAQ Item 8 -->
+                    <details class="border-[3px] border-black dark:border-white bg-paper dark:bg-[#1E293B]
+                    shadow-[7px_7px_0_0_#ec4899] dark:shadow-[7px_7px_0_0_#f472b6]
+                    hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#ec4899] dark:hover:shadow-[3px_3px_0_0_#f472b6]
+                    active:translate-x-0 active:translate-y-0 active:shadow-none
+                    dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
+                    hover:border-pink-500 dark:hover:border-pink-400
+                    transition-[transform,box-shadow,border-color] duration-150 cursor-pointer
+                    open:shadow-[3px_3px_0_0_#ec4899] dark:open:shadow-[3px_3px_0_0_#f472b6]">
+                        <summary class="flex items-center justify-between p-5 cursor-pointer list-none group">
+                            <span
+                                class="font-display text-lg text-ink dark:text-paper-fg group-hover:text-pink-500 dark:group-hover:text-pink-400 transition-colors duration-150">Apa
+                                yang dimaksud dengan "flag"?</span>
+                            <span
+                                class="text-2xl text-pink-500 dark:text-pink-400 group-open:rotate-180 hover:scale-125 transition-all duration-150">▼</span>
+                        </summary>
+                        <div class="px-5 pb-5 pt-2 border-t-2 border-black/20 dark:border-white/20">
+                            <p class="text-ink/80 dark:text-paper-fg/80 leading-relaxed">
+                                <strong
+                                    class="text-pink-500 dark:text-pink-400 hover:text-yellow-500 dark:hover:text-yellow-400 transition-colors duration-150 cursor-default">Flag</strong>
+                                adalah sebuah string unik yang
+                                menjadi "kunci" dari sebuah challenge. Format flag di SCTF adalah
+                                <code
+                                    class="bg-black text-pink-400 dark:text-pink-300 px-2 py-0.5 text-sm font-mono border border-pink-400 hover:bg-pink-500 hover:text-black transition-colors duration-150 cursor-pointer">SCTF{...}</code>.
+                                Peserta harus menemukan flag tersebut dengan menyelesaikan challenge, lalu
+                                mengirimkannya melalui
+                                form submission untuk mendapatkan poin.
+                            </p>
+                            <p class="mt-2 text-ink/80 dark:text-paper-fg/80">
+                                Contoh: <code
+                                    class="bg-black text-yellow-400 dark:text-yellow-300 px-2 py-0.5 text-sm font-mono border border-yellow-400 hover:bg-yellow-500 hover:text-black transition-colors duration-150 cursor-pointer">SCTF{th3_fl4g_1s_h3r3}</code>
+                            </p>
+                        </div>
+                    </details>
+
+                    <!-- FAQ Item 9 -->
+                    <details class="border-[3px] border-black dark:border-white bg-paper dark:bg-[#1E293B]
+                    shadow-[7px_7px_0_0_#ec4899] dark:shadow-[7px_7px_0_0_#f472b6]
+                    hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#ec4899] dark:hover:shadow-[3px_3px_0_0_#f472b6]
+                    active:translate-x-0 active:translate-y-0 active:shadow-none
+                    dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
+                    hover:border-pink-500 dark:hover:border-pink-400
+                    transition-[transform,box-shadow,border-color] duration-150 cursor-pointer
+                    open:shadow-[3px_3px_0_0_#ec4899] dark:open:shadow-[3px_3px_0_0_#f472b6]">
+                        <summary class="flex items-center justify-between p-5 cursor-pointer list-none group">
+                            <span
+                                class="font-display text-lg text-ink dark:text-paper-fg group-hover:text-pink-500 dark:group-hover:text-pink-400 transition-colors duration-150">Bagaimana
+                                cara submit flag?</span>
+                            <span
+                                class="text-2xl text-pink-500 dark:text-pink-400 group-open:rotate-180 hover:scale-125 transition-all duration-150">▼</span>
+                        </summary>
+                        <div class="px-5 pb-5 pt-2 border-t-2 border-black/20 dark:border-white/20">
+                            <p class="text-ink/80 dark:text-paper-fg/80 leading-relaxed">
+                                Setelah menemukan flag, ikuti langkah-langkah berikut:
+                            </p>
+                            <ol class="mt-3 space-y-2 text-ink/80 dark:text-paper-fg/80 list-decimal list-inside">
+                                <li
+                                    class="hover:translate-x-1 hover:text-pink-500 dark:hover:text-pink-400 transition-all duration-150 cursor-default">
+                                    Buka halaman detail challenge.</li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-pink-500 dark:hover:text-pink-400 transition-all duration-150 cursor-default">
+                                    Masukkan flag yang ditemukan ke dalam kolom <span class="font-mono">Submit
+                                        Flag</span>.</li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-pink-500 dark:hover:text-pink-400 transition-all duration-150 cursor-default">
+                                    Klik tombol <span class="font-mono">Submit</span>.</li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-pink-500 dark:hover:text-pink-400 transition-all duration-150 cursor-default">
+                                    Sistem akan memverifikasi flag dan menampilkan hasil (benar/salah).</li>
+                            </ol>
+                            <p class="mt-3 text-ink/80 dark:text-paper-fg/80">
+                                Jika flag benar, poin akan ditambahkan ke total skor Anda dan status challenge
+                                berubah menjadi
+                                <span class="font-mono text-green-500 dark:text-green-400">Solved</span>.
+                            </p>
+                        </div>
+                    </details>
+
+                    <!-- FAQ Item 10 -->
+                    <details class="border-[3px] border-black dark:border-white bg-paper dark:bg-[#1E293B]
+                    shadow-[7px_7px_0_0_#ec4899] dark:shadow-[7px_7px_0_0_#f472b6]
+                    hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#ec4899] dark:hover:shadow-[3px_3px_0_0_#f472b6]
+                    active:translate-x-0 active:translate-y-0 active:shadow-none
+                    dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
+                    hover:border-pink-500 dark:hover:border-pink-400
+                    transition-[transform,box-shadow,border-color] duration-150 cursor-pointer
+                    open:shadow-[3px_3px_0_0_#ec4899] dark:open:shadow-[3px_3px_0_0_#f472b6]">
+                        <summary class="flex items-center justify-between p-5 cursor-pointer list-none group">
+                            <span
+                                class="font-display text-lg text-ink dark:text-paper-fg group-hover:text-pink-500 dark:group-hover:text-pink-400 transition-colors duration-150">Apa
+                                itu bookmark dan bagaimana cara menggunakannya?</span>
+                            <span
+                                class="text-2xl text-pink-500 dark:text-pink-400 group-open:rotate-180 hover:scale-125 transition-all duration-150">▼</span>
+                        </summary>
+                        <div class="px-5 pb-5 pt-2 border-t-2 border-black/20 dark:border-white/20">
+                            <p class="text-ink/80 dark:text-paper-fg/80 leading-relaxed">
+                                <strong
+                                    class="text-pink-500 dark:text-pink-400 hover:text-yellow-500 dark:hover:text-yellow-400 transition-colors duration-150 cursor-default">Bookmark</strong>
+                                adalah fitur untuk menyimpan
+                                challenge yang ingin Anda kerjakan nanti. Cara menggunakannya:
+                            </p>
+                            <ol class="mt-3 space-y-2 text-ink/80 dark:text-paper-fg/80 list-decimal list-inside">
+                                <li
+                                    class="hover:translate-x-1 hover:text-pink-500 dark:hover:text-pink-400 transition-all duration-150 cursor-default">
+                                    Buka halaman detail challenge.</li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-pink-500 dark:hover:text-pink-400 transition-all duration-150 cursor-default">
+                                    Klik ikon <span class="font-mono">⭐</span> (bookmark) di sebelah kanan.</li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-pink-500 dark:hover:text-pink-400 transition-all duration-150 cursor-default">
+                                    Challenge akan tersimpan di daftar bookmark Anda.</li>
+                            </ol>
+                            <p class="mt-3 text-ink/80 dark:text-paper-fg/80">
+                                Semua challenge yang di-bookmark dapat diakses kembali dengan cepat dari halaman
+                                profil Anda.
+                                Untuk menghapus bookmark, klik ikon <span class="font-mono">⭐</span> sekali lagi.
+                            </p>
+                        </div>
+                    </details>
+
+                    <!-- FAQ Item 11 -->
+                    <details class="border-[3px] border-black dark:border-white bg-paper dark:bg-[#1E293B]
+                    shadow-[7px_7px_0_0_#ec4899] dark:shadow-[7px_7px_0_0_#f472b6]
+                    hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#ec4899] dark:hover:shadow-[3px_3px_0_0_#f472b6]
+                    active:translate-x-0 active:translate-y-0 active:shadow-none
+                    dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
+                    hover:border-pink-500 dark:hover:border-pink-400
+                    transition-[transform,box-shadow,border-color] duration-150 cursor-pointer
+                    open:shadow-[3px_3px_0_0_#ec4899] dark:open:shadow-[3px_3px_0_0_#f472b6]">
+                        <summary class="flex items-center justify-between p-5 cursor-pointer list-none group">
+                            <span
+                                class="font-display text-lg text-ink dark:text-paper-fg group-hover:text-pink-500 dark:group-hover:text-pink-400 transition-colors duration-150">Bagaimana
+                                cara melaporkan challenge yang bermasalah?</span>
+                            <span
+                                class="text-2xl text-pink-500 dark:text-pink-400 group-open:rotate-180 hover:scale-125 transition-all duration-150">▼</span>
+                        </summary>
+                        <div class="px-5 pb-5 pt-2 border-t-2 border-black/20 dark:border-white/20">
+                            <p class="text-ink/80 dark:text-paper-fg/80 leading-relaxed">
+                                Jika Anda menemukan masalah pada sebuah challenge (misalnya flag salah, petunjuk
+                                membingungkan,
+                                atau link rusak), Anda dapat melaporkannya:
+                            </p>
+                            <ol class="mt-3 space-y-2 text-ink/80 dark:text-paper-fg/80 list-decimal list-inside">
+                                <li
+                                    class="hover:translate-x-1 hover:text-pink-500 dark:hover:text-pink-400 transition-all duration-150 cursor-default">
+                                    Buka halaman detail challenge tersebut.</li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-pink-500 dark:hover:text-pink-400 transition-all duration-150 cursor-default">
+                                    Klik tombol <span class="font-mono">Report</span>.</li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-pink-500 dark:hover:text-pink-400 transition-all duration-150 cursor-default">
+                                    Isi form laporan dengan deskripsi masalah secara jelas.</li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-pink-500 dark:hover:text-pink-400 transition-all duration-150 cursor-default">
+                                    Kirim laporan — tim admin akan meninjau dan menindaklanjuti.</li>
+                            </ol>
+                        </div>
+                    </details>
+
+                    <!-- FAQ Item 12 -->
+                    <details class="border-[3px] border-black dark:border-white bg-paper dark:bg-[#1E293B]
+                    shadow-[7px_7px_0_0_#ec4899] dark:shadow-[7px_7px_0_0_#f472b6]
+                    hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#ec4899] dark:hover:shadow-[3px_3px_0_0_#f472b6]
+                    active:translate-x-0 active:translate-y-0 active:shadow-none
+                    dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
+                    hover:border-pink-500 dark:hover:border-pink-400
+                    transition-[transform,box-shadow,border-color] duration-150 cursor-pointer
+                    open:shadow-[3px_3px_0_0_#ec4899] dark:open:shadow-[3px_3px_0_0_#f472b6]">
+                        <summary class="flex items-center justify-between p-5 cursor-pointer list-none group">
+                            <span
+                                class="font-display text-lg text-ink dark:text-paper-fg group-hover:text-pink-500 dark:group-hover:text-pink-400 transition-colors duration-150">Bagaimana
+                                cara membuat challenge sendiri?</span>
+                            <span
+                                class="text-2xl text-pink-500 dark:text-pink-400 group-open:rotate-180 hover:scale-125 transition-all duration-150">▼</span>
+                        </summary>
+                        <div class="px-5 pb-5 pt-2 border-t-2 border-black/20 dark:border-white/20">
+                            <p class="text-ink/80 dark:text-paper-fg/80 leading-relaxed">
+                                Anda dapat membuat challenge melalui halaman <span
+                                    class="font-mono bg-black/10 dark:bg-white/10 px-2 py-0.5 rounded border border-pink-500/30 hover:bg-pink-500/20 dark:hover:bg-pink-400/20 transition-colors duration-150 cursor-pointer">/mychallenges/create</span>.
+                                Langkah-langkahnya:
+                            </p>
+                            <ol class="mt-3 space-y-2 text-ink/80 dark:text-paper-fg/80 list-decimal list-inside">
+                                <li
+                                    class="hover:translate-x-1 hover:text-pink-500 dark:hover:text-pink-400 transition-all duration-150 cursor-default">
+                                    Isi <strong class="text-cyan-500 dark:text-cyan-400">Challenge Name</strong> dan
+                                    <strong class="text-cyan-500 dark:text-cyan-400">Description</strong>.
+                                </li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-pink-500 dark:hover:text-pink-400 transition-all duration-150 cursor-default">
+                                    Tambahkan <strong class="text-cyan-500 dark:text-cyan-400">Task Strings</strong>
+                                    (petunjuk)
+                                    dan <strong class="text-cyan-500 dark:text-cyan-400">Task URL</strong>
+                                    (opsional).</li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-pink-500 dark:hover:text-pink-400 transition-all duration-150 cursor-default">
+                                    Masukkan <strong class="text-pink-500 dark:text-pink-400">Flag</strong> (akan
+                                    dienkripsi otomatis).</li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-pink-500 dark:hover:text-pink-400 transition-all duration-150 cursor-default">
+                                    Tempelkan link <strong class="text-yellow-500 dark:text-yellow-400">Google
+                                        Docs</strong>
+                                    write-up Anda.</li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-pink-500 dark:hover:text-pink-400 transition-all duration-150 cursor-default">
+                                    Klik <span class="font-mono">Save Challenge</span>.</li>
+                            </ol>
+                            <p class="mt-3 text-ink/80 dark:text-paper-fg/80">
+                                Challenge akan tersimpan dengan status <span
+                                    class="font-mono text-yellow-500 dark:text-yellow-400">Saved</span>.
+                                Setelah siap, Anda dapat mengirimkannya untuk review melalui halaman My Challenges.
+                            </p>
+                        </div>
+                    </details>
+
+                </div>
+
+                <div class="mt-8 text-center">
+                    <a href="#top"
+                        class="inline-flex items-center gap-2 text-sm text-ink/50 dark:text-paper-fg/50 hover:text-ink dark:hover:text-paper-fg hover:translate-x-1 transition-all duration-150">
+                        ↑ Kembali ke atas
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ FAQ: TECHNICAL ============ -->
+        <section id="faq-technical"
+            class="border-b-4 border-black dark:border-white
+        [&::selection]:bg-blue-500 [&::selection]:text-black dark:[&::selection]:bg-blue-300 dark:[&::selection]:text-black">
+            <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20">
+                <div class="flex items-center gap-3 mb-6">
+                    <span
+                        class="text-2xl hover:scale-125 hover:rotate-12 transition-transform duration-150 cursor-default">⚙️</span>
+                    <h2 class="font-display text-3xl md:text-4xl uppercase">
+                        Technical <span
+                            class="text-blue-500 dark:text-blue-400 hover:text-cyan-500 dark:hover:text-cyan-400 transition-colors duration-150 cursor-default">FAQ</span>
+                    </h2>
+                </div>
+
+                <div class="space-y-6 max-w-screen">
+
+                    <!-- FAQ Item 13 -->
+                    <details class="border-[3px] border-black dark:border-white bg-paper dark:bg-[#1E293B]
+                    shadow-[7px_7px_0_0_#3b82f6] dark:shadow-[7px_7px_0_0_#60a5fa]
+                    hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#3b82f6] dark:hover:shadow-[3px_3px_0_0_#60a5fa]
+                    active:translate-x-0 active:translate-y-0 active:shadow-none
+                    dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
+                    hover:border-blue-500 dark:hover:border-blue-400
+                    transition-[transform,box-shadow,border-color] duration-150 cursor-pointer
+                    open:shadow-[3px_3px_0_0_#3b82f6] dark:open:shadow-[3px_3px_0_0_#60a5fa]">
+                        <summary class="flex items-center justify-between p-5 cursor-pointer list-none group">
+                            <span
+                                class="font-display text-lg text-ink dark:text-paper-fg group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors duration-150">Teknologi
+                                apa yang digunakan untuk membangun SCTF?</span>
+                            <span
+                                class="text-2xl text-blue-500 dark:text-blue-400 group-open:rotate-180 hover:scale-125 transition-all duration-150">▼</span>
+                        </summary>
+                        <div class="px-5 pb-5 pt-2 border-t-2 border-black/20 dark:border-white/20">
+                            <p class="text-ink/80 dark:text-paper-fg/80 leading-relaxed">
+                                SCTF dibangun menggunakan teknologi modern:
+                            </p>
+                            <ul class="mt-3 space-y-2 text-ink/80 dark:text-paper-fg/80 list-disc list-inside">
+                                <li
+                                    class="hover:translate-x-1 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-150 cursor-default">
+                                    <strong class="text-blue-500 dark:text-blue-400">Frontend:</strong> Next.js
+                                    (React framework) dengan TypeScript
+                                </li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-150 cursor-default">
+                                    <strong class="text-blue-500 dark:text-blue-400">Styling:</strong> TailwindCSS
+                                    dengan tema neo-brutalisme
+                                </li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-150 cursor-default">
+                                    <strong class="text-blue-500 dark:text-blue-400">Backend &amp;
+                                        Database:</strong> Supabase (PostgreSQL) dengan Row Level Security (RLS)
+                                </li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-150 cursor-default">
+                                    <strong class="text-blue-500 dark:text-blue-400">Autentikasi:</strong> Supabase
+                                    Auth (email/password + Google OAuth)
+                                </li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-150 cursor-default">
+                                    <strong class="text-blue-500 dark:text-blue-400">Deployment:</strong> Vercel
+                                    (serverless)
+                                </li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-150 cursor-default">
+                                    <strong class="text-blue-500 dark:text-blue-400">Domain &amp; DNS:</strong>
+                                    IDCloudHost + Cloudflare
+                                </li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-150 cursor-default">
+                                    <strong class="text-blue-500 dark:text-blue-400">Version Control:</strong> Git
+                                    &amp; GitHub
+                                </li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <!-- FAQ Item 14 -->
+                    <details class="border-[3px] border-black dark:border-white bg-paper dark:bg-[#1E293B]
+                    shadow-[7px_7px_0_0_#3b82f6] dark:shadow-[7px_7px_0_0_#60a5fa]
+                    hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#3b82f6] dark:hover:shadow-[3px_3px_0_0_#60a5fa]
+                    active:translate-x-0 active:translate-y-0 active:shadow-none
+                    dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
+                    hover:border-blue-500 dark:hover:border-blue-400
+                    transition-[transform,box-shadow,border-color] duration-150 cursor-pointer
+                    open:shadow-[3px_3px_0_0_#3b82f6] dark:open:shadow-[3px_3px_0_0_#60a5fa]">
+                        <summary class="flex items-center justify-between p-5 cursor-pointer list-none group">
+                            <span
+                                class="font-display text-lg text-ink dark:text-paper-fg group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors duration-150">Bagaimana
+                                cara kerja enkripsi flag?</span>
+                            <span
+                                class="text-2xl text-blue-500 dark:text-blue-400 group-open:rotate-180 hover:scale-125 transition-all duration-150">▼</span>
+                        </summary>
+                        <div class="px-5 pb-5 pt-2 border-t-2 border-black/20 dark:border-white/20">
+                            <p class="text-ink/80 dark:text-paper-fg/80 leading-relaxed">
+                                Flag yang Anda buat dienkripsi menggunakan proses dua langkah:
+                            </p>
+                            <ol class="mt-3 space-y-2 text-ink/80 dark:text-paper-fg/80 list-decimal list-inside">
+                                <li
+                                    class="hover:translate-x-1 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-150 cursor-default">
+                                    <strong class="text-cyan-500 dark:text-cyan-400">Vigenere Cipher:</strong> Flag
+                                    dienkripsi
+                                    menggunakan kunci acak yang dihasilkan per challenge.
+                                </li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-150 cursor-default">
+                                    <strong class="text-cyan-500 dark:text-cyan-400">Base64:</strong> Hasil enkripsi
+                                    Vigenere
+                                    kemudian diubah ke format Base64.
+                                </li>
+                            </ol>
+                            <p class="mt-3 text-ink/80 dark:text-paper-fg/80">
+                                Kunci Vigenere disimpan secara terpisah di tabel <span
+                                    class="font-mono bg-black/10 dark:bg-white/10 px-2 py-0.5 rounded border border-blue-500/30 hover:bg-blue-500/20 dark:hover:bg-blue-400/20 transition-colors duration-150 cursor-pointer">challenge_flag</span>
+                                bersama dengan flag terenkripsi. Sistem akan mendekripsi flag saat verifikasi
+                                submission,
+                                sehingga keamanan data tetap terjaga.
+                            </p>
+                        </div>
+                    </details>
+
+                    <!-- FAQ Item 15 -->
+                    <details class="border-[3px] border-black dark:border-white bg-paper dark:bg-[#1E293B]
+                    shadow-[7px_7px_0_0_#3b82f6] dark:shadow-[7px_7px_0_0_#60a5fa]
+                    hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#3b82f6] dark:hover:shadow-[3px_3px_0_0_#60a5fa]
+                    active:translate-x-0 active:translate-y-0 active:shadow-none
+                    dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
+                    hover:border-blue-500 dark:hover:border-blue-400
+                    transition-[transform,box-shadow,border-color] duration-150 cursor-pointer
+                    open:shadow-[3px_3px_0_0_#3b82f6] dark:open:shadow-[3px_3px_0_0_#60a5fa]">
+                        <summary class="flex items-center justify-between p-5 cursor-pointer list-none group">
+                            <span
+                                class="font-display text-lg text-ink dark:text-paper-fg group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors duration-150">Bagaimana
+                                keamanan data pengguna dijamin?</span>
+                            <span
+                                class="text-2xl text-blue-500 dark:text-blue-400 group-open:rotate-180 hover:scale-125 transition-all duration-150">▼</span>
+                        </summary>
+                        <div class="px-5 pb-5 pt-2 border-t-2 border-black/20 dark:border-white/20">
+                            <p class="text-ink/80 dark:text-paper-fg/80 leading-relaxed">
+                                SCTF menerapkan beberapa lapisan keamanan:
+                            </p>
+                            <ul class="mt-3 space-y-2 text-ink/80 dark:text-paper-fg/80 list-disc list-inside">
+                                <li
+                                    class="hover:translate-x-1 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-150 cursor-default">
+                                    <strong class="text-green-500 dark:text-green-400">Row Level Security
+                                        (RLS):</strong> Setiap pengguna
+                                    hanya dapat mengakses data miliknya sendiri (kecuali admin).
+                                </li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-150 cursor-default">
+                                    <strong class="text-green-500 dark:text-green-400">Enkripsi Flag:</strong> Flag
+                                    disimpan dalam
+                                    bentuk terenkripsi (Vigenere + Base64).
+                                </li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-150 cursor-default">
+                                    <strong class="text-green-500 dark:text-green-400">Autentikasi:</strong>
+                                    Menggunakan Supabase Auth
+                                    dengan token JWT yang divalidasi setiap request.
+                                </li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-150 cursor-default">
+                                    <strong class="text-green-500 dark:text-green-400">HTTPS:</strong> Seluruh
+                                    koneksi menggunakan
+                                    protokol HTTPS melalui Vercel &amp; Cloudflare.
+                                </li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-150 cursor-default">
+                                    <strong class="text-green-500 dark:text-green-400">Sanitasi Input:</strong>
+                                    Semua input pengguna
+                                    divalidasi untuk mencegah serangan SQL Injection dan XSS.
+                                </li>
+                            </ul>
+                        </div>
+                    </details>
+
+                    <!-- FAQ Item 16 -->
+                    <details class="border-[3px] border-black dark:border-white bg-paper dark:bg-[#1E293B]
+                    shadow-[7px_7px_0_0_#3b82f6] dark:shadow-[7px_7px_0_0_#60a5fa]
+                    hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#3b82f6] dark:hover:shadow-[3px_3px_0_0_#60a5fa]
+                    active:translate-x-0 active:translate-y-0 active:shadow-none
+                    dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
+                    hover:border-blue-500 dark:hover:border-blue-400
+                    transition-[transform,box-shadow,border-color] duration-150 cursor-pointer
+                    open:shadow-[3px_3px_0_0_#3b82f6] dark:open:shadow-[3px_3px_0_0_#60a5fa]">
+                        <summary class="flex items-center justify-between p-5 cursor-pointer list-none group">
+                            <span
+                                class="font-display text-lg text-ink dark:text-paper-fg group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors duration-150">Browser
+                                apa yang didukung?</span>
+                            <span
+                                class="text-2xl text-blue-500 dark:text-blue-400 group-open:rotate-180 hover:scale-125 transition-all duration-150">▼</span>
+                        </summary>
+                        <div class="px-5 pb-5 pt-2 border-t-2 border-black/20 dark:border-white/20">
+                            <p class="text-ink/80 dark:text-paper-fg/80 leading-relaxed">
+                                SCTF mendukung browser modern terbaru:
+                            </p>
+                            <ul class="mt-3 space-y-2 text-ink/80 dark:text-paper-fg/80 list-disc list-inside">
+                                <li
+                                    class="hover:translate-x-1 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-150 cursor-default">
+                                    <strong class="text-blue-500 dark:text-blue-400">Google Chrome</strong> (versi
+                                    90+)
+                                </li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-150 cursor-default">
+                                    <strong class="text-blue-500 dark:text-blue-400">Mozilla Firefox</strong> (versi
+                                    88+)
+                                </li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-150 cursor-default">
+                                    <strong class="text-blue-500 dark:text-blue-400">Microsoft Edge</strong> (versi
+                                    90+)
+                                </li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-150 cursor-default">
+                                    <strong class="text-blue-500 dark:text-blue-400">Brave</strong> (versi terbaru)
+                                </li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-150 cursor-default">
+                                    <strong class="text-blue-500 dark:text-blue-400">Safari</strong> (versi 14+,
+                                    macOS/iOS)
+                                </li>
+                            </ul>
+                            <p class="mt-3 text-ink/80 dark:text-paper-fg/80">
+                                Platform ini juga responsif dan dapat diakses melalui perangkat mobile (Android
+                                &amp; iOS).
+                            </p>
+                        </div>
+                    </details>
+
+                    <!-- FAQ Item 17 -->
+                    <details class="border-[3px] border-black dark:border-white bg-paper dark:bg-[#1E293B]
+                    shadow-[7px_7px_0_0_#3b82f6] dark:shadow-[7px_7px_0_0_#60a5fa]
+                    hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#3b82f6] dark:hover:shadow-[3px_3px_0_0_#60a5fa]
+                    active:translate-x-0 active:translate-y-0 active:shadow-none
+                    dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none
+                    hover:border-blue-500 dark:hover:border-blue-400
+                    transition-[transform,box-shadow,border-color] duration-150 cursor-pointer
+                    open:shadow-[3px_3px_0_0_#3b82f6] dark:open:shadow-[3px_3px_0_0_#60a5fa]">
+                        <summary class="flex items-center justify-between p-5 cursor-pointer list-none group">
+                            <span
+                                class="font-display text-lg text-ink dark:text-paper-fg group-hover:text-blue-500 dark:group-hover:text-blue-400 transition-colors duration-150">Bagaimana
+                                cara menghubungi tim dukungan?</span>
+                            <span
+                                class="text-2xl text-blue-500 dark:text-blue-400 group-open:rotate-180 hover:scale-125 transition-all duration-150">▼</span>
+                        </summary>
+                        <div class="px-5 pb-5 pt-2 border-t-2 border-black/20 dark:border-white/20">
+                            <p class="text-ink/80 dark:text-paper-fg/80 leading-relaxed">
+                                Jika Anda mengalami masalah atau memiliki pertanyaan, Anda dapat menghubungi tim
+                                dukungan melalui:
+                            </p>
+                            <ul class="mt-3 space-y-2 text-ink/80 dark:text-paper-fg/80 list-disc list-inside">
+                                <li
+                                    class="hover:translate-x-1 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-150 cursor-default">
+                                    <strong class="text-cyan-500 dark:text-cyan-400">Email:</strong>
+                                    <span
+                                        class="font-mono bg-black/10 dark:bg-white/10 px-2 py-0.5 rounded border border-blue-500/30 hover:bg-blue-500/20 dark:hover:bg-blue-400/20 transition-colors duration-150 cursor-pointer">support@skawancft.my.id</span>
+                                    (atau klik tombol
+                                    <span class="font-mono">Contact Support</span> di halaman suspensi)
+                                </li>
+                                <li
+                                    class="hover:translate-x-1 hover:text-blue-500 dark:hover:text-blue-400 transition-all duration-150 cursor-default">
+                                    <strong class="text-cyan-500 dark:text-cyan-400">Fitur Report:</strong> Gunakan
+                                    tombol
+                                    <span class="font-mono">Report</span> pada halaman detail challenge untuk
+                                    melaporkan
+                                    masalah konten.
+                                </li>
+                            </ul>
+                            <p class="mt-3 text-ink/80 dark:text-paper-fg/80">
+                                Tim admin akan merespons sesegera mungkin, biasanya dalam waktu 1–3 hari kerja.
+                            </p>
+                        </div>
+                    </details>
+
+                </div>
+
+                <div class="mt-8 text-center">
+                    <a href="#top"
+                        class="inline-flex items-center gap-2 text-sm text-ink/50 dark:text-paper-fg/50 hover:text-ink dark:hover:text-paper-fg hover:translate-x-1 transition-all duration-150">
+                        ↑ Kembali ke atas
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+
+    <!-- ============ FOOTER ============ -->
+
+    <!-- ============ THEME TOGGLE LOGIC ============ -->
+    <script src="/src/layout/js/theme.js"></script>
+
+    <!-- ============ SIDEBAR TOGGLE LOGIC ============ -->
+    <script src="/src/layout/js/sidebar.js"></script>
+
+
+</body>
+
+</html>

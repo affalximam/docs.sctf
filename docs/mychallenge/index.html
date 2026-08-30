@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCTF — Learn Cyber Security Through Capture The Flag</title>
+
+  <script src="/src/layout/js/darkLightMode.js" defer></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS v4 Browser CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+  <!-- Tailwind v4 Custom Theme & Dark Mode Variant -->
+  <style type="text/tailwindcss">
+    @theme {
+      --color-canvas: #ECECE4;
+      --color-canvas-dark: #0B0C08;
+      --color-panel: #FFFFFF;
+      --color-panel-dark: #131511;
+      --color-panel2: #DFE1D3;
+      --color-panel2-dark: #1B1E17;
+      --color-paper: #FFFFFF;
+      --color-ink: #0E0F0A;
+      --color-paper-fg: #ECEDE3;
+      --color-lime: #3D7A0F;
+      --color-lime-dark: #A6FF00;
+      --color-pink: #BE1668;
+      --color-pink-dark: #FF2E93;
+      --color-yellow: #9C6600;
+      --color-yellow-dark: #FFD100;
+
+      --font-display: "Archivo Black", sans-serif;
+      --font-body: "Space Grotesk", sans-serif;
+      --font-mono: "JetBrains Mono", monospace;
+    }
+
+    @custom-variant dark (&:where(.dark, .dark *));
+  </style>
+
+  <link rel="stylesheet" href="/src/layout/css/global.css">
+</head>
+
+<!-- ============ BODY START ============ -->
+
+<body class="font-body antialiased bg-canvas dark:bg-canvas-dark text-ink dark:text-paper-fg transition-colors duration-200 scroll-smooth
+  bg-[radial-gradient(circle_at_15%_10%,rgba(61,122,15,0.05),transparent_40%),radial-gradient(circle_at_85%_30%,rgba(190,22,104,0.05),transparent_40%)]
+  dark:bg-[radial-gradient(circle_at_15%_10%,rgba(166,255,0,0.06),transparent_40%),radial-gradient(circle_at_85%_30%,rgba(255,46,147,0.06),transparent_40%)]
+  ">
+
+  <header
+    class="sticky top-0 z-50 border-b-4 border-black dark:border-white bg-canvas/95 dark:bg-canvas-dark/95 backdrop-blur">
+    <nav aria-label="Global" class="mx-auto flex max-w-7xl items-center justify-between p-6 lg:px-8">
+      <div class="flex lg:flex-1">
+        <a href="index.html" class="block dark:hidden">
+          <img src="/public/icon/icon-colorfull-black.webp" alt="" class="h-10 w-auto" />
+        </a>
+        <a href="index.html" class="hidden dark:block">
+          <img src="/public/icon/icon-colorfull-white.webp" alt="" class="h-10 w-auto" />
+        </a>
+      </div>
+      <div class="flex lg:hidden">
+        <button type="button" command="show-modal" commandfor="mobile-menu"
+          class="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-gray-400">
+          <span class="sr-only">Open main menu</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon"
+            aria-hidden="true" class="size-6">
+            <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+      <el-popover-group class="hidden lg:flex lg:gap-x-12">
+        <a href="/" class="hover:text-lime dark:hover:text-lime-dark transition-colors">Home</a>
+        <a href="/docs/get-started/"
+          class="hover:text-lime dark:hover:text-lime-dark transition-colors">Documentation</a>
+      </el-popover-group>
+      <div class="hidden lg:flex items-center gap-3 lg:flex-1 lg:justify-end">
+        <button data-theme-toggle aria-label="Toggle light and dark mode" aria-pressed="false" class="border-[3px] border-black dark:border-yellow-dark w-11 h-11 flex items-center justify-center bg-panel2 dark:bg-panel2-dark text-ink dark:text-paper-fg shrink-0
+          shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0]
+          hover:translate-x-1 hover:translate-y-1 hover:shadow-none
+          dark:hover:translate-x-1 dark:hover:translate-y-1 dark:hover:shadow-none duration-150
+          hidden sm:inline-flex rounded rounded-lg cursor-pointer
+          ">
+          <svg class="hidden dark:block w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="4" />
+            <path
+              d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+          </svg>
+          <svg class="block dark:hidden w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+          </svg>
+        </button>
+
+        <a href="/docs/get-started/" class="inline-flex items-center border-[3px] border-black dark:border-white bg-lime dark:bg-lime text-white dark:text-white font-mono font-bold text-sm uppercase px-4 py-2.5 rounded rounded-lg
+        shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0] dark:shadow-lime
+        hover:translate-x-1 hover:translate-y-1 hover:shadow-none
+        dark:hover:translate-x-1 dark:hover:translate-y-1 dark:hover:shadow-none
+        duration-150 cursor-pointer">
+          Get Started
+        </a>
+      </div>
+    </nav>
+    <el-dialog>
+      <dialog id="mobile-menu" class="backdrop:bg-transparent lg:hidden">
+        <div tabindex="0" class="fixed inset-0 focus:outline-none">
+          <el-dialog-panel
+            class="fixed inset-y-0 right-0 z-50 w-full overflow-y-auto bg-canvas/95 dark:bg-canvas-dark/95 p-6 sm:max-w-sm sm:ring-1 sm:ring-gray-100/10">
+            <div class="flex items-center justify-between">
+              <a href="index.html" class="block dark:hidden">
+                <img src="/public/icon/icon-colorfull-black.webp" alt="" class="h-10 w-auto" />
+              </a>
+              <a href="index.html" class="hidden dark:block">
+                <img src="/public/icon/icon-colorfull-white.webp" alt="" class="h-10 w-auto" />
+              </a>
+              <button type="button" command="close" commandfor="mobile-menu"
+                class="-m-2.5 rounded-md p-2.5 text-gray-400">
+                <span class="sr-only">Close menu</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" data-slot="icon"
+                  aria-hidden="true" class="size-6">
+                  <path d="M6 18 18 6M6 6l12 12" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+            </div>
+            <div class="mt-10 flow-root">
+              <div class="-my-6 divide-y divide-white/10">
+                <div class="space-y-2 py-6 text-black dark:text-paper-fg font-mono text-sm uppercase tracking-wide">
+                  <a href="/" class="block hover:text-lime dark:hover:text-lime-dark transition-colors">Home</a>
+                  <a href="/docs/get-started/"
+                    class="block hover:text-lime dark:hover:text-lime-dark transition-colors">Documentation</a>
+                </div>
+                <div class="py-6">
+                  <div class="flex items-center gap-3 lg:flex-1 lg:justify-end">
+                    <button data-theme-toggle aria-label="Toggle light and dark mode" aria-pressed="false" class="border-[3px] border-black dark:border-yellow-dark w-11 h-11 flex items-center justify-center bg-panel2 dark:bg-panel2-dark text-ink dark:text-paper-fg shrink-0
+          shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0]
+          hover:translate-x-1 hover:translate-y-1 hover:shadow-none
+          dark:hover:translate-x-1 dark:hover:translate-y-1 dark:hover:shadow-none duration-150
+          inline-flex rounded rounded-lg cursor-pointer
+          ">
+                      <svg class="hidden dark:block w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4" />
+                        <path
+                          d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
+                      </svg>
+                      <svg class="block dark:hidden w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+                      </svg>
+                    </button>
+
+                    <a href="/docs/get-started/" class="inline-flex items-center border-[3px] border-black dark:border-white bg-lime dark:bg-lime text-white dark:text-white font-mono font-bold text-sm uppercase px-4 py-2.5 rounded rounded-lg
+        shadow-[4px_4px_0_0_#000] dark:shadow-[4px_4px_0_0] dark:shadow-lime
+        hover:translate-x-1 hover:translate-y-1 hover:shadow-none
+        dark:hover:translate-x-1 dark:hover:translate-y-1 dark:hover:shadow-none
+        duration-150">
+                      Get Started
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </el-dialog-panel>
+        </div>
+      </dialog>
+    </el-dialog>
+  </header>
+
+  <!-- ============ DOCS LAYOUT WRAPPER ============ -->
+  <div class="flex">
+
+    <!-- ============ SIDEBAR (lg only) — neobrutalism style ============ -->
+    <aside id="docs-sidebar" class="hidden lg:block w-[250px] shrink-0 border-r-4 border-black dark:border-white bg-white dark:bg-panel-dark
+             sticky top-[92px] h-[calc(100vh-92px)] overflow-y-auto">
+      <!-- No padding wrapper; items have their own padding -->
+      <a href="/docs/get-started/"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors cursor-pointer">
+        Getting started
+      </a>
+      <a href="/docs/get-started/#creating-account"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Creating an Account
+      </a>
+      <a href="/docs/get-started/#signing-in"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Signing In
+      </a>
+      <a href="/docs/get-started/#dashboard-overview"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Dashboard Overview
+      </a>
+
+      <a href="/docs/challenges"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors cursor-pointer">
+        Challenges
+      </a>
+      <a href="/docs/challenges/#solve"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Solve Challenges
+      </a>
+      <a href="/docs/challenges/#report"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Report A Challenge Mistake
+      </a>
+      <a href="/docs/challenges/#bookmark"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Bookmark
+      </a>
+      <a href="/docs/challenges/#leaderboard"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Leaderboard
+      </a>
+
+      <a href="/docs/mychallenge/"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors cursor-pointer">
+        My Challenge
+      </a>
+      <a href="/docs/mychallenge/#create-challenge"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Create Challenge
+      </a>
+      <a href="/docs/mychallenge/#submit-challenge"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Submit Challenge
+      </a>
+      <a href="/docs/mychallenge/#rules-challenge"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Rules Challenge
+      </a>
+
+      <a href="/docs/users"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors cursor-pointer">
+        Users
+      </a>
+      <a href="/docs/users/#all-users"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        All Users
+      </a>
+      <a href="/docs/users/#edit-profile"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Edit Profile
+      </a>
+      <a href="/docs/users/#suspended"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Suspended Users
+      </a>
+
+      <div class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display">
+        Quick Links
+      </div>
+      <a href="/"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        ← Back to Home
+      </a>
+      <a href="/faq"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        FAQ
+      </a>
+      <a href="/rules"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Rules
+      </a>
+    </aside>
+
+    <!-- ============ MOBILE SIDEBAR OVERLAY ============ -->
+    <div id="sidebar-overlay" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden"></div>
+
+    <!-- ============ MOBILE SIDEBAR DRAWER — neobrutalism style ============ -->
+    <aside id="mobile-sidebar" class="fixed top-0 left-0 z-50 w-[250px] h-full bg-white dark:bg-panel-dark border-r-4 border-black dark:border-white
+             transform -translate-x-full transition-transform duration-300 lg:hidden overflow-y-auto">
+      <!-- No wrapper padding; items have their own -->
+      <div class="flex items-center justify-between border-b-4 border-r-4 border-black dark:border-white p-4">
+        <span class="text-xl font-display">Navigation</span>
+        <button id="close-sidebar" class="w-9 h-9 flex items-center justify-center
+                                        bg-white dark:bg-panel-dark
+                                        hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black
+                                        transition-colors">
+          <span class="font-mono font-bold text-sm">✕</span>
+        </button>
+      </div>
+
+      <a href="/docs/get-started/"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors cursor-pointer">
+        Getting started
+      </a>
+      <a href="/docs/get-started/#creating-account"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Creating an Account
+      </a>
+      <a href="/docs/get-started/#signing-in"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Signing In
+      </a>
+      <a href="/docs/get-started/#dashboard-overview"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Dashboard Overview
+      </a>
+
+      <a href="/docs/challenges"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors cursor-pointer">
+        Challenges
+      </a>
+      <a href="/docs/challenges/#solve"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Solve Challenges
+      </a>
+      <a href="/docs/challenges/#report"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Report A Challenge Mistake
+      </a>
+      <a href="/docs/challenges/#bookmark"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Bookmark
+      </a>
+      <a href="/docs/challenges/#leaderboard"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Leaderboard
+      </a>
+
+      <a href="/docs/mychallenge/"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors cursor-pointer">
+        My Challenge
+      </a>
+      <a href="/docs/mychallenge/#create-challenge"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Create Challenge
+      </a>
+      <a href="/docs/mychallenge/#submit-challenge"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Submit Challenge
+      </a>
+      <a href="/docs/mychallenge/#rules-challenge"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Rules Challenge
+      </a>
+
+      <a href="/docs/users"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors cursor-pointer">
+        Users
+      </a>
+      <a href="/docs/users/#all-users"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        All Users
+      </a>
+      <a href="/docs/users/#edit-profile"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Edit Profile
+      </a>
+      <a href="/docs/users/#suspended"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Suspended Users
+      </a>
+
+      <div class="block border-b-4 border-r-4 border-black dark:border-white p-4 text-xl font-display">
+        Quick Links
+      </div>
+      <a href="/"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        ← Back to Home
+      </a>
+      <a href="/faq"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        FAQ
+      </a>
+      <a href="/rules"
+        class="block border-b-4 border-r-4 border-black dark:border-white p-4 pl-7 text-lg font-body text-ink/90 dark:text-paper-fg/90 hover:bg-lime/70 hover:text-white dark:hover:bg-lime-dark/70 dark:hover:text-black transition-colors">
+        Rules
+      </a>
+    </aside>
+
+    <!-- ============ MOBILE TOGGLE BUTTON ============ -->
+    <button id="sidebar-toggle" class="lg:hidden fixed bottom-6 right-6 z-40 border-[3px] border-black dark:border-white bg-lime dark:bg-lime-dark
+             text-white dark:text-black font-mono font-extrabold text-xl w-14 h-14 flex items-center justify-center
+             shadow-[5px_5px_0_0_#000] dark:shadow-[5px_5px_0_0_#ECEDE3]
+             hover:-translate-x-[3px] hover:-translate-y-[3px]
+             active:translate-x-0 active:translate-y-0 active:shadow-none
+             transition-[transform,box-shadow] duration-150">
+      [ &gt; ]
+    </button>
+
+    <!-- ============ MAIN CONTENT ============ -->
+    <div class="flex-1 min-w-0">
+
+      <!-- ============ MY CHALLENGE HERO ============ -->
+      <section class="border-b-4 border-black bg-panel dark:bg-panel-dark dark:border-white
+    [&::selection]:bg-pink [&::selection]:text-black dark:[&::selection]:bg-pink-300 dark:[&::selection]:text-black">
+        <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-24">
+          <div class="flex items-center gap-3 mb-4">
+            <span class="font-mono text-xs uppercase text-lime dark:text-lime-dark">// my challenge</span>
+            <span class="inline-block border-[3px] border-black dark:border-white px-3 py-1 text-xs font-mono font-bold bg-pink text-white dark:bg-pink-dark dark:text-black
+                shadow-[3px_3px_0_0_#000] dark:shadow-[3px_3px_0_0_#ECEDE3]
+                hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none
+                dark:hover:translate-x-[2px] dark:hover:translate-y-[2px] dark:hover:shadow-none
+                active:rotate-[-3deg] duration-150 cursor-pointer">
+              Creator Hub
+            </span>
+          </div>
+          <h1 class="font-display text-4xl md:text-5xl lg:text-6xl uppercase leading-[1.05] mb-6">
+            <span
+              class="text-pink dark:text-pink-dark hover:text-lime dark:hover:text-lime-dark transition-colors duration-150 cursor-default">My</span>
+            <span
+              class="text-lime dark:text-lime-dark hover:text-pink dark:hover:text-pink-dark transition-colors duration-150 cursor-default">Challenge</span>
+          </h1>
+          <p class="font-body text-lg text-ink/70 dark:text-paper-fg/70 max-w-2xl leading-relaxed">
+            Buat, kelola, dan kirim challenge CTF Anda sendiri. Pelajari aturan, ikuti praktik terbaik,
+            dan berkontribusi untuk komunitas SCTF.
+          </p>
+        </div>
+      </section>
+
+      <!-- ============ OVERVIEW ============ -->
+      <section
+        class="border-b-4 border-black dark:border-white
+    [&::selection]:bg-yellow [&::selection]:text-black dark:[&::selection]:bg-yellow-300 dark:[&::selection]:text-black">
+        <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20">
+          <div class="grid lg:grid-cols-3 gap-12">
+            <div class="lg:col-span-2">
+              <p class="font-mono text-xs uppercase text-yellow dark:text-yellow-dark mb-3">// overview</p>
+              <h2 class="font-display text-3xl md:text-4xl uppercase mb-6">Ruang Kerja <span
+                  class="text-yellow dark:text-yellow-dark hover:text-pink dark:hover:text-pink-dark transition-colors duration-150 cursor-default">Challenge</span>
+                Anda</h2>
+              <div class="space-y-4 text-ink/80 dark:text-paper-fg/80 leading-relaxed">
+                <p>
+                  <strong
+                    class="text-yellow dark:text-yellow-dark hover:text-pink dark:hover:text-pink-dark transition-colors duration-150 cursor-default">My
+                    Challenge</strong> adalah ruang kerja pribadi Anda untuk membuat dan mengelola challenge CTF. Dari
+                  sini, Anda dapat:
+                </p>
+                <ul class="space-y-2 pl-5 list-disc list-outside">
+                  <li
+                    class="hover:translate-x-1 hover:text-lime dark:hover:text-lime-dark transition-all duration-150 cursor-default">
+                    Membuat challenge baru dengan penyimpanan flag terenkripsi</li>
+                  <li
+                    class="hover:translate-x-1 hover:text-lime dark:hover:text-lime-dark transition-all duration-150 cursor-default">
+                    Mengedit dan memperbarui challenge yang sudah ada</li>
+                  <li
+                    class="hover:translate-x-1 hover:text-lime dark:hover:text-lime-dark transition-all duration-150 cursor-default">
+                    Mengirim challenge untuk ditinjau admin</li>
+                  <li
+                    class="hover:translate-x-1 hover:text-lime dark:hover:text-lime-dark transition-all duration-150 cursor-default">
+                    Melacak status pengiriman Anda</li>
+                  <li
+                    class="hover:translate-x-1 hover:text-lime dark:hover:text-lime-dark transition-all duration-150 cursor-default">
+                    Melihat umpan balik revisi dan melakukan perbaikan</li>
+                </ul>
+                <p class="mt-4">
+                  Semua challenge melalui <strong
+                    class="text-pink dark:text-pink-dark hover:text-lime dark:hover:text-lime-dark transition-colors duration-150 cursor-default">proses
+                    review</strong>
+                  sebelum dipublikasikan. Hal ini memastikan kualitas, kebenaran, dan nilai edukasi bagi semua peserta.
+                </p>
+              </div>
+            </div>
+
+            <!-- Quick Stats Card -->
+            <div class="border-[3px] border-black bg-panel dark:bg-panel-dark p-6 dark:border-white
+                shadow-[7px_7px_0_0_#9C6600] dark:shadow-[7px_7px_0_0_#FFD100]
+                hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#9C6600] dark:hover:shadow-[3px_3px_0_0_#FFD100]
+                active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[2deg]
+                dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[2deg]
+                transition-[transform,box-shadow] duration-150 cursor-pointer">
+              <p class="font-mono text-xs uppercase text-yellow dark:text-yellow-dark mb-2">// statistik challenge</p>
+              <ul class="space-y-3 text-sm">
+                <li
+                  class="flex justify-between border-b border-black/20 dark:border-white/20 pb-2 hover:border-yellow dark:hover:border-yellow-dark transition-colors duration-150">
+                  <span class="text-ink/60 dark:text-paper-fg/60">Status</span>
+                  <span class="font-mono font-bold text-lime dark:text-lime-dark">Saved · Submitted · Review ·
+                    Published</span>
+                </li>
+                <li
+                  class="flex justify-between border-b border-black/20 dark:border-white/20 pb-2 hover:border-yellow dark:hover:border-yellow-dark transition-colors duration-150">
+                  <span class="text-ink/60 dark:text-paper-fg/60">Waktu Review</span>
+                  <span class="font-mono font-bold text-yellow dark:text-yellow-dark">3–7 hari</span>
+                </li>
+                <li
+                  class="flex justify-between border-b border-black/20 dark:border-white/20 pb-2 hover:border-yellow dark:hover:border-yellow-dark transition-colors duration-150">
+                  <span class="text-ink/60 dark:text-paper-fg/60">Enkripsi Flag</span>
+                  <span class="font-mono font-bold text-pink dark:text-pink-dark">Vigenere + Base64</span>
+                </li>
+                <li
+                  class="flex justify-between hover:border-yellow dark:hover:border-yellow-dark transition-colors duration-150">
+                  <span class="text-ink/60 dark:text-paper-fg/60">Write-up</span>
+                  <span class="font-mono font-bold text-lime dark:text-lime-dark">Google Docs</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ CREATE CHALLENGE ============ -->
+      <section id="create-challenge" class="border-b-4 border-black bg-panel dark:bg-panel-dark dark:border-white
+    [&::selection]:bg-lime [&::selection]:text-black dark:[&::selection]:bg-lime-300 dark:[&::selection]:text-black">
+        <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20">
+          <p class="font-mono text-xs uppercase text-lime dark:text-lime-dark mb-3">// panduan</p>
+          <h2 class="font-display text-3xl md:text-4xl uppercase mb-8">
+            <span
+              class="text-lime dark:text-lime-dark hover:text-pink dark:hover:text-pink-dark transition-colors duration-150 cursor-default">Buat</span>
+            Sebuah Challenge
+          </h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+            <!-- Step 01 -->
+            <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
+                shadow-[7px_7px_0_0_#3D7A0F] dark:shadow-[7px_7px_0_0_#A6FF00]
+                hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-[2px_2px_0_0_#3D7A0F] dark:hover:shadow-[2px_2px_0_0_#A6FF00]
+                active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[3deg]
+                dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[3deg]
+                hover:border-lime dark:hover:border-lime-dark
+                transition-[transform,box-shadow,border-color] duration-150 cursor-pointer">
+              <div class="flex items-start gap-4">
+                <span
+                  class="font-mono text-3xl font-extrabold text-lime dark:text-lime-dark hover:scale-110 transition-transform duration-150">01</span>
+                <div>
+                  <h3 class="font-display text-lg uppercase mb-1">Isi Informasi Dasar</h3>
+                  <p class="text-sm text-ink/70 dark:text-paper-fg/70">
+                    Berikan <span class="font-mono text-lime dark:text-lime-dark">Challenge Name</span>
+                    dan <span class="font-mono text-lime dark:text-lime-dark">Description</span> yang menjelaskan
+                    konteks dan tujuan.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 02 -->
+            <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
+                shadow-[7px_7px_0_0_#BE1668] dark:shadow-[7px_7px_0_0_#FF2E93]
+                hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-[2px_2px_0_0_#BE1668] dark:hover:shadow-[2px_2px_0_0_#FF2E93]
+                active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[-3deg]
+                dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[-3deg]
+                hover:border-pink dark:hover:border-pink-dark
+                transition-[transform,box-shadow,border-color] duration-150 cursor-pointer">
+              <div class="flex items-start gap-4">
+                <span
+                  class="font-mono text-3xl font-extrabold text-pink dark:text-pink-dark hover:scale-110 transition-transform duration-150">02</span>
+                <div>
+                  <h3 class="font-display text-lg uppercase mb-1">Tambahkan Konten Challenge</h3>
+                  <p class="text-sm text-ink/70 dark:text-paper-fg/70">
+                    Sertakan <span class="font-mono text-pink dark:text-pink-dark">Task Strings</span>
+                    (instruksi/petunjuk) dan opsional <span class="font-mono text-pink dark:text-pink-dark">Task
+                      URL</span>
+                    untuk sumber daya eksternal.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 03 -->
+            <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
+                shadow-[7px_7px_0_0_#9C6600] dark:shadow-[7px_7px_0_0_#FFD100]
+                hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-[2px_2px_0_0_#9C6600] dark:hover:shadow-[2px_2px_0_0_#FFD100]
+                active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[3deg]
+                dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[3deg]
+                hover:border-yellow dark:hover:border-yellow-dark
+                transition-[transform,box-shadow,border-color] duration-150 cursor-pointer">
+              <div class="flex items-start gap-4">
+                <span
+                  class="font-mono text-3xl font-extrabold text-yellow dark:text-yellow-dark hover:scale-110 transition-transform duration-150">03</span>
+                <div>
+                  <h3 class="font-display text-lg uppercase mb-1">Atur Flag</h3>
+                  <p class="text-sm text-ink/70 dark:text-paper-fg/70">
+                    Masukkan flag dalam format <code
+                      class="bg-black text-yellow-dark px-2 py-0.5 text-xs font-mono border border-yellow-dark hover:bg-yellow-dark hover:text-black transition-colors duration-150 cursor-pointer">SCTF{...}</code>.
+                    Flag akan <strong>dienkripsi otomatis</strong> menggunakan Vigenere cipher + Base64.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 04 -->
+            <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
+                shadow-[7px_7px_0_0_#3D7A0F] dark:shadow-[7px_7px_0_0_#A6FF00]
+                hover:translate-x-[4px] hover:translate-y-[4px] hover:shadow-[2px_2px_0_0_#3D7A0F] dark:hover:shadow-[2px_2px_0_0_#A6FF00]
+                active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[-3deg]
+                dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[-3deg]
+                hover:border-lime dark:hover:border-lime-dark
+                transition-[transform,box-shadow,border-color] duration-150 cursor-pointer">
+              <div class="flex items-start gap-4">
+                <span
+                  class="font-mono text-3xl font-extrabold text-lime dark:text-lime-dark hover:scale-110 transition-transform duration-150">04</span>
+                <div>
+                  <h3 class="font-display text-lg uppercase mb-1">Sediakan Write-up</h3>
+                  <p class="text-sm text-ink/70 dark:text-paper-fg/70">
+                    Tempelkan tautan <span class="font-mono text-lime dark:text-lime-dark">Google Docs</span>
+                    write-up Anda. Pastikan <strong>dapat diakses oleh siapa pun yang memiliki tautan</strong>.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Encryption & Security Note -->
+          <div class="mt-8 border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6 dark:border-white
+            shadow-[7px_7px_0_0_#BE1668] dark:shadow-[7px_7px_0_0_#FF2E93]
+            hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#BE1668] dark:hover:shadow-[3px_3px_0_0_#FF2E93]
+            active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[1deg]
+            dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[1deg]
+            hover:border-pink dark:hover:border-pink-dark
+            transition-[transform,box-shadow,border-color] duration-150 cursor-pointer">
+            <div class="flex items-start gap-4">
+              <span
+                class="font-mono text-2xl text-pink dark:text-pink-dark hover:rotate-12 hover:scale-110 transition-transform duration-150">🔐</span>
+              <div>
+                <h4 class="font-display text-lg uppercase text-pink dark:text-pink-dark">Enkripsi Flag</h4>
+                <p class="text-sm text-ink/70 dark:text-paper-fg/70 leading-relaxed mt-1">
+                  Flag Anda <strong>dienkripsi otomatis</strong> melalui dua langkah:
+                  <span class="font-mono text-pink dark:text-pink-dark">Vigenere Cipher</span> →
+                  <span class="font-mono text-pink dark:text-pink-dark">Base64</span>.
+                  Kunci acak dibuat per challenge dan disimpan aman di tabel terpisah.
+                  Ini menjamin flag tetap terlindungi bahkan jika basis data dibobol.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SUBMIT CHALLENGE ============ -->
+      <section id="submit-challenge" class="border-b-4 border-black dark:border-white
+    [&::selection]:bg-pink [&::selection]:text-black dark:[&::selection]:bg-pink-300 dark:[&::selection]:text-black">
+        <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20">
+          <p class="font-mono text-xs uppercase text-pink dark:text-pink-dark mb-3">// pengiriman</p>
+          <h2 class="font-display text-3xl md:text-4xl uppercase mb-8">
+            <span
+              class="text-pink dark:text-pink-dark hover:text-lime dark:hover:text-lime-dark transition-colors duration-150 cursor-default">Kirim</span>
+            Challenge Anda
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-10">
+            <div>
+              <p class="text-ink/80 dark:text-paper-fg/80 leading-relaxed mb-4">
+                Setelah challenge siap, kirim untuk ditinjau admin. Proses review memastikan
+                kualitas, kebenaran, dan nilai edukasi sebelum challenge dipublikasikan.
+              </p>
+
+              <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
+                    shadow-[7px_7px_0_0_#BE1668] dark:shadow-[7px_7px_0_0_#FF2E93]
+                    hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#BE1668] dark:hover:shadow-[3px_3px_0_0_#FF2E93]
+                    active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[2deg]
+                    dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[2deg]
+                    hover:border-pink dark:hover:border-pink-dark
+                    transition-[transform,box-shadow,border-color] duration-150 cursor-pointer">
+                <h3 class="font-display text-lg uppercase mb-3 text-pink dark:text-pink-dark">Cara Mengirim</h3>
+                <ol class="space-y-3 text-sm text-ink/70 dark:text-paper-fg/70 list-decimal list-inside">
+                  <li class="hover:text-pink dark:hover:text-pink-dark transition-colors duration-150 cursor-default">
+                    Pergi
+                    ke <span class="font-mono text-pink dark:text-pink-dark bg-black/5 dark:bg-white/10 px-2 py-0.5">My
+                      Challenges</span> dari sidebar.</li>
+                  <li class="hover:text-pink dark:hover:text-pink-dark transition-colors duration-150 cursor-default">
+                    Temukan challenge tersimpan Anda di daftar.</li>
+                  <li class="hover:text-pink dark:hover:text-pink-dark transition-colors duration-150 cursor-default">
+                    Klik tombol <span
+                      class="font-mono text-pink dark:text-pink-dark bg-black/5 dark:bg-white/10 px-2 py-0.5">Submit</span>.
+                  </li>
+                  <li class="hover:text-pink dark:hover:text-pink-dark transition-colors duration-150 cursor-default">
+                    Konfirmasi pengiriman — status berubah menjadi <span
+                      class="font-mono text-yellow dark:text-yellow-dark">On
+                      Submission</span>.</li>
+                  <li class="hover:text-pink dark:hover:text-pink-dark transition-colors duration-150 cursor-default">
+                    Tunggu review admin (biasanya 3–7 hari).</li>
+                </ol>
+              </div>
+            </div>
+
+            <div class="border-[3px] border-black bg-panel dark:bg-panel-dark p-6 dark:border-white
+                shadow-[7px_7px_0_0_#3D7A0F] dark:shadow-[7px_7px_0_0_#A6FF00]
+                hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#3D7A0F] dark:hover:shadow-[3px_3px_0_0_#A6FF00]
+                active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[-2deg]
+                dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[-2deg]
+                transition-[transform,box-shadow] duration-150 cursor-pointer">
+              <h3 class="font-display text-lg uppercase mb-3 text-lime dark:text-lime-dark">Status Pengiriman</h3>
+              <ul class="space-y-3 text-sm text-ink/70 dark:text-paper-fg/70">
+                <li class="flex items-start gap-3 hover:translate-x-1 transition-transform duration-150 cursor-default">
+                  <span class="text-lime dark:text-lime-dark font-mono">●</span>
+                  <div>
+                    <span class="font-mono font-bold text-lime dark:text-lime-dark">Saved</span>
+                    <p class="text-xs text-ink/50 dark:text-paper-fg/50">Draf — masih bisa diedit, belum dikirim.</p>
+                  </div>
+                </li>
+                <li class="flex items-start gap-3 hover:translate-x-1 transition-transform duration-150 cursor-default">
+                  <span class="text-yellow dark:text-yellow-dark font-mono">●</span>
+                  <div>
+                    <span class="font-mono font-bold text-yellow dark:text-yellow-dark">On Submission</span>
+                    <p class="text-xs text-ink/50 dark:text-paper-fg/50">Menunggu review admin.</p>
+                  </div>
+                </li>
+                <li class="flex items-start gap-3 hover:translate-x-1 transition-transform duration-150 cursor-default">
+                  <span class="text-blue-400 dark:text-blue-400 font-mono">●</span>
+                  <div>
+                    <span class="font-mono font-bold text-blue-400">Under Review</span>
+                    <p class="text-xs text-ink/50 dark:text-paper-fg/50">Admin sedang aktif meninjau challenge Anda.</p>
+                  </div>
+                </li>
+                <li class="flex items-start gap-3 hover:translate-x-1 transition-transform duration-150 cursor-default">
+                  <span class="text-pink dark:text-pink-dark font-mono">●</span>
+                  <div>
+                    <span class="font-mono font-bold text-pink dark:text-pink-dark">Revision</span>
+                    <p class="text-xs text-ink/50 dark:text-paper-fg/50">Perubahan diminta — periksa umpan balik dan
+                      kirim ulang.</p>
+                  </div>
+                </li>
+                <li class="flex items-start gap-3 hover:translate-x-1 transition-transform duration-150 cursor-default">
+                  <span class="text-green-500 dark:text-green-400 font-mono">●</span>
+                  <div>
+                    <span class="font-mono font-bold text-green-500 dark:text-green-400">Published</span>
+                    <p class="text-xs text-ink/50 dark:text-paper-fg/50">Challenge sudah tayang! Semua pengguna bisa
+                      menyelesaikannya.</p>
+                  </div>
+                </li>
+                <li class="flex items-start gap-3 hover:translate-x-1 transition-transform duration-150 cursor-default">
+                  <span class="text-red-500 dark:text-red-400 font-mono">●</span>
+                  <div>
+                    <span class="font-mono font-bold text-red-500 dark:text-red-400">Rejected</span>
+                    <p class="text-xs text-ink/50 dark:text-paper-fg/50">Challenge tidak diterima — lihat umpan balik
+                      untuk alasan.</p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ RULES CHALLENGE ============ -->
+      <section id="rules-challenge"
+        class="border-b-4 border-black bg-panel dark:bg-panel-dark dark:border-white
+    [&::selection]:bg-yellow [&::selection]:text-black dark:[&::selection]:bg-yellow-300 dark:[&::selection]:text-black">
+        <div class="max-w-7xl mx-auto px-5 md:px-8 py-16 md:py-20">
+          <p class="font-mono text-xs uppercase text-yellow dark:text-yellow-dark mb-3">// aturan</p>
+          <h2 class="font-display text-3xl md:text-4xl uppercase mb-8">
+            <span
+              class="text-yellow dark:text-yellow-dark hover:text-pink dark:hover:text-pink-dark transition-colors duration-150 cursor-default">Aturan</span>
+            &amp; Panduan
+          </h2>
+
+          <!-- Introduction -->
+          <div class="grid md:grid-cols-3 gap-4 mb-10">
+            <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6 text-center
+                shadow-[7px_7px_0_0_#3D7A0F] dark:shadow-[7px_7px_0_0_#A6FF00]
+                hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#3D7A0F] dark:hover:shadow-[3px_3px_0_0_#A6FF00]
+                active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[-3deg]
+                dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[-3deg]
+                hover:border-lime dark:hover:border-lime-dark
+                transition-[transform,box-shadow,border-color] duration-150 cursor-pointer">
+              <div class="font-mono text-2xl font-bold text-lime dark:text-lime-dark mb-2">3–5</div>
+              <div class="text-sm text-ink/60 dark:text-paper-fg/60">Hari Waktu Review</div>
+            </div>
+            <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6 text-center
+                shadow-[7px_7px_0_0_#3D7A0F] dark:shadow-[7px_7px_0_0_#A6FF00]
+                hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#3D7A0F] dark:hover:shadow-[3px_3px_0_0_#A6FF00]
+                active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[-3deg]
+                dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[-3deg]
+                hover:border-lime dark:hover:border-lime-dark
+                transition-[transform,box-shadow,border-color] duration-150 cursor-pointer">
+              <div class="font-mono text-2xl font-bold text-green-500 dark:text-green-400 mb-2">100%</div>
+              <div class="text-sm text-ink/60 dark:text-paper-fg/60">Fokus Kualitas</div>
+            </div>
+            <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6 text-center
+                shadow-[7px_7px_0_0_#9C6600] dark:shadow-[7px_7px_0_0_#FFD100]
+                hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#9C6600] dark:hover:shadow-[3px_3px_0_0_#FFD100]
+                active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[-3deg]
+                dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[-3deg]
+                hover:border-yellow dark:hover:border-yellow-dark
+                transition-[transform,box-shadow,border-color] duration-150 cursor-pointer">
+              <div class="font-mono text-2xl font-bold text-yellow dark:text-yellow-dark mb-2">⭐</div>
+              <div class="text-sm text-ink/60 dark:text-paper-fg/60">Praktik Terbaik</div>
+            </div>
+          </div>
+
+          <!-- Requirements Grid -->
+          <div class="grid md:grid-cols-2 gap-6 mb-10">
+            <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
+                shadow-[7px_7px_0_0_#3D7A0F] dark:shadow-[7px_7px_0_0_#A6FF00]
+                hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#3D7A0F] dark:hover:shadow-[3px_3px_0_0_#A6FF00]
+                active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[2deg]
+                dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[2deg]
+                hover:border-lime dark:hover:border-lime-dark
+                transition-[transform,box-shadow,border-color] duration-150 cursor-pointer">
+              <div class="flex items-start gap-4">
+                <div
+                  class="p-2 rounded-lg bg-lime/20 dark:bg-lime-dark/20 text-lime dark:text-lime-dark hover:scale-110 transition-transform duration-150">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-display text-lg uppercase mb-1 text-lime dark:text-lime-dark">Informasi Lengkap</h3>
+                  <ul class="space-y-1 text-sm text-ink/70 dark:text-paper-fg/70 list-disc list-inside">
+                    <li
+                      class="hover:translate-x-1 hover:text-lime dark:hover:text-lime-dark transition-all duration-150 cursor-default">
+                      Nama challenge yang jelas dan deskriptif</li>
+                    <li
+                      class="hover:translate-x-1 hover:text-lime dark:hover:text-lime-dark transition-all duration-150 cursor-default">
+                      Deskripsi detail dengan konteks</li>
+                    <li
+                      class="hover:translate-x-1 hover:text-lime dark:hover:text-lime-dark transition-all duration-150 cursor-default">
+                      Tingkat kesulitan yang sesuai (ditentukan oleh admin)</li>
+                    <li
+                      class="hover:translate-x-1 hover:text-lime dark:hover:text-lime-dark transition-all duration-150 cursor-default">
+                      Spesifikasi format flag yang benar</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
+                shadow-[7px_7px_0_0_#BE1668] dark:shadow-[7px_7px_0_0_#FF2E93]
+                hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#BE1668] dark:hover:shadow-[3px_3px_0_0_#FF2E93]
+                active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[-2deg]
+                dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[-2deg]
+                hover:border-pink dark:hover:border-pink-dark
+                transition-[transform,box-shadow,border-color] duration-150 cursor-pointer">
+              <div class="flex items-start gap-4">
+                <div
+                  class="p-2 rounded-lg bg-pink/20 dark:bg-pink-dark/20 text-pink dark:text-pink-dark hover:scale-110 transition-transform duration-150">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-display text-lg uppercase mb-1 text-pink dark:text-pink-dark">Persyaratan Teknis</h3>
+                  <ul class="space-y-1 text-sm text-ink/70 dark:text-paper-fg/70 list-disc list-inside">
+                    <li
+                      class="hover:translate-x-1 hover:text-pink dark:hover:text-pink-dark transition-all duration-150 cursor-default">
+                      Dapat diselesaikan dengan sumber daya yang disediakan</li>
+                    <li
+                      class="hover:translate-x-1 hover:text-pink dark:hover:text-pink-dark transition-all duration-150 cursor-default">
+                      Tidak ada dependensi tersembunyi</li>
+                    <li
+                      class="hover:translate-x-1 hover:text-pink dark:hover:text-pink-dark transition-all duration-150 cursor-default">
+                      Izin file &amp; aksesibilitas yang tepat</li>
+                    <li
+                      class="hover:translate-x-1 hover:text-pink dark:hover:text-pink-dark transition-all duration-150 cursor-default">
+                      Tautan unduhan berfungsi (jika ada)</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
+                shadow-[7px_7px_0_0_#9C6600] dark:shadow-[7px_7px_0_0_#FFD100]
+                hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#9C6600] dark:hover:shadow-[3px_3px_0_0_#FFD100]
+                active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[2deg]
+                dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[2deg]
+                hover:border-yellow dark:hover:border-yellow-dark
+                transition-[transform,box-shadow,border-color] duration-150 cursor-pointer md:col-span-2">
+              <div class="flex items-start gap-4">
+                <div
+                  class="p-2 rounded-lg bg-yellow/20 dark:bg-yellow-dark/20 text-yellow dark:text-yellow-dark hover:scale-110 transition-transform duration-150">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-display text-lg uppercase mb-1 text-yellow dark:text-yellow-dark">Dokumentasi
+                    (Write-up)</h3>
+                  <ul class="space-y-1 text-sm text-ink/70 dark:text-paper-fg/70 list-disc list-inside">
+                    <li
+                      class="hover:translate-x-1 hover:text-yellow dark:hover:text-yellow-dark transition-all duration-150 cursor-default">
+                      Write-up lengkap di <strong>Google Docs</strong> (dapat diakses siapa pun dengan tautan)</li>
+                    <li
+                      class="hover:translate-x-1 hover:text-yellow dark:hover:text-yellow-dark transition-all duration-150 cursor-default">
+                      Panduan solusi langkah demi langkah dengan penjelasan</li>
+                    <li
+                      class="hover:translate-x-1 hover:text-yellow dark:hover:text-yellow-dark transition-all duration-150 cursor-default">
+                      Penjelasan kerentanan dan konsep</li>
+                    <li
+                      class="hover:translate-x-1 hover:text-yellow dark:hover:text-yellow-dark transition-all duration-150 cursor-default">
+                      Nilai edukasi dijelaskan dengan jelas</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Challenge Types -->
+          <h3 class="font-display text-2xl uppercase mb-6 text-lime dark:text-lime-dark">Jenis Challenge</h3>
+          <div class="grid md:grid-cols-2 gap-6 mb-10">
+            <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-5
+                shadow-[7px_7px_0_0_#3D7A0F] dark:shadow-[7px_7px_0_0_#A6FF00]
+                hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#3D7A0F] dark:hover:shadow-[3px_3px_0_0_#A6FF00]
+                active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[-3deg]
+                dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[-3deg]
+                hover:border-lime dark:hover:border-lime-dark
+                transition-[transform,box-shadow,border-color] duration-150 cursor-pointer">
+              <h4 class="font-display text-lg text-blue-500 dark:text-blue-400">🔍 Forensics</h4>
+              <ul class="mt-2 space-y-1 text-sm text-ink/70 dark:text-paper-fg/70 list-disc list-inside">
+                <li class="hover:translate-x-1 transition-transform duration-150 cursor-default">Analisis format file ·
+                  Memory dumps · Network captures</li>
+                <li class="hover:translate-x-1 transition-transform duration-150 cursor-default">Analisis log file ·
+                  Steganography</li>
+              </ul>
+            </div>
+            <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-5
+                shadow-[7px_7px_0_0_#3D7A0F] dark:shadow-[7px_7px_0_0_#A6FF00]
+                hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#3D7A0F] dark:hover:shadow-[3px_3px_0_0_#A6FF00]
+                active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[-3deg]
+                dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[-3deg]
+                hover:border-lime dark:hover:border-lime-dark
+                transition-[transform,box-shadow,border-color] duration-150 cursor-pointer">
+              <h4 class="font-display text-lg text-green-500 dark:text-green-400">🌐 Web Exploitation</h4>
+              <ul class="mt-2 space-y-1 text-sm text-ink/70 dark:text-paper-fg/70 list-disc list-inside">
+                <li class="hover:translate-x-1 transition-transform duration-150 cursor-default">SQL Injection · XSS ·
+                  CSRF · File Upload · Auth Bypass</li>
+              </ul>
+            </div>
+            <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-5
+                shadow-[7px_7px_0_0_#BE1668] dark:shadow-[7px_7px_0_0_#FF2E93]
+                hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#BE1668] dark:hover:shadow-[3px_3px_0_0_#FF2E93]
+                active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[-3deg]
+                dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[-3deg]
+                hover:border-pink dark:hover:border-pink-dark
+                transition-[transform,box-shadow,border-color] duration-150 cursor-pointer">
+              <h4 class="font-display text-lg text-purple-500 dark:text-purple-400">💻 Binary Exploitation</h4>
+              <ul class="mt-2 space-y-1 text-sm text-ink/70 dark:text-paper-fg/70 list-disc list-inside">
+                <li class="hover:translate-x-1 transition-transform duration-150 cursor-default">Buffer overflows ·
+                  Format string · ROP chains</li>
+                <li class="hover:translate-x-1 transition-transform duration-150 cursor-default">Shellcode · Reverse
+                  engineering</li>
+              </ul>
+            </div>
+            <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-5
+                shadow-[7px_7px_0_0_#9C6600] dark:shadow-[7px_7px_0_0_#FFD100]
+                hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#9C6600] dark:hover:shadow-[3px_3px_0_0_#FFD100]
+                active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[-3deg]
+                dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[-3deg]
+                hover:border-yellow dark:hover:border-yellow-dark
+                transition-[transform,box-shadow,border-color] duration-150 cursor-pointer">
+              <h4 class="font-display text-lg text-yellow dark:text-yellow-dark">🔐 Cryptography</h4>
+              <ul class="mt-2 space-y-1 text-sm text-ink/70 dark:text-paper-fg/70 list-disc list-inside">
+                <li class="hover:translate-x-1 transition-transform duration-150 cursor-default">Classic ciphers · RSA ·
+                  Hash collisions</li>
+                <li class="hover:translate-x-1 transition-transform duration-150 cursor-default">XOR encryption · Modern
+                  crypto weaknesses</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Prohibited Content -->
+          <h3 class="font-display text-2xl uppercase mb-6 text-pink dark:text-pink-dark">🚫 Konten yang Dilarang</h3>
+          <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
+            shadow-[7px_7px_0_0_#BE1668] dark:shadow-[7px_7px_0_0_#FF2E93]
+            hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#BE1668] dark:hover:shadow-[3px_3px_0_0_#FF2E93]
+            active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[1deg]
+            dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[1deg]
+            hover:border-pink dark:hover:border-pink-dark
+            transition-[transform,box-shadow,border-color] duration-150 cursor-pointer mb-10">
+            <div class="grid md:grid-cols-2 gap-6">
+              <div class="flex items-start gap-3 hover:translate-x-1 transition-transform duration-150 cursor-default">
+                <span class="text-red-500 font-mono text-xl">✕</span>
+                <div>
+                  <h4 class="font-semibold text-ink dark:text-paper-fg">Konten Berbahaya</h4>
+                  <p class="text-sm text-ink/60 dark:text-paper-fg/60">Malware, virus, atau kode berbahaya yang
+                    sebenarnya</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 hover:translate-x-1 transition-transform duration-150 cursor-default">
+                <span class="text-red-500 font-mono text-xl">✕</span>
+                <div>
+                  <h4 class="font-semibold text-ink dark:text-paper-fg">Aktivitas Ilegal</h4>
+                  <p class="text-sm text-ink/60 dark:text-paper-fg/60">Konten yang mempromosikan atau memfasilitasi
+                    tindakan ilegal</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 hover:translate-x-1 transition-transform duration-150 cursor-default">
+                <span class="text-red-500 font-mono text-xl">✕</span>
+                <div>
+                  <h4 class="font-semibold text-ink dark:text-paper-fg">Materi Ofensif</h4>
+                  <p class="text-sm text-ink/60 dark:text-paper-fg/60">Konten rasis, seksis, atau ofensif lainnya</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3 hover:translate-x-1 transition-transform duration-150 cursor-default">
+                <span class="text-red-500 font-mono text-xl">✕</span>
+                <div>
+                  <h4 class="font-semibold text-ink dark:text-paper-fg">Serangan Dunia Nyata</h4>
+                  <p class="text-sm text-ink/60 dark:text-paper-fg/60">Challenge yang menargetkan situs web atau layanan
+                    nyata</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Best Practices -->
+          <h3 class="font-display text-2xl uppercase mb-6 text-lime dark:text-lime-dark">⭐ Praktik Terbaik</h3>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
+                shadow-[7px_7px_0_0_#3D7A0F] dark:shadow-[7px_7px_0_0_#A6FF00]
+                hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#3D7A0F] dark:hover:shadow-[3px_3px_0_0_#A6FF00]
+                active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[2deg]
+                dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[2deg]
+                hover:border-lime dark:hover:border-lime-dark
+                transition-[transform,box-shadow,border-color] duration-150 cursor-pointer">
+              <h4 class="font-display text-lg text-green-500 dark:text-green-400 mb-3">🎯 Desain Challenge</h4>
+              <ul class="space-y-1 text-sm text-ink/70 dark:text-paper-fg/70 list-disc list-inside">
+                <li
+                  class="hover:translate-x-1 hover:text-lime dark:hover:text-lime-dark transition-all duration-150 cursor-default">
+                  Mulai dengan tujuan pembelajaran yang jelas</li>
+                <li
+                  class="hover:translate-x-1 hover:text-lime dark:hover:text-lime-dark transition-all duration-150 cursor-default">
+                  Uji challenge Anda secara menyeluruh</li>
+                <li
+                  class="hover:translate-x-1 hover:text-lime dark:hover:text-lime-dark transition-all duration-150 cursor-default">
+                  Berikan petunjuk yang sesuai</li>
+                <li
+                  class="hover:translate-x-1 hover:text-lime dark:hover:text-lime-dark transition-all duration-150 cursor-default">
+                  Pertimbangkan berbagai tingkat keahlian</li>
+                <li
+                  class="hover:translate-x-1 hover:text-lime dark:hover:text-lime-dark transition-all duration-150 cursor-default">
+                  Buatlah menyenangkan dan menarik</li>
+              </ul>
+            </div>
+            <div class="border-[3px] border-black bg-paper dark:bg-[#1E293B] p-6
+                shadow-[7px_7px_0_0_#3D7A0F] dark:shadow-[7px_7px_0_0_#A6FF00]
+                hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#3D7A0F] dark:hover:shadow-[3px_3px_0_0_#A6FF00]
+                active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[-2deg]
+                dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[-2deg]
+                hover:border-lime dark:hover:border-lime-dark
+                transition-[transform,box-shadow,border-color] duration-150 cursor-pointer">
+              <h4 class="font-display text-lg text-blue-500 dark:text-blue-400 mb-3">📝 Dokumentasi</h4>
+              <ul class="space-y-1 text-sm text-ink/70 dark:text-paper-fg/70 list-disc list-inside">
+                <li
+                  class="hover:translate-x-1 hover:text-lime dark:hover:text-lime-dark transition-all duration-150 cursor-default">
+                  Tulis deskripsi yang jelas dan ringkas</li>
+                <li
+                  class="hover:translate-x-1 hover:text-lime dark:hover:text-lime-dark transition-all duration-150 cursor-default">
+                  Gunakan tata bahasa dan ejaan yang benar</li>
+                <li
+                  class="hover:translate-x-1 hover:text-lime dark:hover:text-lime-dark transition-all duration-150 cursor-default">
+                  Sertakan contoh yang relevan</li>
+                <li
+                  class="hover:translate-x-1 hover:text-lime dark:hover:text-lime-dark transition-all duration-150 cursor-default">
+                  Berikan konteks dan latar belakang</li>
+                <li
+                  class="hover:translate-x-1 hover:text-lime dark:hover:text-lime-dark transition-all duration-150 cursor-default">
+                  Gunakan format yang konsisten</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Pro Tips -->
+          <div class="mt-6 border-[3px] border-black bg-panel dark:bg-panel-dark p-6 dark:border-white
+            shadow-[7px_7px_0_0_#9C6600] dark:shadow-[7px_7px_0_0_#FFD100]
+            hover:-translate-x-[3px] hover:-translate-y-[3px] hover:shadow-[3px_3px_0_0_#9C6600] dark:hover:shadow-[3px_3px_0_0_#FFD100]
+            active:translate-x-0 active:translate-y-0 active:shadow-none active:rotate-[1deg]
+            dark:active:translate-x-0 dark:active:translate-y-0 dark:active:shadow-none dark:active:rotate-[1deg]
+            transition-[transform,box-shadow] duration-150 cursor-pointer">
+            <div class="flex items-start gap-4">
+              <span
+                class="font-mono text-2xl text-yellow dark:text-yellow-dark hover:scale-125 hover:rotate-12 transition-transform duration-150">💡</span>
+              <div>
+                <h4 class="font-display text-lg uppercase text-yellow dark:text-yellow-dark">Tips Pro</h4>
+                <ul class="mt-2 space-y-1 text-sm text-ink/70 dark:text-paper-fg/70 list-disc list-inside">
+                  <li
+                    class="hover:translate-x-1 hover:text-yellow dark:hover:text-yellow-dark transition-all duration-150 cursor-default">
+                    Buat challenge yang Anda sendiri nikmati untuk menyelesaikannya</li>
+                  <li
+                    class="hover:translate-x-1 hover:text-yellow dark:hover:text-yellow-dark transition-all duration-150 cursor-default">
+                    Dapatkan umpan balik dari rekan sebelum mengirim</li>
+                  <li
+                    class="hover:translate-x-1 hover:text-yellow dark:hover:text-yellow-dark transition-all duration-150 cursor-default">
+                    Riset challenge serupa untuk menghindari duplikasi</li>
+                  <li
+                    class="hover:translate-x-1 hover:text-yellow dark:hover:text-yellow-dark transition-all duration-150 cursor-default">
+                    Utamakan nilai edukasi</li>
+                  <li
+                    class="hover:translate-x-1 hover:text-yellow dark:hover:text-yellow-dark transition-all duration-150 cursor-default">
+                    Seimbangkan kesulitan dengan aksesibilitas</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+    <!-- END MAIN CONTENT -->
+
+  </div>
+  <!-- END DOCS LAYOUT WRAPPER -->
+
+  <!-- ============ FOOTER ============ -->
+
+  <!-- ============ THEME TOGGLE LOGIC ============ -->
+  <script src="/src/layout/js/theme.js"></script>
+
+  <!-- ============ SIDEBAR TOGGLE LOGIC ============ -->
+  <script src="/src/layout/js/sidebar.js"></script>
+
+
+</body>
+
+</html>
